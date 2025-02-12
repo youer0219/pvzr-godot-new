@@ -50,6 +50,7 @@ camera_move_down={
 [layer_names]
 
 2d_physics/layer_1="world"
+2d_physics/layer_2="ladder"
 
 [rendering]
 
