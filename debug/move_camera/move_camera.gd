@@ -3,7 +3,7 @@ extends Camera2D
 @export var enable:bool = false
 @export var speed:int = 5
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not enable:
 		return
 	

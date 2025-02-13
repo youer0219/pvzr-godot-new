@@ -1,15 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1hw7tc37dsu8"]
+[gd_scene load_steps=3 format=3 uid="uid://d1hw7tc37dsu8"]
 
 [ext_resource type="Script" path="res://scenes/map/ladder_map/ladder_map.gd" id="1_a7luq"]
-[ext_resource type="PackedScene" uid="uid://qwyis1e5gugp" path="res://scenes/map/ladder_map/ladder.tscn" id="1_osi1q"]
-
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_afwrj"]
-resource_name = "梯子和水"
-scenes/1/scene = ExtResource("1_osi1q")
-
-[sub_resource type="TileSet" id="TileSet_1xlty"]
-sources/0 = SubResource("TileSetScenesCollectionSource_afwrj")
+[ext_resource type="TileSet" uid="uid://d34lgl4gre66c" path="res://scenes/map/map_tilesets/ladder_and_water.tres" id="1_cj025"]
 
 [node name="LadderMap" type="TileMapLayer"]
-tile_set = SubResource("TileSet_1xlty")
+tile_set = ExtResource("1_cj025")
 script = ExtResource("1_a7luq")

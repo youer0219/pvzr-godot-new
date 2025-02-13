@@ -5,6 +5,7 @@ func _ready() -> void:
 	update_internals()  ## 强制更新。确保在初始的梯子节点ready之后调用ready函数。
 	_set_ladders()
 
+## TODO: GODOT中的地形机制是否可以无代码地完成梯子图像设置工作。目前的尝试并不成功。
 func _set_ladders():
 	var used_cells := get_used_cells()
 	
