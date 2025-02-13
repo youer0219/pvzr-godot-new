@@ -3,6 +3,10 @@ extends Resource
 
 ## TODO:在实现 MapManager 时需要指定选择的Map场景
 
+const SPRITE_CELL_SIZE := Vector2(16,16)
+const MAP_CELL_SIZE := Vector2(32,32)
+const MAP_SIZE := (Vector2(72,24) - Vector2(1,1)) * MAP_CELL_SIZE
+
 enum LEVEL_TIME_TYPE {DAY,NIGHT}
 enum LEVEL_TYPE {
 	COMMON_LEVEL, ## 一般战斗
