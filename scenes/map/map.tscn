@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://cg0vbixt3r2by"]
+[gd_scene load_steps=7 format=4 uid="uid://cg0vbixt3r2by"]
 
 [ext_resource type="TileSet" uid="uid://d23irg0u1c71h" path="res://scenes/map/map_tilesets/map_tile_set.tres" id="1_cidkp"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
 [ext_resource type="PackedScene" uid="uid://dk7rdm6n5suwf" path="res://scenes/map/bottom_map/bottom_map.tscn" id="2_jmlc7"]
+[ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/ladder_map/ladder_map.tscn" id="4_2hf12"]
 [ext_resource type="TileSet" uid="uid://dwo52gcp8x0qi" path="res://scenes/map/map_tilesets/collision_map_tile_set.tres" id="4_ay8yf"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="5_cej6g"]
 
@@ -35,6 +36,9 @@ tile_set = ExtResource("1_cidkp")
 [node name="DecorativeMap" type="TileMapLayer" parent="FrontMap"]
 tile_map_data = PackedByteArray("AAD6/wsAAAABAAAAAAD5/wsAAAAAAAAAAAD4/wsAAAAAAAAAAAD3/wsAAAAAAAAAAAD2/wsAAAAGAAAAAAD0/wsAAAABAAAAAADz/wsAAAAAAAAAAADy/wsAAAAAAAAAAADx/wsAAAAAAAAAAADw/wsAAAAGAAAAAADt/wsAAAABAAAAAADs/wsAAAAAAAAAAADr/wsAAAAAAAAAAADq/wsAAAAAAAAAAADp/wsAAAAGAAAAAAA=")
 tile_set = ExtResource("1_cidkp")
+
+[node name="LadderMap" parent="FrontMap" instance=ExtResource("4_2hf12")]
+tile_map_data = PackedByteArray("AAAIAAUAAAAAAAAAAQAIAAYAAAAAAAAAAQAIAAcAAAAAAAAAAQAIAAgAAAAAAAAAAQAIAAkAAAAAAAAAAQACAPv/AAAAAAAAAQACAPz/AAAAAAAAAQACAP3/AAAAAAAAAQACAP7/AAAAAAAAAQACAP//AAAAAAAAAQACAAAAAAAAAAAAAQACAAEAAAAAAAAAAQACAAIAAAAAAAAAAQACAAMAAAAAAAAAAQACAAQAAAAAAAAAAQD//wQAAAAAAAAAAQD//wUAAAAAAAAAAQD//wYAAAAAAAAAAQD//wcAAAAAAAAAAQD//wgAAAAAAAAAAQD//wkAAAAAAAAAAQA=")
 
 [node name="OuterCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 material = ExtResource("2_aus0x")
