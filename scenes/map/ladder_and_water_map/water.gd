@@ -5,9 +5,9 @@ const FRAME_NUM := 32
 
 @onready var water_sprite: AnimatedSprite2D = $WaterSprite
 
-## TODO:动画效果可能还需要调整
+## TODO:动画效果可能还需要调整，特别是分辨率/窗口调整后
 @export var half_loop_time:float = 1
-@export var move_distance:int = 4
+@export var move_distance:int = 1
 
 var random_frame:int
 var is_first_layer_water := false:set = _set_is_first_layer_water

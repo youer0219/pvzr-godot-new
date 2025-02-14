@@ -2,14 +2,14 @@ class_name LadderAndWaterMap
 extends TileMapLayer
 
 const LADDER_SOURCE_ID := 1
+const WATER_SOURCE_ID := 0
 
 @export var level_data:LevelData
+
+## TODO: 具体的值还是应该由level-data决定。但需要先实现map选择并保存一个映射关系
 @export_range(0,15) var sunny_water_hight:int = 0
 @export_range(0,15) var rain_water_hight:int = 0
 
-var water_hight:int:
-	get():
-		return sunny_water_hight if not level_data.is_raining else rain_water_hight
 var used_cells:Array[Vector2i]
 
 func _ready() -> void:
@@ -35,8 +35,9 @@ func deleta_ladder_by_cell(cell:Vector2i):
 	set_cells_terrain_connect([cell],0,-1) ## 通过设为-1将原本地形清除
 
 ## 根据hight生成水
-## TODO:之后需要额外注意，不能在存在外部地图的格子上生成水，这需要一个检查。之前的生成函数最好也加一个这样的检查。
 func create_water_layer():
+	var water_hight:int = sunny_water_hight if not level_data.is_raining else rain_water_hight
+	
 	if water_hight == 0:
 		return
 	
@@ -54,7 +55,7 @@ func create_water_layer():
 func _create_water_by_cell(cell:Vector2i):
 	if get_cell_source_id(cell) == LADDER_SOURCE_ID:
 		deleta_ladder_by_cell(cell)
-	set_cell(cell,0,Vector2i.ZERO,1)
+	set_cell(cell, WATER_SOURCE_ID , Vector2i.ZERO , 1)
 
 func _set_first_layer_water(top_height:int):
 	for child in get_children():
