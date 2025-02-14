@@ -6,4 +6,4 @@
 script = ExtResource("1_cyi5j")
 level_time_type = 0
 level_type = 0
-is_raining = true
+is_raining = false
