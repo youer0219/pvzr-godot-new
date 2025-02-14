@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://d23irg0u1c71h" path="res://scenes/map/map_tilesets/map_tile_set.tres" id="1_cidkp"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
 [ext_resource type="PackedScene" uid="uid://dk7rdm6n5suwf" path="res://scenes/map/bottom_map/bottom_map.tscn" id="2_jmlc7"]
-[ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/ladder_map/ladder_map.tscn" id="4_2hf12"]
+[ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/ladder_and_water_map/ladder_and_water_map.tscn" id="4_2hf12"]
 [ext_resource type="TileSet" uid="uid://dwo52gcp8x0qi" path="res://scenes/map/map_tilesets/collision_map_tile_set.tres" id="4_ay8yf"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="5_cej6g"]
 [ext_resource type="PackedScene" uid="uid://cq08ylfmgkm8h" path="res://debug/map_border/map_border.tscn" id="7_jbne1"]
@@ -38,7 +38,7 @@ tile_set = ExtResource("1_cidkp")
 tile_map_data = PackedByteArray("AAACABIAAAAGAAAAAAADABIAAAAAAAAAAAAEABIAAAAAAAAAAAAFABIAAAAAAAAAAAAGABIAAAABAAAAAAAJABIAAAAGAAAAAAAKABIAAAAAAAAAAAALABIAAAAAAAAAAAAMABIAAAAAAAAAAAANABIAAAABAAAAAAAPABIAAAAGAAAAAAAQABIAAAAAAAAAAAARABIAAAAAAAAAAAASABIAAAAAAAAAAAATABIAAAABAAAAAAA=")
 tile_set = ExtResource("1_cidkp")
 
-[node name="LadderMap" parent="FrontMap" instance=ExtResource("4_2hf12")]
+[node name="LadderAndWterMap" parent="FrontMap" instance=ExtResource("4_2hf12")]
 tile_map_data = PackedByteArray("AAAhAAwAAQAAAAAAAAAhAA0AAQADAAAAAAAhAA4AAQADAAAAAAAhAA8AAQADAAAAAAAhABAAAQABAAAAAAAYABAAAQABAAAAAAAYAA8AAQADAAAAAAAYAA4AAQADAAAAAAAYAA0AAQADAAAAAAAYAAwAAQADAAAAAAAYAAsAAQAAAAAAAAAbAAgAAQADAAAAAAAbAAcAAQADAAAAAAAbAAYAAQADAAAAAAAbAAUAAQADAAAAAAAbAAQAAQADAAAAAAAbAAMAAQADAAAAAAAbAAIAAQAAAAAAAAAbAAkAAQADAAAAAAAbAAoAAQADAAAAAAAbAAsAAQABAAAAAAA=")
 
 [node name="OuterCanvasGroup" type="CanvasGroup" parent="FrontMap"]

@@ -5,6 +5,7 @@ const FRAME_NUM := 32
 
 @onready var water_sprite: AnimatedSprite2D = $WaterSprite
 
+## TODO:动画效果可能还需要调整
 @export var half_loop_time:float = 1
 @export var move_distance:int = 4
 
