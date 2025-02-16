@@ -5,10 +5,7 @@ const LADDER_SOURCE_ID := 1
 const WATER_SOURCE_ID := 0
 
 @export var level_data:LevelData
-
-## TODO: 具体的值还是应该由level-data决定。但需要先实现map选择并保存一个映射关系
-@export_range(0,15) var sunny_water_hight:int = 0
-@export_range(0,15) var rain_water_hight:int = 0
+@export var map_data:MapData
 
 var used_cells:Array[Vector2i]
 
@@ -36,7 +33,7 @@ func deleta_ladder_by_cell(cell:Vector2i):
 
 ## 根据hight生成水
 func create_water_layer():
-	var water_hight:int = sunny_water_hight if not level_data.is_raining else rain_water_hight
+	var water_hight:int = map_data.sunny_water_hight if not level_data.is_raining else map_data.rain_water_hight
 	
 	if water_hight == 0:
 		return

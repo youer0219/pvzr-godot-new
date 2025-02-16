@@ -15,9 +15,8 @@ const PINK_SKY = preload("res://scenes/map/bottom_map/skys/PinkSky.tres")
 
 enum SKY_TYPE {BLUE,YELLOW,NIGHT,RED,PINK}
 
-## 注意不要选择非白天的天空类型！不要选择粉色这类彩蛋类型！
-@export var daytime_sky_type:SKY_TYPE = SKY_TYPE.BLUE
 @export var level_data:LevelData :set = _set_level_data
+@export var map_data:MapData
 
 var sky_dic:Dictionary = {
 	SKY_TYPE.BLUE:BLUE_SKY,
@@ -44,7 +43,7 @@ func _set_level_data(value:LevelData):
 	elif level_data.can_be_pink_sky():
 		_set_sky(SKY_TYPE.PINK)
 	elif level_data.is_day_time():
-		_set_sky(daytime_sky_type)
+		_set_sky(map_data.daytime_sky_type)
 	else:
 		push_warning("BottomMap未根据LevelData设置天空类型，请检查逻辑是否正确")
 
@@ -52,4 +51,4 @@ func _set_sky(sky_type:SKY_TYPE):
 	texture = sky_dic[sky_type]
 
 func _is_daytime_sky_type_right()->bool:
-	return daytime_sky_type != SKY_TYPE.NIGHT and daytime_sky_type != SKY_TYPE.RED and daytime_sky_type != SKY_TYPE.PINK
+	return map_data.daytime_sky_type != SKY_TYPE.NIGHT and map_data.daytime_sky_type != SKY_TYPE.RED and map_data.daytime_sky_type != SKY_TYPE.PINK

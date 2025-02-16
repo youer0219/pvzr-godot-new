@@ -1,6 +1,8 @@
 class_name Map
 extends Node2D
 
+@export var map_data:MapData
+
 @onready var ladder_and_wter_map: LadderAndWaterMap = %LadderAndWterMap
 @onready var outer_map: TileMapLayer = %OuterMap
 
