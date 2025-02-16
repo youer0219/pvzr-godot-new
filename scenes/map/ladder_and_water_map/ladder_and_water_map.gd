@@ -10,7 +10,10 @@ const WATER_SOURCE_ID := 0
 var used_cells:Array[Vector2i]
 
 func _ready() -> void:
-	assert(level_data,"没有为梯子和水地图配置level-data")
+	assert(level_data and map_data,"没有为梯子和水地图配置level-data或map_data")
+	if level_data.is_raining:
+		for cell in map_data.extra_delete_ladder_cells:
+			deleta_ladder_by_cell(cell)
 
 func create_ladder_by_cell(cell:Vector2i):
 	if _is_used_cell(cell):
