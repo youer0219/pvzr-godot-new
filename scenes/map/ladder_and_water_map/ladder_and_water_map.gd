@@ -46,13 +46,15 @@ func create_water_layer():
 	for length in range(int(LevelData.MAP_SIZE.x)):
 		for height in range(top_height,LevelData.MAP_SIZE.y):
 			var cell := Vector2i(length,height)
-			if not _is_used_cell(cell):
-				_create_water_by_cell(cell)
+			_create_water_by_cell(cell)
 	
 	call_deferred("_set_first_layer_water",top_height) ## 避免调用顺序问题
 
 ## 根据cell生成水
 func _create_water_by_cell(cell:Vector2i):
+	if _is_used_cell(cell):
+		return
+	
 	if get_cell_source_id(cell) == LADDER_SOURCE_ID:
 		deleta_ladder_by_cell(cell)
 	set_cell(cell, WATER_SOURCE_ID , Vector2i.ZERO , 1)
