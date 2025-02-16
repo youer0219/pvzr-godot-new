@@ -15,8 +15,7 @@ const PINK_SKY = preload("res://scenes/map/bottom_map/skys/PinkSky.tres")
 
 enum SKY_TYPE {BLUE,YELLOW,NIGHT,RED,PINK}
 
-@export var level_data:LevelData :set = _set_level_data
-@export var map_data:MapData
+@export var map_data:MapData:set = _set_map_data
 
 var sky_dic:Dictionary = {
 	SKY_TYPE.BLUE:BLUE_SKY,
@@ -29,23 +28,26 @@ var sky_dic:Dictionary = {
 func _ready() -> void:
 	assert(_is_daytime_sky_type_right(),"BottomMap的白天天空类型配置错误！使用了非白天的天空类型！")
 
-func _set_level_data(value:LevelData):
-	level_data = value
+func _set_map_data(value:MapData):
+	map_data = value
 	
 	if not is_node_ready():
 		await ready
 	
-	if level_data.is_boss_level():
+	if map_data.is_boss_level:
 		_set_sky(SKY_TYPE.RED)
-	elif level_data.is_night_time():
+	elif map_data.is_night_time:
 		_set_sky(SKY_TYPE.NIGHT)
 	## TODO: 目前不确定原版游戏中黑夜是否可以触发粉色天空，现在约定只在白天可以触发
-	elif level_data.can_be_pink_sky():
+	elif _can_be_pink_sky():
 		_set_sky(SKY_TYPE.PINK)
-	elif level_data.is_day_time():
-		_set_sky(map_data.daytime_sky_type)
 	else:
-		push_warning("BottomMap未根据LevelData设置天空类型，请检查逻辑是否正确")
+		_set_sky(map_data.daytime_sky_type)
+
+func _can_be_pink_sky():
+	var random := randi() % MapData.PINK_SKY_PROBABILITY
+	map_data.is_pink_sky = random == 0
+	return map_data.is_pink_sky
 
 func _set_sky(sky_type:SKY_TYPE):
 	texture = sky_dic[sky_type]

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk7rdm6n5suwf"]
+[gd_scene load_steps=4 format=3 uid="uid://dk7rdm6n5suwf"]
 
 [ext_resource type="Texture2D" uid="uid://dntuj0s7txe5c" path="res://scenes/map/bottom_map/skys/BlueSky.tres" id="1_2i7py"]
 [ext_resource type="Script" path="res://scenes/map/bottom_map/bottom_map.gd" id="2_k83pf"]
-[ext_resource type="Resource" uid="uid://bv54w5us1x4x0" path="res://data/level_data/test_level.tres" id="3_i6p60"]
 [ext_resource type="Resource" uid="uid://c337pm7bqqh8n" path="res://data/map_data/home_map.tres" id="4_njmm3"]
 
 [node name="BottomMap" type="TextureRect"]
@@ -13,5 +12,4 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_2i7py")
 script = ExtResource("2_k83pf")
-level_data = ExtResource("3_i6p60")
 map_data = ExtResource("4_njmm3")

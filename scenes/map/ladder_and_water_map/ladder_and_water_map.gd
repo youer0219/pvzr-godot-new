@@ -4,14 +4,13 @@ extends TileMapLayer
 const LADDER_SOURCE_ID := 1
 const WATER_SOURCE_ID := 0
 
-@export var level_data:LevelData
 @export var map_data:MapData
 
 var used_cells:Array[Vector2i]
 
 func _ready() -> void:
-	assert(level_data and map_data,"没有为梯子和水地图配置level-data或map_data")
-	if level_data.is_raining:
+	assert(map_data,"没有为梯子和水地图配置map_data")
+	if map_data.is_raining:
 		for cell in map_data.extra_delete_ladder_cells:
 			deleta_ladder_by_cell(cell)
 
@@ -36,15 +35,15 @@ func deleta_ladder_by_cell(cell:Vector2i):
 
 ## 根据hight生成水
 func create_water_layer():
-	var water_hight:int = map_data.sunny_water_hight if not level_data.is_raining else map_data.rain_water_hight
+	var water_hight:int = map_data.sunny_water_hight if not map_data.is_raining else map_data.rain_water_hight
 	
 	if water_hight == 0:
 		return
 	
-	var top_height := int(LevelData.MAP_SIZE.y) - water_hight
+	var top_height := int(MapData.MAP_SIZE.y) - water_hight
 	
-	for length in range(int(LevelData.MAP_SIZE.x)):
-		for height in range(top_height,LevelData.MAP_SIZE.y):
+	for length in range(int(MapData.MAP_SIZE.x)):
+		for height in range(top_height,MapData.MAP_SIZE.y):
 			var cell := Vector2i(length,height)
 			_create_water_by_cell(cell)
 	

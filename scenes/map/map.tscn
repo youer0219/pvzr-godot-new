@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://cg0vbixt3r2by"]
+[gd_scene load_steps=11 format=4 uid="uid://cg0vbixt3r2by"]
 
 [ext_resource type="Script" path="res://scenes/map/map.gd" id="1_bg42m"]
 [ext_resource type="TileSet" uid="uid://d23irg0u1c71h" path="res://scenes/map/map_tilesets/map_tile_set.tres" id="1_cidkp"]
 [ext_resource type="Resource" uid="uid://c337pm7bqqh8n" path="res://data/map_data/home_map.tres" id="2_5el1m"]
 [ext_resource type="Script" path="res://scenes/map/background_map/background_map.gd" id="2_8c1ec"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
-[ext_resource type="Resource" uid="uid://bv54w5us1x4x0" path="res://data/level_data/test_level.tres" id="2_ivpc0"]
 [ext_resource type="PackedScene" uid="uid://dk7rdm6n5suwf" path="res://scenes/map/bottom_map/bottom_map.tscn" id="2_jmlc7"]
 [ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/ladder_and_water_map/ladder_and_water_map.tscn" id="4_2hf12"]
 [ext_resource type="TileSet" uid="uid://dwo52gcp8x0qi" path="res://scenes/map/map_tilesets/collision_map_tile_set.tres" id="4_ay8yf"]
@@ -14,7 +13,6 @@
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_bg42m")
-level_data = ExtResource("2_ivpc0")
 map_data = ExtResource("2_5el1m")
 
 [node name="BackgroundMap" type="ParallaxBackground" parent="."]
