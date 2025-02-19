@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="HeightmapGenerator2DSettings" load_steps=11 format=3 uid="uid://7bseraxi6iv3"]
+
+[ext_resource type="Script" path="res://addons/gaea/modifiers/2D/modifier_2d.gd" id="1_d3v8w"]
+[ext_resource type="Script" path="res://addons/gaea/modifiers/2D/heightmap_painter.gd" id="2_0xbot"]
+[ext_resource type="Script" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="3_xovdw"]
+[ext_resource type="Script" path="res://addons/gaea/generators/2D/heightmap_generator/heightmap_generator_2d_settings.gd" id="4_dcmek"]
+
+[sub_resource type="Resource" id="Resource_1pygv"]
+script = ExtResource("3_xovdw")
+type = 0
+tilemap_layer = 0
+source_id = 0
+atlas_coord = Vector2i(2, 0)
+alternative_tile = 0
+id = ""
+layer = 0
+
+[sub_resource type="Resource" id="Resource_q4fhj"]
+script = ExtResource("2_0xbot")
+use_generator_noise = true
+ignore_empty_cells = true
+tile = SubResource("Resource_1pygv")
+height_offset = -25
+height_intensity = 10
+salt = 1412719265
+enabled = true
+filter_type = 0
+
+[sub_resource type="Resource" id="Resource_m4wcb"]
+script = ExtResource("3_xovdw")
+type = 0
+tilemap_layer = 0
+source_id = 0
+atlas_coord = Vector2i(3, 2)
+alternative_tile = 0
+id = ""
+layer = 0
+
+[sub_resource type="Resource" id="Resource_728pu"]
+script = ExtResource("2_0xbot")
+use_generator_noise = true
+ignore_empty_cells = true
+tile = SubResource("Resource_m4wcb")
+height_offset = -26
+height_intensity = 10
+salt = 4100739232
+enabled = true
+filter_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qbppu"]
+noise_type = 3
+seed = 1179193545
+frequency = 0.06
+fractal_type = 0
+
+[sub_resource type="Resource" id="Resource_sspys"]
+script = ExtResource("3_xovdw")
+type = 0
+tilemap_layer = 0
+source_id = 0
+atlas_coord = Vector2i(0, 3)
+alternative_tile = 0
+id = ""
+layer = 0
+
+[resource]
+script = ExtResource("4_dcmek")
+tile = SubResource("Resource_sspys")
+noise = SubResource("FastNoiseLite_qbppu")
+infinite = false
+world_length = 144
+height_offset = -24
+height_intensity = 10
+min_height = -48
+air_layer = true
+modifiers = Array[ExtResource("1_d3v8w")]([SubResource("Resource_q4fhj"), SubResource("Resource_728pu")])

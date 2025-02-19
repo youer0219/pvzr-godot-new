@@ -23,7 +23,7 @@ map_data = ExtResource("2_5el1m")
 
 [node name="ParallaxMapLayer" type="ParallaxLayer" parent="BackgroundMap"]
 unique_name_in_owner = true
-motion_scale = Vector2(0.5, 0.8)
+motion_scale = Vector2(0.5, 0.9)
 motion_mirroring = Vector2(2304, 0)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="BackgroundMap/ParallaxMapLayer"]

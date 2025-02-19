@@ -8,3 +8,4 @@ extends ParallaxBackground
 func _process(delta: float) -> void:
 	if map_data.is_auto_scroll:
 		parallax_map_layer.motion_offset.x += (map_data.auto_scroll_speed * delta)
+## TODO:预计这个功能可能移交给parallax-map
