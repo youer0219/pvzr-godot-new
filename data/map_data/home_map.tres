@@ -15,3 +15,4 @@ is_raining = false
 is_night_time = false
 is_boss_level = false
 is_pink_sky = false
+parallax_map_type = 0
