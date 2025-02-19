@@ -47,7 +47,7 @@ func create_water_layer():
 			var cell := Vector2i(length,height)
 			_create_water_by_cell(cell)
 	
-	call_deferred("_set_first_layer_water",top_height) ## 避免调用顺序问题
+	call_deferred("_update_water_type",top_height) ## 避免调用顺序问题
 
 ## 根据cell生成水
 func _create_water_by_cell(cell:Vector2i):
@@ -58,9 +58,13 @@ func _create_water_by_cell(cell:Vector2i):
 		deleta_ladder_by_cell(cell)
 	set_cell(cell, WATER_SOURCE_ID , Vector2i.ZERO , 1)
 
-func _set_first_layer_water(top_height:int):
+func _update_water_type(top_height:int):
 	for child in get_children():
 		if child is Water:
+			if map_data.is_night_time:
+				child.set_water_in_night_time()
+			else:
+				child.set_water_in_day_time()
 			if local_to_map(child.position).y == top_height:
 				child.is_first_layer_water = true
 		else:

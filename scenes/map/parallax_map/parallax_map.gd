@@ -23,6 +23,11 @@ func _set_map_data(value:MapData):
 	if not is_node_ready():
 		await ready
 	
+	if map_data.is_night_time:
+		modulate = Color("adadad")
+	else:
+		modulate = Color(1,1,1,1)
+	
 	var mountain_map := MOUNTAIN_MAP.instantiate() as MountainMap
 	
 	match map_data.parallax_map_type:

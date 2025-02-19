@@ -18,9 +18,11 @@ map_data = ExtResource("2_5el1m")
 [node name="BackgroundMap" type="ParallaxBackground" parent="."]
 
 [node name="BottomMap" parent="BackgroundMap" instance=ExtResource("2_jmlc7")]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
 
 [node name="ParallaxMap" parent="BackgroundMap" instance=ExtResource("4_wpv3r")]
 unique_name_in_owner = true
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
 
 [node name="FrontMap" type="Node2D" parent="."]
 scale = Vector2(2, 2)
@@ -38,7 +40,7 @@ tile_map_data = PackedByteArray("AAACABMAAAAGAAAAAAADABMAAAAAAAAAAAAEABMAAAAAAAA
 tile_set = ExtResource("1_cidkp")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="FrontMap"]
-self_modulate = Color(1, 1, 1, 0.839216)
+self_modulate = Color(1, 1, 1, 0.854902)
 
 [node name="LadderAndWterMap" parent="FrontMap/CanvasGroup" instance=ExtResource("4_2hf12")]
 unique_name_in_owner = true

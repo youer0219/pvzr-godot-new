@@ -34,10 +34,13 @@ func _set_map_data(value:MapData):
 	if not is_node_ready():
 		await ready
 	
+	modulate = Color(1,1,1,1)
+	
 	if map_data.is_boss_level:
 		_set_sky(SKY_TYPE.RED)
 	elif map_data.is_night_time:
 		_set_sky(SKY_TYPE.NIGHT)
+		modulate = Color("adadad")
 	## TODO: 目前不确定原版游戏中黑夜是否可以触发粉色天空，现在约定只在白天可以触发
 	elif _can_be_pink_sky():
 		_set_sky(SKY_TYPE.PINK)
