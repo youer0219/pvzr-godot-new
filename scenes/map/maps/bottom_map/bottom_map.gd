@@ -1,17 +1,11 @@
 class_name BottomMap
 extends TextureRect
 
-## 白天天空
-# 蓝色
-const BLUE_SKY = preload("res://scenes/map/bottom_map/skys/BlueSky.tres")
-# 黄色
-const YELLOW_SKY = preload("res://scenes/map/bottom_map/skys/YellowSky.tres")
-## 黑夜天空
-const NIGHT_SKY = preload("res://scenes/map/bottom_map/skys/NightSky.tres")
-## 红色天空
-const RED_SKY = preload("res://scenes/map/bottom_map/skys/RedSky.tres")
-## 粉色天空
-const PINK_SKY = preload("res://scenes/map/bottom_map/skys/PinkSky.tres")
+const BLUE_SKY = preload("res://scenes/map/maps/bottom_map/skys/BlueSky.tres")
+const NIGHT_SKY = preload("res://scenes/map/maps/bottom_map/skys/NightSky.tres")
+const PINK_SKY = preload("res://scenes/map/maps/bottom_map/skys/PinkSky.tres")
+const RED_SKY = preload("res://scenes/map/maps/bottom_map/skys/RedSky.tres")
+const YELLOW_SKY = preload("res://scenes/map/maps/bottom_map/skys/YellowSky.tres")
 
 enum SKY_TYPE {BLUE,YELLOW,NIGHT,RED,PINK}
 

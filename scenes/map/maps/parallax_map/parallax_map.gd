@@ -1,7 +1,8 @@
 class_name ParallaxMap
 extends ParallaxLayer
 
-const MOUNTAIN_MAP = preload("res://scenes/map/mountain_map/mountain_map.tscn")
+
+const MOUNTAIN_MAP = preload("res://scenes/map/maps/front_maps/mountain_map/mountain_map.tscn")
 
 enum ParallaxMapType {GRESS,SAND}
 

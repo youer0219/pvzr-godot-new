@@ -2,9 +2,9 @@ class_name MountainMap
 extends TileMapLayer
 
 
-const BACK_MOUNTAIN = preload("res://scenes/map/mountain_map/mountain_settings/back_mountain.tres")
-const BACK_SAND_MOUNTAIN = preload("res://scenes/map/mountain_map/mountain_settings/back_sand_mountain.tres")
-const MOUNTAIN = preload("res://scenes/map/mountain_map/mountain_settings/mountain.tres")
+const BACK_MOUNTAIN = preload("res://scenes/map/maps/front_maps/mountain_map/mountain_settings/back_mountain.tres")
+const BACK_SAND_MOUNTAIN = preload("res://scenes/map/maps/front_maps/mountain_map/mountain_settings/back_sand_mountain.tres")
+const MOUNTAIN = preload("res://scenes/map/maps/front_maps/mountain_map/mountain_settings/mountain.tres")
 
 const COLLISION_MAP_TILE_SET = preload("res://scenes/map/map_tilesets/collision_map_tile_set.tres")
 const MAP_TILE_SET = preload("res://scenes/map/map_tilesets/map_tile_set.tres")
