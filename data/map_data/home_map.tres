@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="MapData" load_steps=2 format=3 uid="uid://c337pm7bqqh8n"]
+[gd_resource type="Resource" script_class="MapData" load_steps=4 format=3 uid="uid://c337pm7bqqh8n"]
 
+[ext_resource type="PackedScene" uid="uid://cpcqmein2p3c5" path="res://scenes/map/maps/front_maps/home_map/home_inner_map.tscn" id="1_3xmw8"]
 [ext_resource type="Script" path="res://data/map_data/map_data.gd" id="1_kvbgv"]
+[ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/home_map/home_outer_map.tscn" id="2_eg54b"]
 
 [resource]
 script = ExtResource("1_kvbgv")
@@ -12,6 +14,9 @@ sunny_water_hight = 4
 rain_water_hight = 11
 extra_delete_ladder_cells = Array[Vector2i]([Vector2i(25, 12)])
 parallax_map_type = 0
+inner_map_gen_type = 0
+outer_map_scene = ExtResource("2_eg54b")
+inner_map_scene = ExtResource("1_3xmw8")
 is_raining = false
 is_night_time = false
 is_boss_level = false

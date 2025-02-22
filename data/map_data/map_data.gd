@@ -18,7 +18,9 @@ const PINK_SKY_PROBABILITY := 100
 @export var extra_delete_ladder_cells:Array[Vector2i]
 ## TODO: 雨天似乎会额外限制相机位置，避免看到过低的方块
 @export var parallax_map_type:ParallaxMap.ParallaxMapType
-
+@export var inner_map_gen_type:Map.InternalMapGenerationType
+@export var outer_map_scene:PackedScene
+@export var inner_map_scene:PackedScene
 
 @export_group("可变数据")
 @export var is_raining:bool
