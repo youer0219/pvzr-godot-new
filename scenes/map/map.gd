@@ -30,15 +30,17 @@ func _generation_front_map():
 	match map_data.inner_map_gen_type:
 		InternalMapGenerationType.INTERNAL_FIXED:
 			outer_map = map_data.outer_map_scene.instantiate() as TileMapLayer
+			outer_map.collision_enabled = true
 			outer_canvas_group.add_child(outer_map)
 			assert(map_data.inner_map_scene,"地图类型为固定内部场景，但没有配置相关场景！")
 			inner_map = map_data.inner_map_scene.instantiate() as TileMapLayer
+			inner_map.collision_enabled = false
 			inner_canvas_group.add_child(inner_map)
 		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SCENE:
-			print("未实现相关操作！")
+			push_error("未实现相关操作！")
 			pass
 		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SEED:
-			print("未实现相关操作！")
+			push_error("未实现相关操作！")
 			pass
 	
 	outer_map.changed.connect(_on_outer_map_changed)
@@ -56,5 +58,3 @@ func _clear_front_map():
 		child.queue_free()
 	for child in outer_canvas_group.get_children():
 		child.queue_free()
-
-	pass

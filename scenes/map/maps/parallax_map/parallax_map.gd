@@ -37,4 +37,5 @@ func _set_map_data(value:MapData):
 		ParallaxMapType.SAND:
 			mountain_map.mountain_map_type = MountainMap.MOUNTAIN_MAP_TYPE.BACK_SAND_MOUNTAIN
 	
+	mountain_map.collision_enabled = false # 在mountain内部已有相关设定，这里重复设定
 	parallax_map_canvas_group.add_child(mountain_map)

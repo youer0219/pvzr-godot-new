@@ -29,6 +29,7 @@ scale = Vector2(2, 2)
 
 [node name="InnerCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 unique_name_in_owner = true
+modulate = Color(0.720467, 0.720468, 0.720467, 1)
 material = ExtResource("2_aus0x")
 
 [node name="InnerMap" parent="FrontMap/InnerCanvasGroup" instance=ExtResource("6_o61rt")]
@@ -36,6 +37,7 @@ material = ExtResource("2_aus0x")
 [node name="DecorativeMap" type="TileMapLayer" parent="FrontMap"]
 tile_map_data = PackedByteArray("AAACABMAAAAGAAAAAAADABMAAAAAAAAAAAAEABMAAAAAAAAAAAAFABMAAAAAAAAAAAAGABMAAAABAAAAAAAJABMAAAAGAAAAAAAKABMAAAAAAAAAAAALABMAAAAAAAAAAAAMABMAAAAAAAAAAAANABMAAAABAAAAAAAQABMAAAAGAAAAAAARABMAAAAAAAAAAAASABMAAAAAAAAAAAATABMAAAAAAAAAAAAUABMAAAABAAAAAAA=")
 tile_set = ExtResource("1_cidkp")
+collision_enabled = false
 
 [node name="LadderAndWaterCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 unique_name_in_owner = true
