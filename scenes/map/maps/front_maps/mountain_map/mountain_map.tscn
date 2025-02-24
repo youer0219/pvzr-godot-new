@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://04hsecedinn2"]
 
-[ext_resource type="TileSet" uid="uid://d23irg0u1c71h" path="res://scenes/map/map_tilesets/map_tile_set.tres" id="1_st3qx"]
+[ext_resource type="TileSet" uid="uid://d23irg0u1c71h" path="res://scenes/map/map_tile_set.tres" id="1_st3qx"]
 [ext_resource type="Script" path="res://addons/gaea/generators/2D/heightmap_generator/heightmap_generator_2d.gd" id="2_jmwxx"]
 [ext_resource type="Script" path="res://scenes/map/maps/front_maps/mountain_map/mountain_map.gd" id="2_y2rbc"]
 [ext_resource type="Resource" uid="uid://cluflu88nnnjg" path="res://scenes/map/maps/front_maps/mountain_map/mountain_settings/mountain.tres" id="4_gpyss"]

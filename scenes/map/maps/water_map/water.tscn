@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ijqsmun2p8nq" path="res://assets/sprites/map/水.png" id="1_v3h7j"]
 [ext_resource type="Texture2D" uid="uid://lf54jtxqbynn" path="res://assets/sprites/map/黑水.png" id="2_4utxc"]
-[ext_resource type="Script" path="res://scenes/map/maps/ladder_and_water_map/water.gd" id="3_bg3hq"]
+[ext_resource type="Script" path="res://scenes/map/maps/water_map/water.gd" id="3_bg3hq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g5de7"]
 size = Vector2(16, 16)

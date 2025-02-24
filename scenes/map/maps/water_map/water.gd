@@ -7,7 +7,7 @@ const FRAME_NUM := 32
 
 ## TODO:动画效果可能还需要调整，特别是分辨率/窗口调整后
 @export var half_loop_time:float = 0.9
-@export var move_distance:int = 1.75
+@export var move_distance:int = 1
 
 var random_frame:int
 var is_first_layer_water := false:set = _set_is_first_layer_water

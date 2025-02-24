@@ -8,8 +8,12 @@ const MAP_CELL_SIZE := Vector2(32,32)
 const MAP_SIZE := Vector2(72,24)
 const PINK_SKY_PROBABILITY := 100
 
+const LADDER_SOURCE_ID := 1
+const WATER_SOURCE_ID := 2
+
 @export_group("Map配置数据")
 @export var map_name:String
+## TODO: 实现草地蓝天、沙地黄昏的绑定
 @export var daytime_sky_type:BottomMap.SKY_TYPE = BottomMap.SKY_TYPE.BLUE
 @export var is_auto_scroll:bool
 @export var auto_scroll_speed:int = 300
@@ -21,6 +25,7 @@ const PINK_SKY_PROBABILITY := 100
 @export var inner_map_gen_type:Map.InternalMapGenerationType
 @export var outer_map_scene:PackedScene
 @export var inner_map_scene:PackedScene
+@export var ladder_map_scene:PackedScene
 
 @export_group("可变数据")
 @export var is_raining:bool

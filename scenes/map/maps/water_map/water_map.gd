@@ -1,8 +1,8 @@
-class_name LadderAndWaterMap
+class_name WaterMap
 extends TileMapLayer
 
-const LADDER_SOURCE_ID := 1
-const WATER_SOURCE_ID := 0
+signal generate_water(cell:Vector2i)
+
 
 @export var map_data:MapData
 
@@ -10,31 +10,11 @@ var used_cells:Array[Vector2i]
 
 func _ready() -> void:
 	assert(map_data,"没有为梯子和水地图配置map_data")
-	if map_data.is_raining:
-		for cell in map_data.extra_delete_ladder_cells:
-			deleta_ladder_by_cell(cell)
-
-func create_ladder_by_cell(cell:Vector2i):
-	if _is_used_cell(cell):
-		push_warning("尝试在已使用的格子上生成梯子")
-		return
-	if _is_water_cell(cell):
-		push_warning("尝试在水的格子上生成梯子！")
-		return
-	
-	set_cell(cell,LADDER_SOURCE_ID,Vector2i(2,0))
-	set_cells_terrain_connect([cell],0,0)
-
-func deleta_ladder_by_cell(cell:Vector2i):
-	if _is_water_cell(cell):
-		push_warning("尝试在水的格子上删除梯子！")
-		return
-	
-	erase_cell(cell)
-	set_cells_terrain_connect([cell],0,-1) ## 通过设为-1将原本地形清除
 
 ## 根据hight生成水
-func create_water_layer():
+func create_water_layer(out_map_used_cells:Array[Vector2i]):
+	self.used_cells = out_map_used_cells
+	
 	var water_hight:int = map_data.sunny_water_hight if not map_data.is_raining else map_data.rain_water_hight
 	
 	if water_hight == 0:
@@ -54,9 +34,8 @@ func _create_water_by_cell(cell:Vector2i):
 	if _is_used_cell(cell):
 		return
 	
-	if get_cell_source_id(cell) == LADDER_SOURCE_ID:
-		deleta_ladder_by_cell(cell)
-	set_cell(cell, WATER_SOURCE_ID , Vector2i.ZERO , 1)
+	set_cell(cell, MapData.WATER_SOURCE_ID , Vector2i.ZERO , 1)
+	generate_water.emit(cell)
 
 func _update_water_type(top_height:int):
 	for child in get_children():
@@ -69,9 +48,6 @@ func _update_water_type(top_height:int):
 				child.is_first_layer_water = true
 		else:
 			push_warning("梯子和水地图层的子节点中出现非水的场景")
-
-func _is_water_cell(cell:Vector2i)->bool:
-	return get_cell_source_id(cell) == 0
 
 func _is_used_cell(cell:Vector2i)->bool:
 	return used_cells.has(cell)

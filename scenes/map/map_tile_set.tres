@@ -1,6 +1,8 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://d23irg0u1c71h"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://d23irg0u1c71h"]
 
 [ext_resource type="Texture2D" uid="uid://clwbl4ciyi568" path="res://assets/sprites/map/map.png" id="1_ei3vo"]
+[ext_resource type="Texture2D" uid="uid://b7gdolgcgow4j" path="res://assets/sprites/map/ladder.png" id="2_ibjvk"]
+[ext_resource type="PackedScene" uid="uid://dsnure3mwp3yq" path="res://scenes/map/maps/water_map/water.tscn" id="3_p16lq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0r8fk"]
 resource_name = "地图瓦片"
@@ -84,7 +86,41 @@ texture = ExtResource("1_ei3vo")
 8:3/0 = 0
 8:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8i273"]
+texture = ExtResource("2_ibjvk")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/terrains_peering_bit/top_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gmvyl"]
+resource_name = "水"
+scenes/1/scene = ExtResource("3_p16lq")
+
 [resource]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 0
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "ladder"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_0r8fk")
+sources/1 = SubResource("TileSetAtlasSource_8i273")
+sources/2 = SubResource("TileSetScenesCollectionSource_gmvyl")
