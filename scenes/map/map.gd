@@ -11,6 +11,7 @@ enum InternalMapGenerationType {
 
 @onready var inner_canvas_group: CanvasGroup = %InnerCanvasGroup
 @onready var outer_canvas_group: CanvasGroup = %OuterCanvasGroup
+@onready var decorative_parent: CanvasGroup = %DecorativeParent
 @onready var water_map: WaterMap = %WaterMap
 @onready var ladder_map: TileMapLayer = %LadderMap
 
@@ -18,7 +19,7 @@ var outer_map:TileMapLayer
 var inner_map:TileMapLayer
 
 func _ready() -> void:
-	water_map.generate_water.connect(deleta_ladder_by_cell)
+	water_map.generate_water.connect(deleta_ladder_by_cell) ## 水的生成会删除梯子但对装饰层无影响
 	_generation_front_map()
 
 func _generation_front_map():
@@ -36,6 +37,10 @@ func _generation_front_map():
 			if map_data.ladder_map_scene:
 				var new_ladder_map_scene = map_data.ladder_map_scene.instantiate()
 				generate_ladders_by_cells(get_ladders_form_ladder_map(new_ladder_map_scene))
+			if map_data.decorative_map_scene:
+				var decorative_map_scene = map_data.decorative_map_scene.instantiate() as TileMapLayer
+				decorative_map_scene.collision_enabled = false
+				decorative_parent.add_child(decorative_map_scene)
 		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SCENE:
 			push_error("未实现相关操作！")
 		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SEED:
@@ -53,6 +58,8 @@ func _clear_front_map():
 	for child in inner_canvas_group.get_children():
 		child.queue_free()
 	for child in outer_canvas_group.get_children():
+		child.queue_free()
+	for child in decorative_parent.get_children():
 		child.queue_free()
 	ladder_map.clear()
 	water_map.clear()
