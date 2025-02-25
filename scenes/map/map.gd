@@ -20,7 +20,6 @@ var outer_map:TileMapLayer
 var inner_map:TileMapLayer
 
 ## TODO: 水的效果、内部地图的效果都不知道该怎么处理才能实现与原版一致的效果
-## TODO: 明确冰车的机制。实现雪相关的生成（自动删除已实现）
 
 func _ready() -> void:
 	water_map.generate_water.connect(deleta_ladder_by_cell) ## 水的生成会删除梯子但对装饰层无影响
@@ -41,6 +40,10 @@ func _generation_front_map():
 			if map_data.ladder_map_scene:
 				var new_ladder_map_scene = map_data.ladder_map_scene.instantiate()
 				generate_ladders_by_cells(get_ladders_form_ladder_map(new_ladder_map_scene))
+			if map_data.decorative_map_scene:
+				var decorative_map_scene = map_data.decorative_map_scene.instantiate() as TileMapLayer
+				decorative_map_scene.collision_enabled = false
+				decorative_parent.add_child(decorative_map_scene)
 		MapGenerationType.RANDOM:
 			var random_seed := RandomMap.get_random_seed()
 			outer_map = map_data.random_map_scene.instantiate() as RandomMap
@@ -52,10 +55,6 @@ func _generation_front_map():
 			var ladder_cells = outer_map.get_random_ladder_cells()
 			if ladder_cells:
 				generate_ladders_by_cells(ladder_cells)
-	if map_data.decorative_map_scene:
-		var decorative_map_scene = map_data.decorative_map_scene.instantiate() as TileMapLayer
-		decorative_map_scene.collision_enabled = false
-		decorative_parent.add_child(decorative_map_scene)
 	
 	delete_extra_ladders()
 
@@ -68,6 +67,12 @@ func _clear_front_map():
 		child.queue_free()
 	ladder_map.clear()
 	water_map.clear()
+
+func generate_snow_by_cell(cell:Vector2i):
+	if _is_cell_used_in_outer_map(cell) or _is_cell_used_in_water_map(cell) or _is_cell_used_in_ladder_map(cell):
+		return
+	
+	outer_map.set_cell(cell,MapData.MAP_SCENE_SOURCE_ID,Vector2i(0, 0),MapData.SNOW_SCENE_ID)
 
 func generate_ladder_by_cell(cell:Vector2i):
 	if _is_cell_used_in_outer_map(cell) or _is_cell_used_in_water_map(cell):
@@ -97,6 +102,9 @@ func _is_cell_used_in_water_map(cell:Vector2i)->bool:
 
 func _is_cell_used_in_outer_map(cell:Vector2i)->bool:
 	return outer_map.get_used_cells().has(cell)
+
+func _is_cell_used_in_ladder_map(cell:Vector2i)->bool:
+	return ladder_map.get_used_cells().has(cell)
 
 func _set_map_data(value:MapData):
 	map_data = value

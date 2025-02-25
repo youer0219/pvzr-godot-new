@@ -14,7 +14,10 @@ const MAP_SCENE_SOURCE_ID := 2
 const WATER_SCENE_ID := 1
 const SNOW_SCENE_ID := 2
 
-enum BACK_TYPE {GRESS,SAND}
+enum BACK_TYPE {
+	GRESS, ## 草地背景+蓝色天空
+	SAND,  ## 沙地背景+黄昏天空
+	}
 
 @export_group("Map配置数据")
 @export var map_name:String
@@ -40,6 +43,7 @@ enum BACK_TYPE {GRESS,SAND}
 
 var daytime_sky_type:BottomMap.SKY_TYPE = BottomMap.SKY_TYPE.BLUE
 var parallax_map_type:ParallaxMap.ParallaxMapType
+
 func _set_back_type(value:BACK_TYPE):
 	back_type = value
 	match back_type:
@@ -60,7 +64,7 @@ func _validate_property(property:Dictionary):
 			if property.name == "random_map_scene":
 				property.usage = PROPERTY_USAGE_NONE
 		Map.MapGenerationType.RANDOM:
-			if property.name == "outer_map_scene" or property.name == "inner_map_scene" or property.name == "ladder_map_scene":
+			if property.name == "outer_map_scene" or property.name == "inner_map_scene" or property.name == "ladder_map_scene" or property.name == "decorative_map_scene":
 				property.usage = PROPERTY_USAGE_NONE
 		_:
 			pass
