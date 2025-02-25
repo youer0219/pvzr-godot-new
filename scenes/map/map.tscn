@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/map/map.gd" id="1_bg42m"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
 [ext_resource type="PackedScene" uid="uid://dk7rdm6n5suwf" path="res://scenes/map/maps/bottom_map/bottom_map.tscn" id="2_jmlc7"]
-[ext_resource type="Resource" uid="uid://0jfqjtnqslpc" path="res://data/map_data/mountain_map.tres" id="2_r7jrj"]
+[ext_resource type="Resource" uid="uid://c337pm7bqqh8n" path="res://data/map_data/home_map.tres" id="2_sg8f4"]
 [ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/maps/water_map/water_map.tscn" id="4_2hf12"]
 [ext_resource type="PackedScene" uid="uid://bjmv0pqm705w5" path="res://scenes/map/maps/parallax_map/parallax_map.tscn" id="4_wpv3r"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="5_cej6g"]
@@ -15,7 +15,7 @@
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_bg42m")
-map_data = ExtResource("2_r7jrj")
+map_data = ExtResource("2_sg8f4")
 
 [node name="BackgroundMap" type="ParallaxBackground" parent="."]
 
@@ -24,13 +24,14 @@ unique_name_in_owner = true
 
 [node name="ParallaxMap" parent="BackgroundMap" instance=ExtResource("4_wpv3r")]
 unique_name_in_owner = true
-modulate = Color(0.678431, 0.678431, 0.678431, 1)
+modulate = Color(0.450648, 0.450648, 0.450648, 1)
 
 [node name="FrontMap" type="Node2D" parent="."]
 scale = Vector2(2, 2)
 
 [node name="InnerCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 unique_name_in_owner = true
+modulate = Color(0.813257, 0.813258, 0.813257, 1)
 material = ExtResource("2_aus0x")
 
 [node name="InnerMap" parent="FrontMap/InnerCanvasGroup" instance=ExtResource("6_o61rt")]
@@ -45,7 +46,7 @@ unique_name_in_owner = true
 
 [node name="WaterCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0.854902)
+self_modulate = Color(1, 1, 1, 0.670588)
 
 [node name="WaterMap" parent="FrontMap/WaterCanvasGroup" instance=ExtResource("4_2hf12")]
 unique_name_in_owner = true
@@ -53,6 +54,7 @@ tile_map_data = PackedByteArray()
 
 [node name="OuterCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 unique_name_in_owner = true
+modulate = Color(0.947199, 0.947199, 0.947199, 1)
 material = ExtResource("2_aus0x")
 
 [node name="OuterMap" parent="FrontMap/OuterCanvasGroup" instance=ExtResource("9_ovcln")]

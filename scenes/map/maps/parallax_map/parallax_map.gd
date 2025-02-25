@@ -26,7 +26,7 @@ func _set_map_data(value:MapData):
 	clear_parallax_map()
 	
 	if map_data.is_night_time:
-		modulate = Color("adadad")
+		modulate = Color("737373")
 	else:
 		modulate = Color(1,1,1,1)
 	

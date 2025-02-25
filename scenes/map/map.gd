@@ -10,6 +10,7 @@ enum MapGenerationType {
 
 @onready var inner_canvas_group: CanvasGroup = %InnerCanvasGroup
 @onready var outer_canvas_group: CanvasGroup = %OuterCanvasGroup
+@onready var water_canvas_group: CanvasGroup = %WaterCanvasGroup
 @onready var decorative_parent: CanvasGroup = %DecorativeParent
 @onready var bottom_map: BottomMap = %BottomMap
 @onready var parallax_map: ParallaxMap = %ParallaxMap
@@ -19,7 +20,7 @@ enum MapGenerationType {
 var outer_map:TileMapLayer
 var inner_map:TileMapLayer
 
-## TODO: 水的效果、内部地图的效果都不知道该怎么处理才能实现与原版一致的效果
+## TODO: 无法解决夜晚水重叠问题。目前勉强符合预期的美术效果。
 
 func _ready() -> void:
 	water_map.generate_water.connect(deleta_ladder_by_cell) ## 水的生成会删除梯子但对装饰层无影响
@@ -111,6 +112,13 @@ func _set_map_data(value:MapData):
 	
 	if not is_node_ready():
 		await ready
+	
+	if map_data.is_night_time:
+		water_canvas_group.self_modulate = Color(1,1,1,1)
+		water_canvas_group.modulate = Color("ffffffcd")
+	else:
+		water_canvas_group.self_modulate = Color("ffffffab")
+		water_canvas_group.modulate = Color(1,1,1,1)
 	
 	bottom_map.map_data = map_data
 	parallax_map.map_data = map_data
