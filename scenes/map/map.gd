@@ -1,9 +1,9 @@
 class_name Map
 extends Node2D
 
-enum InternalMapGenerationType {
-	INTERNAL_FIXED, ## 固定地图
-	INTERNAL_MATCH_EXTERNAL_SEED ## 随机地图。内外部种子一致。
+enum MapGenerationType {
+	FIXED, ## 固定地图
+	RANDOM ## 随机地图。内外部种子一致。
 }
 
 @export var map_data:MapData:set = _set_map_data
@@ -28,8 +28,8 @@ func _ready() -> void:
 func _generation_front_map():
 	_clear_front_map()
 	
-	match map_data.inner_map_gen_type:
-		InternalMapGenerationType.INTERNAL_FIXED:
+	match map_data.map_gen_type:
+		MapGenerationType.FIXED:
 			outer_map = map_data.outer_map_scene.instantiate() as TileMapLayer
 			outer_map.collision_enabled = true
 			outer_canvas_group.add_child(outer_map)
@@ -40,7 +40,7 @@ func _generation_front_map():
 			if map_data.ladder_map_scene:
 				var new_ladder_map_scene = map_data.ladder_map_scene.instantiate()
 				generate_ladders_by_cells(get_ladders_form_ladder_map(new_ladder_map_scene))
-		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SEED:
+		MapGenerationType.RANDOM:
 			var seed := RandomMap.get_random_seed()
 			outer_map = map_data.random_map_scene.instantiate() as RandomMap
 			outer_map.generate_map(seed,RandomMap.Type.OUTER)

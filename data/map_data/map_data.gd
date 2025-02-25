@@ -1,3 +1,4 @@
+@tool
 class_name MapData
 extends Resource
 
@@ -11,18 +12,17 @@ const PINK_SKY_PROBABILITY := 100
 const LADDER_SOURCE_ID := 1
 const WATER_SOURCE_ID := 2
 
+enum BACK_TYPE {GRESS,SAND}
+
 @export_group("Map配置数据")
 @export var map_name:String
-## TODO: 实现草地蓝天、沙地黄昏的绑定
-@export var daytime_sky_type:BottomMap.SKY_TYPE = BottomMap.SKY_TYPE.BLUE
+@export var back_type:BACK_TYPE = BACK_TYPE.GRESS: set = _set_back_type
 @export var is_auto_scroll:bool
 @export var auto_scroll_speed:int = 300
 @export_range(0,15) var sunny_water_hight:int = 0
 @export_range(0,15) var rain_water_hight:int = 0
 @export var extra_delete_ladder_cells:Array[Vector2i]
-## TODO: 雨天似乎会额外限制相机位置，避免看到过低的方块
-@export var parallax_map_type:ParallaxMap.ParallaxMapType
-@export var inner_map_gen_type:Map.InternalMapGenerationType
+@export var map_gen_type:Map.MapGenerationType:set = _set_map_gen_type
 @export var outer_map_scene:PackedScene
 @export var inner_map_scene:PackedScene
 @export var ladder_map_scene:PackedScene
@@ -36,6 +36,29 @@ const WATER_SOURCE_ID := 2
 @export var is_boss_level:bool
 @export var is_pink_sky:bool
 
+var daytime_sky_type:BottomMap.SKY_TYPE = BottomMap.SKY_TYPE.BLUE
+var parallax_map_type:ParallaxMap.ParallaxMapType
+func _set_back_type(value:BACK_TYPE):
+	back_type = value
+	match back_type:
+		BACK_TYPE.GRESS:
+			daytime_sky_type = BottomMap.SKY_TYPE.BLUE
+			parallax_map_type = ParallaxMap.ParallaxMapType.GRESS
+		BACK_TYPE.SAND:
+			daytime_sky_type = BottomMap.SKY_TYPE.YELLOW
+			parallax_map_type = ParallaxMap.ParallaxMapType.SAND
 
-## TODO:我希望一个map-data加一个基本的map场景就可以代表map
-## 这需要更多的对场景的导出变量和相关场景的实现
+func _set_map_gen_type(value:Map.MapGenerationType):
+	map_gen_type = value
+	notify_property_list_changed()
+
+func _validate_property(property:Dictionary):
+	match map_gen_type:
+		Map.MapGenerationType.FIXED:
+			if property.name == "random_map_scene":
+				property.usage = PROPERTY_USAGE_NONE
+		Map.MapGenerationType.RANDOM:
+			if property.name == "outer_map_scene" or property.name == "inner_map_scene" or property.name == "ladder_map_scene":
+				property.usage = PROPERTY_USAGE_NONE
+		_:
+			pass
