@@ -20,6 +20,7 @@ var outer_map:TileMapLayer
 var inner_map:TileMapLayer
 
 ## TODO: 水的效果、内部地图的效果都不知道该怎么处理才能实现与原版一致的效果
+## TODO: 明确冰车的机制。实现雪相关的生成（自动删除已实现）
 
 func _ready() -> void:
 	water_map.generate_water.connect(deleta_ladder_by_cell) ## 水的生成会删除梯子但对装饰层无影响
@@ -41,12 +42,12 @@ func _generation_front_map():
 				var new_ladder_map_scene = map_data.ladder_map_scene.instantiate()
 				generate_ladders_by_cells(get_ladders_form_ladder_map(new_ladder_map_scene))
 		MapGenerationType.RANDOM:
-			var seed := RandomMap.get_random_seed()
+			var random_seed := RandomMap.get_random_seed()
 			outer_map = map_data.random_map_scene.instantiate() as RandomMap
-			outer_map.generate_map(seed,RandomMap.Type.OUTER)
+			outer_map.generate_map(random_seed,RandomMap.Type.OUTER)
 			outer_canvas_group.add_child(outer_map)
 			inner_map = map_data.random_map_scene.instantiate() as RandomMap
-			inner_map.generate_map(seed,RandomMap.Type.INNER)
+			inner_map.generate_map(random_seed,RandomMap.Type.INNER)
 			inner_canvas_group.add_child(inner_map)
 			var ladder_cells = outer_map.get_random_ladder_cells()
 			if ladder_cells:

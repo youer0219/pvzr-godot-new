@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://d23irg0u1c71h"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://d23irg0u1c71h"]
 
 [ext_resource type="Texture2D" uid="uid://clwbl4ciyi568" path="res://assets/sprites/map/map.png" id="1_76w2h"]
 [ext_resource type="Texture2D" uid="uid://b7gdolgcgow4j" path="res://assets/sprites/map/ladder.png" id="2_wmuvk"]
-[ext_resource type="PackedScene" uid="uid://dsnure3mwp3yq" path="res://scenes/map/maps/water_map/water.tscn" id="3_2sdc6"]
+[ext_resource type="PackedScene" uid="uid://dsnure3mwp3yq" path="res://scenes/map/map_scenes/water/water.tscn" id="3_ny5wg"]
+[ext_resource type="PackedScene" uid="uid://cnjw6kelprdq4" path="res://scenes/map/map_scenes/snow/snow.tscn" id="4_f6e0h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0r8fk"]
 resource_name = "地图瓦片"
@@ -121,8 +122,9 @@ texture = ExtResource("2_wmuvk")
 3:0/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gmvyl"]
-resource_name = "水"
-scenes/1/scene = ExtResource("3_2sdc6")
+resource_name = "Map场景"
+scenes/1/scene = ExtResource("3_ny5wg")
+scenes/2/scene = ExtResource("4_f6e0h")
 
 [resource]
 physics_layer_0/collision_layer = 1

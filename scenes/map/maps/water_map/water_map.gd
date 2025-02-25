@@ -34,7 +34,7 @@ func _create_water_by_cell(cell:Vector2i):
 	if _is_used_cell(cell):
 		return
 	
-	set_cell(cell, MapData.WATER_SOURCE_ID , Vector2i.ZERO , 1)
+	set_cell(cell, MapData.MAP_SCENE_SOURCE_ID , Vector2i.ZERO , MapData.WATER_SCENE_ID)
 	generate_water.emit(cell)
 
 func _update_water_type(top_height:int):

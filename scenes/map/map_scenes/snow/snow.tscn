@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnjw6kelprdq4"]
+
+[ext_resource type="Texture2D" uid="uid://clwbl4ciyi568" path="res://assets/sprites/map/map.png" id="1_bp2n4"]
+[ext_resource type="Script" path="res://components/timed_destroy.gd" id="2_sucqj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uawyl"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ttd8"]
+atlas = ExtResource("1_bp2n4")
+region = Rect2(112, 48, 16, 16)
+
+[node name="Snow" type="StaticBody2D"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uawyl")
+
+[node name="SnowSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_6ttd8")
+
+[node name="TimedDestroy" type="Timer" parent="." node_paths=PackedStringArray("destroy_node")]
+one_shot = true
+script = ExtResource("2_sucqj")
+destroy_node = NodePath("..")

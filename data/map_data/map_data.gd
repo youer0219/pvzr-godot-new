@@ -10,7 +10,9 @@ const MAP_SIZE := Vector2(72,24)
 const PINK_SKY_PROBABILITY := 100
 
 const LADDER_SOURCE_ID := 1
-const WATER_SOURCE_ID := 2
+const MAP_SCENE_SOURCE_ID := 2
+const WATER_SCENE_ID := 1
+const SNOW_SCENE_ID := 2
 
 enum BACK_TYPE {GRESS,SAND}
 
