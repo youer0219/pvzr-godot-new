@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="HeightmapGenerator2DSettings" load_steps=11 format=3 uid="uid://cluflu88nnnjg"]
 
-[ext_resource type="Script" path="res://addons/gaea/modifiers/2D/modifier_2d.gd" id="1_bhvm7"]
-[ext_resource type="Script" path="res://addons/gaea/modifiers/2D/heightmap_painter.gd" id="2_bd3ku"]
-[ext_resource type="Script" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="3_ywt0k"]
-[ext_resource type="Script" path="res://addons/gaea/generators/2D/heightmap_generator/heightmap_generator_2d_settings.gd" id="4_6v6qm"]
+[ext_resource type="Script" path="res://addons/gaea/modifiers/2D/modifier_2d.gd" id="1_xmrlq"]
+[ext_resource type="Script" path="res://addons/gaea/modifiers/2D/heightmap_painter.gd" id="2_cahc5"]
+[ext_resource type="Script" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="3_mbttd"]
+[ext_resource type="Script" path="res://addons/gaea/generators/2D/heightmap_generator/heightmap_generator_2d_settings.gd" id="4_eam2m"]
 
 [sub_resource type="Resource" id="Resource_1pygv"]
-script = ExtResource("3_ywt0k")
+script = ExtResource("3_mbttd")
 type = 0
 tilemap_layer = 0
 source_id = 0
@@ -16,7 +16,7 @@ id = ""
 layer = 0
 
 [sub_resource type="Resource" id="Resource_q4fhj"]
-script = ExtResource("2_bd3ku")
+script = ExtResource("2_cahc5")
 use_generator_noise = true
 ignore_empty_cells = true
 tile = SubResource("Resource_1pygv")
@@ -27,7 +27,7 @@ enabled = true
 filter_type = 0
 
 [sub_resource type="Resource" id="Resource_m4wcb"]
-script = ExtResource("3_ywt0k")
+script = ExtResource("3_mbttd")
 type = 0
 tilemap_layer = 0
 source_id = 0
@@ -37,7 +37,7 @@ id = ""
 layer = 0
 
 [sub_resource type="Resource" id="Resource_728pu"]
-script = ExtResource("2_bd3ku")
+script = ExtResource("2_cahc5")
 use_generator_noise = true
 ignore_empty_cells = true
 tile = SubResource("Resource_m4wcb")
@@ -54,7 +54,7 @@ frequency = 0.06
 fractal_type = 0
 
 [sub_resource type="Resource" id="Resource_sspys"]
-script = ExtResource("3_ywt0k")
+script = ExtResource("3_mbttd")
 type = 0
 tilemap_layer = 0
 source_id = 0
@@ -64,7 +64,8 @@ id = ""
 layer = 0
 
 [resource]
-script = ExtResource("4_6v6qm")
+resource_local_to_scene = true
+script = ExtResource("4_eam2m")
 tile = SubResource("Resource_sspys")
 noise = SubResource("FastNoiseLite_qbppu")
 infinite = false
@@ -73,4 +74,4 @@ height_offset = -12
 height_intensity = 10
 min_height = -24
 air_layer = true
-modifiers = Array[ExtResource("1_bhvm7")]([SubResource("Resource_q4fhj"), SubResource("Resource_728pu")])
+modifiers = Array[ExtResource("1_xmrlq")]([SubResource("Resource_q4fhj"), SubResource("Resource_728pu")])

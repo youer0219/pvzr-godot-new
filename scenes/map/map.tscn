@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://cg0vbixt3r2by"]
 
 [ext_resource type="Script" path="res://scenes/map/map.gd" id="1_bg42m"]
-[ext_resource type="Resource" uid="uid://c337pm7bqqh8n" path="res://data/map_data/home_map.tres" id="2_5el1m"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
 [ext_resource type="PackedScene" uid="uid://dk7rdm6n5suwf" path="res://scenes/map/maps/bottom_map/bottom_map.tscn" id="2_jmlc7"]
+[ext_resource type="Resource" uid="uid://0jfqjtnqslpc" path="res://data/map_data/mountain_map.tres" id="2_r7jrj"]
 [ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/maps/water_map/water_map.tscn" id="4_2hf12"]
 [ext_resource type="PackedScene" uid="uid://bjmv0pqm705w5" path="res://scenes/map/maps/parallax_map/parallax_map.tscn" id="4_wpv3r"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="5_cej6g"]
@@ -15,11 +15,12 @@
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_bg42m")
-map_data = ExtResource("2_5el1m")
+map_data = ExtResource("2_r7jrj")
 
 [node name="BackgroundMap" type="ParallaxBackground" parent="."]
 
 [node name="BottomMap" parent="BackgroundMap" instance=ExtResource("2_jmlc7")]
+unique_name_in_owner = true
 
 [node name="ParallaxMap" parent="BackgroundMap" instance=ExtResource("4_wpv3r")]
 unique_name_in_owner = true

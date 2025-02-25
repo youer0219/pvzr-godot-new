@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MapData" load_steps=3 format=3 uid="uid://0jfqjtnqslpc"]
+
+[ext_resource type="PackedScene" uid="uid://04hsecedinn2" path="res://scenes/map/maps/front_maps/random_map/mountain_map/mountain_map.tscn" id="1_kgt5t"]
+[ext_resource type="Script" path="res://data/map_data/map_data.gd" id="1_pkbbp"]
+
+[resource]
+script = ExtResource("1_pkbbp")
+map_name = "Mountain"
+daytime_sky_type = 0
+is_auto_scroll = false
+auto_scroll_speed = 300
+sunny_water_hight = 0
+rain_water_hight = 0
+extra_delete_ladder_cells = Array[Vector2i]([])
+parallax_map_type = 0
+inner_map_gen_type = 1
+random_map_scene = ExtResource("1_kgt5t")
+is_raining = false
+is_night_time = false
+is_boss_level = false
+is_pink_sky = false

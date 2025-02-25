@@ -2,21 +2,24 @@ class_name Map
 extends Node2D
 
 enum InternalMapGenerationType {
-	INTERNAL_FIXED, ## 内部地图固定
-	INTERNAL_MATCH_EXTERNAL_SCENE, ## 内部地图与外部地图场景一致
-	INTERNAL_MATCH_EXTERNAL_SEED   ## 内部地图与外部地图种子一致
+	INTERNAL_FIXED, ## 固定地图
+	INTERNAL_MATCH_EXTERNAL_SEED ## 随机地图。内外部种子一致。
 }
 
-@export var map_data:MapData
+@export var map_data:MapData:set = _set_map_data
 
 @onready var inner_canvas_group: CanvasGroup = %InnerCanvasGroup
 @onready var outer_canvas_group: CanvasGroup = %OuterCanvasGroup
 @onready var decorative_parent: CanvasGroup = %DecorativeParent
+@onready var bottom_map: BottomMap = %BottomMap
+@onready var parallax_map: ParallaxMap = %ParallaxMap
 @onready var water_map: WaterMap = %WaterMap
 @onready var ladder_map: TileMapLayer = %LadderMap
 
 var outer_map:TileMapLayer
 var inner_map:TileMapLayer
+
+## TODO: 水的效果、内部地图的效果都不知道该怎么处理才能实现与原版一致的效果
 
 func _ready() -> void:
 	water_map.generate_water.connect(deleta_ladder_by_cell) ## 水的生成会删除梯子但对装饰层无影响
@@ -37,22 +40,23 @@ func _generation_front_map():
 			if map_data.ladder_map_scene:
 				var new_ladder_map_scene = map_data.ladder_map_scene.instantiate()
 				generate_ladders_by_cells(get_ladders_form_ladder_map(new_ladder_map_scene))
-			if map_data.decorative_map_scene:
-				var decorative_map_scene = map_data.decorative_map_scene.instantiate() as TileMapLayer
-				decorative_map_scene.collision_enabled = false
-				decorative_parent.add_child(decorative_map_scene)
-		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SCENE:
-			push_error("未实现相关操作！")
 		InternalMapGenerationType.INTERNAL_MATCH_EXTERNAL_SEED:
-			push_error("未实现相关操作！")
+			var seed := RandomMap.get_random_seed()
+			outer_map = map_data.random_map_scene.instantiate() as RandomMap
+			outer_map.generate_map(seed,RandomMap.Type.OUTER)
+			outer_canvas_group.add_child(outer_map)
+			inner_map = map_data.random_map_scene.instantiate() as RandomMap
+			inner_map.generate_map(seed,RandomMap.Type.INNER)
+			inner_canvas_group.add_child(inner_map)
+			var ladder_cells = outer_map.get_random_ladder_cells()
+			if ladder_cells:
+				generate_ladders_by_cells(ladder_cells)
+	if map_data.decorative_map_scene:
+		var decorative_map_scene = map_data.decorative_map_scene.instantiate() as TileMapLayer
+		decorative_map_scene.collision_enabled = false
+		decorative_parent.add_child(decorative_map_scene)
 	
 	delete_extra_ladders()
-	
-	water_map.create_water_layer(outer_map.get_used_cells())
-
-## ladder处理：
-## 获取固定地图ladder的cells再生成即可
-## 大楼等随机地形需要随机生成梯子，要把梯子cells传递出来
 
 func _clear_front_map():
 	for child in inner_canvas_group.get_children():
@@ -92,3 +96,15 @@ func _is_cell_used_in_water_map(cell:Vector2i)->bool:
 
 func _is_cell_used_in_outer_map(cell:Vector2i)->bool:
 	return outer_map.get_used_cells().has(cell)
+
+func _set_map_data(value:MapData):
+	map_data = value
+	
+	if not is_node_ready():
+		await ready
+	
+	bottom_map.map_data = map_data
+	parallax_map.map_data = map_data
+	water_map.map_data = map_data
+	## 如果放在_generation_front_map中，会比map_data的设置先执行，导致问题
+	water_map.create_water_layer(outer_map.get_used_cells())

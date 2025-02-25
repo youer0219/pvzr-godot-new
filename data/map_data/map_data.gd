@@ -27,6 +27,7 @@ const WATER_SOURCE_ID := 2
 @export var inner_map_scene:PackedScene
 @export var ladder_map_scene:PackedScene
 @export var decorative_map_scene:PackedScene
+@export var random_map_scene:PackedScene
 
 @export_group("可变数据")
 @export var is_raining:bool
