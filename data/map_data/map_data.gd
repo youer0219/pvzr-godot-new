@@ -24,10 +24,11 @@ enum BACK_TYPE {
 @export var back_type:BACK_TYPE = BACK_TYPE.GRESS: set = _set_back_type
 @export var is_auto_scroll:bool
 @export var auto_scroll_speed:int = 300
+## TODO: 还不清楚山地的水的机制。是否随机高度以及目前山地的生成可能导致雨天没水！
 @export_range(0,15) var sunny_water_hight:int = 0
 @export_range(0,15) var rain_water_hight:int = 0
-@export var extra_delete_ladder_cells:Array[Vector2i]
-@export var map_gen_type:Map.MapGenerationType:set = _set_map_gen_type
+@export var extra_delete_ladder_cells_in_raining_day:Array[Vector2i]
+@export var front_map_gen_type:FrontMap.FrontMapGenerationType:set = _set_map_gen_type
 @export var outer_map_scene:PackedScene
 @export var inner_map_scene:PackedScene
 @export var ladder_map_scene:PackedScene
@@ -54,17 +55,15 @@ func _set_back_type(value:BACK_TYPE):
 			daytime_sky_type = BottomMap.SKY_TYPE.YELLOW
 			parallax_map_type = ParallaxMap.ParallaxMapType.SAND
 
-func _set_map_gen_type(value:Map.MapGenerationType):
-	map_gen_type = value
+func _set_map_gen_type(value:FrontMap.FrontMapGenerationType):
+	front_map_gen_type = value
 	notify_property_list_changed()
 
 func _validate_property(property:Dictionary):
-	match map_gen_type:
+	match front_map_gen_type:
 		Map.MapGenerationType.FIXED:
 			if property.name == "random_map_scene":
 				property.usage = PROPERTY_USAGE_NONE
 		Map.MapGenerationType.RANDOM:
 			if property.name == "outer_map_scene" or property.name == "inner_map_scene" or property.name == "ladder_map_scene" or property.name == "decorative_map_scene":
 				property.usage = PROPERTY_USAGE_NONE
-		_:
-			pass

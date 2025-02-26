@@ -3,19 +3,11 @@ extends TileMapLayer
 
 signal generate_water(cell:Vector2i)
 
-
-@export var map_data:MapData
-
 var used_cells:Array[Vector2i]
 
-func _ready() -> void:
-	assert(map_data,"没有为梯子和水地图配置map_data")
-
 ## 根据hight生成水
-func create_water_layer(out_map_used_cells:Array[Vector2i]):
+func create_water_layer(out_map_used_cells:Array[Vector2i],water_hight:int,is_night_time:bool):
 	self.used_cells = out_map_used_cells
-	
-	var water_hight:int = map_data.sunny_water_hight if not map_data.is_raining else map_data.rain_water_hight
 	
 	if water_hight == 0:
 		return
@@ -27,7 +19,7 @@ func create_water_layer(out_map_used_cells:Array[Vector2i]):
 			var cell := Vector2i(length,height)
 			_create_water_by_cell(cell)
 	
-	call_deferred("_update_water_type",top_height) ## 避免调用顺序问题
+	call_deferred("_update_water_type",top_height,is_night_time) ## 避免调用顺序问题
 
 ## 根据cell生成水
 func _create_water_by_cell(cell:Vector2i):
@@ -37,10 +29,10 @@ func _create_water_by_cell(cell:Vector2i):
 	set_cell(cell, MapData.MAP_SCENE_SOURCE_ID , Vector2i.ZERO , MapData.WATER_SCENE_ID)
 	generate_water.emit(cell)
 
-func _update_water_type(top_height:int):
+func _update_water_type(top_height:int,is_night_time:bool):
 	for child in get_children():
 		if child is Water:
-			if map_data.is_night_time:
+			if is_night_time:
 				child.set_water_in_night_time()
 			else:
 				child.set_water_in_day_time()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cg0vbixt3r2by"]
+[gd_scene load_steps=14 format=3 uid="uid://cg0vbixt3r2by"]
 
 [ext_resource type="Script" path="res://scenes/map/map.gd" id="1_bg42m"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
@@ -7,11 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/maps/water_map/water_map.tscn" id="4_2hf12"]
 [ext_resource type="PackedScene" uid="uid://bjmv0pqm705w5" path="res://scenes/map/maps/parallax_map/parallax_map.tscn" id="4_wpv3r"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="5_cej6g"]
-[ext_resource type="PackedScene" uid="uid://cpcqmein2p3c5" path="res://scenes/map/maps/front_maps/home_map/home_inner_map.tscn" id="6_o61rt"]
+[ext_resource type="Script" path="res://scenes/map/front_map.gd" id="5_jrpki"]
+[ext_resource type="PackedScene" uid="uid://cpcqmein2p3c5" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_inner_map.tscn" id="6_o61rt"]
 [ext_resource type="PackedScene" uid="uid://cq08ylfmgkm8h" path="res://debug/map_border/map_border.tscn" id="7_jbne1"]
-[ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/home_map/home_decorative_map.tscn" id="7_uryy1"]
-[ext_resource type="PackedScene" uid="uid://cc7ne0my3hwjm" path="res://scenes/map/maps/front_maps/home_map/home_ladder_map.tscn" id="8_5i4bp"]
-[ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/home_map/home_outer_map.tscn" id="9_ovcln"]
+[ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_decorative_map.tscn" id="7_uryy1"]
+[ext_resource type="PackedScene" uid="uid://cc7ne0my3hwjm" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_ladder_map.tscn" id="8_5i4bp"]
+[ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="9_ovcln"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_bg42m")
@@ -27,7 +28,10 @@ unique_name_in_owner = true
 modulate = Color(0.450648, 0.450648, 0.450648, 1)
 
 [node name="FrontMap" type="Node2D" parent="."]
+unique_name_in_owner = true
 scale = Vector2(2, 2)
+script = ExtResource("5_jrpki")
+map_data = ExtResource("2_sg8f4")
 
 [node name="InnerCanvasGroup" type="CanvasGroup" parent="FrontMap"]
 unique_name_in_owner = true
