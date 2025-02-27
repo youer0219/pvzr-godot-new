@@ -1,6 +1,9 @@
 extends Camera2D
 
-@export var enable:bool = false
+@export var enable:bool = false:
+	set(value):
+		enable = value
+		self.enabled = enable
 @export var speed:int = 5
 
 func _process(_delta: float) -> void:
