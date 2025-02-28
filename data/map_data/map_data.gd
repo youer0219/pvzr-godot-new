@@ -42,6 +42,9 @@ enum BACK_TYPE {
 @export var is_boss_level:bool
 @export var is_pink_sky:bool
 
+var water_hight:int = 0:
+	get:
+		return rain_water_hight if is_raining else sunny_water_hight
 var daytime_sky_type:BottomMap.SKY_TYPE = BottomMap.SKY_TYPE.BLUE
 var parallax_map_type:ParallaxMap.ParallaxMapType
 

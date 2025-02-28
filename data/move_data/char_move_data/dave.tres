@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CharMoveData" load_steps=2 format=3 uid="uid://bke1kkcufe05n"]
+
+[ext_resource type="Script" path="res://data/move_data/char_move_data/char_move_data.gd" id="1_7lswi"]
+
+[resource]
+script = ExtResource("1_7lswi")
+lateral_speed = 100.0
+lateral_speed_acceleration = 600.0
+lateral_move_jump = 60.0

@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm4mj40jvngin"]
+[gd_scene load_steps=6 format=3 uid="uid://bm4mj40jvngin"]
 
 [ext_resource type="Script" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
+[ext_resource type="Script" path="res://components/char_move.gd" id="3_3ibw6"]
+[ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="4_0yafo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 6.0
@@ -21,3 +23,8 @@ region_rect = Rect2(74, 0, 16, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_4is1f")
+
+[node name="CharMove" type="Node2D" parent="." node_paths=PackedStringArray("char_body")]
+script = ExtResource("3_3ibw6")
+char_body = NodePath("..")
+char_move_data = ExtResource("4_0yafo")

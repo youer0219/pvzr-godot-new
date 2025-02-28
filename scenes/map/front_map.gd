@@ -53,8 +53,7 @@ func _generation_front_map():
 			if ladder_cells:
 				generate_ladders_by_cells(ladder_cells)
 	
-	var water_hight := map_data.rain_water_hight if map_data.is_raining else map_data.sunny_water_hight
-	water_map.create_water_layer(outer_map.get_used_cells(),water_hight,map_data.is_night_time)
+	water_map.create_water_layer(outer_map.get_used_cells(),map_data.water_hight,map_data.is_night_time)
 	
 	_delete_extra_ladders_in_raining_day()
 
