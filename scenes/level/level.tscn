@@ -12,3 +12,5 @@ script = ExtResource("1_tjydx")
 [node name="Dave" parent="." instance=ExtResource("3_j2gmg")]
 position = Vector2(1056, 160)
 scale = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="Dave"]

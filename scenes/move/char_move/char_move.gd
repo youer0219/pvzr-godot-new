@@ -1,0 +1,130 @@
+class_name CharMove
+extends Node2D
+
+### 表示碰到墙壁
+#signal has_meet_wall
+## 表示第二段跳跃
+signal tiwce_jump
+
+const MAX_FALL_VELOCITY := 200
+
+enum LATERAL_MOVE_DIRECTION {
+	LEFT = -1, ## 方向：左
+	RIGHT = 1, ## 方向：右
+	IDLE = 0,  ## 静止不动
+}
+
+@export var char_body:CharacterBody2D
+@export var char_move_data:CharMoveData
+
+@onready var ladder_check: RayCast2D = %LadderCheck
+@onready var water_check: RayCast2D = %WaterCheck
+@onready var clamp_jump_timer: Timer = %ClampJumpTimer
+
+## 从非水区域到水区域时为true。默认为false。当离开水区域或开始上浮后为false。
+var is_first_time_on_water:bool = false
+## 当前剩余跳跃次数
+var current_jump_times:int
+
+func _ready() -> void:
+	assert(char_body and char_move_data,"没有为char-move配置char-body或char-move-data！")
+	current_jump_times = char_move_data.jump_times
+
+
+## TODO: 实现移动相关的行动
+
+## 横向
+
+func lateral_move(delta:float,lateral_move_direction:int):
+	char_body.velocity.x = move_toward(char_body.velocity.x,lateral_move_direction * char_move_data.lateral_speed, char_move_data.lateral_speed_acceleration*delta)
+	#lateral_jump() ## 对于正常移动，在行为树中可以通过并行节点调用小跳方法。但在气球模式中就不用这个方法避免问题
+
+func lateral_jump():
+	if is_on_floor() and !is_on_wall():
+		var lateral_velocity_ratio = abs(char_body.velocity.x) / char_move_data.lateral_speed
+		char_body.velocity.y = -1 * (char_move_data.lateral_move_jump * lateral_velocity_ratio)
+
+## 纵向
+
+## 突发式
+
+func lengthwise_clamb(_delta:float):
+	if clamp_jump_timer.time_left == 0:
+		char_body.velocity.y = -1 * char_move_data.clamp_velocity
+		clamp_jump_timer.start(char_move_data.clamp_gap_time)
+
+func lengthwise_jump(_delta:float):
+	char_body.velocity.y = -1 * char_move_data.jump_velocity
+
+	if char_move_data.jump_times - current_jump_times == 1 \
+	and char_move_data.jump_times > 1:
+		# char_body.velocity.x += char_move_data.jump_lateral_move ## 二段跳时有一段横移。但目前缺少方向，
+		# 可能的实现方法采取回调。发射信号，由高层获取必要的数据，再调用char-move。
+		tiwce_jump.emit()
+	current_jump_times -= 1
+
+func reset_jump_times():
+	current_jump_times = char_move_data.jump_times
+
+## 常态式
+
+func rise_up_in_air(_delta:float):
+	pass
+
+## 空中常态重力。存在最大值。
+func fall_down_in_air(delta:float):
+	char_body.velocity.y = min(char_body.velocity.y +  char_move_data.length_down_speed * delta ,MAX_FALL_VELOCITY)
+
+## 水中上浮
+func float_up_in_water(_delta:float):
+	pass
+
+## 水中下潜
+func sink_down_in_water(_delta:float):
+	pass
+
+
+#region 状态判断
+
+func is_on_floor()->bool:
+	return char_body.is_on_floor()
+
+func is_on_wall()->bool:
+	return char_body.is_on_wall()
+
+func is_on_ladder()->bool:
+	return ladder_check.is_colliding()
+
+func is_on_water()->bool:
+	return water_check.is_colliding()
+
+## 能否攀爬。
+## 检测到梯子 + （位于地板上 / 不是第一次进入水中）
+func can_clamp()->bool:
+	if not is_on_ladder():
+		return false
+	
+	if is_on_floor():
+		return true
+	
+	return not is_first_time_on_water
+
+## 能否跳跃
+func can_jump()->bool:
+	return current_jump_times > 0
+
+## 能否刷新跳跃次数
+func can_reset_jump_times()->bool:
+	if is_on_floor():
+		return true
+	
+	if is_on_ladder() and !is_on_water():
+		return true
+	
+	## TODO:漂浮返回时可以刷新跳跃次数 == 坐标低于基于水线的某个位置
+	
+	return false
+
+## 水线上下的判断
+
+#endregion

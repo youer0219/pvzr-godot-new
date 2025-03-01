@@ -9,7 +9,6 @@ enum DAVE_SPRITE_TYPE {COMMON,ACE,ZOOM}
 @onready var image: Sprite2D = %Image
 @onready var char_move: CharMove = $CharMove
 
-
 func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 	dave_sprite_type = value
 	
@@ -27,10 +26,19 @@ func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y += 98 * delta
+		char_move.fall_down_in_air(delta)
+	
+	if char_move.can_reset_jump_times():
+		char_move.reset_jump_times()
 	
 	var direction := Input.get_axis("move_left", "move_right")
 	char_move.lateral_move(delta,direction)
 	char_move.lateral_jump()
+	
+	if Input.is_action_pressed("move_up") and char_move.can_clamp():
+		char_move.lengthwise_clamb(delta)
+	elif Input.is_action_just_pressed("move_up") and char_move.can_jump():
+		char_move.lengthwise_jump(delta)
+	
 	
 	move_and_slide()
