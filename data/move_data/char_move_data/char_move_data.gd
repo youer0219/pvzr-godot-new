@@ -1,6 +1,7 @@
 class_name CharMoveData
 extends Resource
 
+const MAX_FALL_VELOCITY := 200
 
 ## 横向移动最大速度
 @export var lateral_speed:float = 100
@@ -26,3 +27,4 @@ extends Resource
 @export var water_init_speed:float = 10
 @export var water_down_speed:float = 65
 @export var water_up_speed:float = 30
+@export var water_sink_distance:float = 4

@@ -29,6 +29,10 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/gaea/plugin.cfg")
 
+[global_group]
+
+map=""
+
 [input]
 
 camera_move_up={

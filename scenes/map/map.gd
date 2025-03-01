@@ -21,6 +21,10 @@ func deleta_ladder_by_cell(cell:Vector2i):
 func generate_snow_by_cell(cell:Vector2i):
 	front_map.generate_snow_by_cell(cell)
 
+func get_top_water_line()->float:
+	var water_height := map_data.water_hight
+	return (MapData.MAP_SIZE.y - water_height ) * MapData.MAP_CELL_SIZE.y
+
 func _set_map_data(value:MapData):
 	map_data = value
 	

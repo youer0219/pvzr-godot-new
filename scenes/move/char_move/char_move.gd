@@ -6,7 +6,6 @@ extends Node2D
 ## 表示第二段跳跃
 signal tiwce_jump
 
-const MAX_FALL_VELOCITY := 200
 
 enum LATERAL_MOVE_DIRECTION {
 	LEFT = -1, ## 方向：左
@@ -21,15 +20,20 @@ enum LATERAL_MOVE_DIRECTION {
 @onready var water_check: RayCast2D = %WaterCheck
 @onready var clamp_jump_timer: Timer = %ClampJumpTimer
 
+## 是否已经进入过水中
+var has_on_water:bool
 ## 从非水区域到水区域时为true。默认为false。当离开水区域或开始上浮后为false。
 var is_first_time_on_water:bool = false
 ## 当前剩余跳跃次数
 var current_jump_times:int
+## 水线
+var water_line:float
 
 func _ready() -> void:
 	assert(char_body and char_move_data,"没有为char-move配置char-body或char-move-data！")
 	current_jump_times = char_move_data.jump_times
-
+	var map_scene = get_tree().get_first_node_in_group("map") as Map
+	water_line = map_scene.get_top_water_line()
 
 ## TODO: 实现移动相关的行动
 
@@ -66,6 +70,10 @@ func lengthwise_jump(_delta:float):
 func reset_jump_times():
 	current_jump_times = char_move_data.jump_times
 
+func limit_velocity_in_first_time_jump_water():
+	if is_first_time_on_water:
+		char_body.velocity.y = min(char_body.velocity.y , char_move_data.water_init_speed)
+
 ## 常态式
 
 func rise_up_in_air(_delta:float):
@@ -73,16 +81,20 @@ func rise_up_in_air(_delta:float):
 
 ## 空中常态重力。存在最大值。
 func fall_down_in_air(delta:float):
-	char_body.velocity.y = min(char_body.velocity.y +  char_move_data.length_down_speed * delta ,MAX_FALL_VELOCITY)
+	char_body.velocity.y = min(char_body.velocity.y + char_move_data.length_down_speed * delta ,\
+	char_move_data.MAX_FALL_VELOCITY)
 
 ## 水中上浮
-func float_up_in_water(_delta:float):
-	pass
+func float_up_in_water(delta:float):
+	char_body.velocity.y = -1 * char_move_data.water_up_speed
 
 ## 水中下潜
-func sink_down_in_water(_delta:float):
-	pass
+func sink_down_in_water(delta:float):
+	char_body.velocity.y = min(char_body.velocity.y + char_move_data.water_down_speed * delta ,\
+	char_move_data.MAX_FALL_VELOCITY)
 
+func move_and_slide():
+	char_body.move_and_slide()
 
 #region 状态判断
 
@@ -111,7 +123,7 @@ func can_clamp()->bool:
 
 ## 能否跳跃
 func can_jump()->bool:
-	return current_jump_times > 0
+	return current_jump_times > 0 and not is_first_time_on_water
 
 ## 能否刷新跳跃次数
 func can_reset_jump_times()->bool:
@@ -121,10 +133,13 @@ func can_reset_jump_times()->bool:
 	if is_on_ladder() and !is_on_water():
 		return true
 	
-	## TODO:漂浮返回时可以刷新跳跃次数 == 坐标低于基于水线的某个位置
+	if not is_above_water_line():
+		return true
 	
 	return false
 
-## 水线上下的判断
+## 水线上下的判断。同时考虑下沉距离。
+func is_above_water_line()->bool:
+	return char_body.global_position.y < water_line + char_move_data.water_sink_distance
 
 #endregion

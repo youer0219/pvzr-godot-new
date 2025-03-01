@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cc7ne0my3hwjm" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_ladder_map.tscn" id="8_5i4bp"]
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="9_ovcln"]
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" groups=["map"]]
 script = ExtResource("1_bg42m")
 map_data = ExtResource("2_sg8f4")
 
