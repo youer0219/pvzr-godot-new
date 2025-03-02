@@ -12,6 +12,10 @@ enum MapGenerationType {
 @onready var bottom_map: BottomMap = %BottomMap
 @onready var parallax_map: ParallaxMap = %ParallaxMap
 
+## TODO：$MapBorderCollisions 应该会阻挡僵尸和戴夫等实体，不应该与子弹等碰撞。目前设置layer为world无法满足后者。
+## 但还没有实现子弹碰撞相关的设置，所以暂时这样写。
+## TODO:在地图最上面没有针对实体的碰撞，但有一个会弹回气球状态的僵尸的碰撞体。目前无思路。
+
 func generate_ladder_by_cell(cell:Vector2i):
 	front_map.generate_ladder_by_cell(cell)
 

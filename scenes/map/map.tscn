@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cg0vbixt3r2by"]
+[gd_scene load_steps=14 format=3 uid="uid://cg0vbixt3r2by"]
 
 [ext_resource type="Script" path="res://scenes/map/map.gd" id="1_bg42m"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_decorative_map.tscn" id="7_uryy1"]
 [ext_resource type="PackedScene" uid="uid://cc7ne0my3hwjm" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_ladder_map.tscn" id="8_5i4bp"]
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="9_ovcln"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8yfa"]
+size = Vector2(32, 1120)
 
 [node name="Map" type="Node2D" groups=["map"]]
 script = ExtResource("1_bg42m")
@@ -61,5 +64,22 @@ modulate = Color(0.947199, 0.947199, 0.947199, 1)
 material = ExtResource("2_aus0x")
 
 [node name="OuterMap" parent="FrontMap/OuterCanvasGroup" instance=ExtResource("9_ovcln")]
+
+[node name="MapBorderCollisions" type="Node2D" parent="."]
+
+[node name="LeftMapBorderCollision" type="StaticBody2D" parent="MapBorderCollisions"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorderCollisions/LeftMapBorderCollision"]
+position = Vector2(-16, 208)
+shape = SubResource("RectangleShape2D_p8yfa")
+
+[node name="RightMapBorderCollision" type="StaticBody2D" parent="MapBorderCollisions"]
+position = Vector2(2336, 0)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorderCollisions/RightMapBorderCollision"]
+position = Vector2(-16, 208)
+shape = SubResource("RectangleShape2D_p8yfa")
 
 [node name="MapBorder" parent="." instance=ExtResource("7_jbne1")]
