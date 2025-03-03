@@ -38,7 +38,7 @@ func _ready() -> void:
 
 func lateral_move(delta:float,lateral_move_direction:int):
 	char_body.velocity.x = move_toward(char_body.velocity.x,lateral_move_direction * char_move_data.lateral_speed, char_move_data.lateral_speed_acceleration*delta)
-	#lateral_jump() ## 对于正常移动，在行为树中可以通过并行节点调用小跳方法。但在气球模式中就不用这个方法避免问题
+
 
 func lateral_jump():
 	if is_on_floor() and !is_on_wall():
@@ -83,7 +83,7 @@ func fall_down_in_air(delta:float):
 	char_move_data.MAX_FALL_VELOCITY)
 
 ## 水中上浮
-func float_up_in_water(delta:float):
+func float_up_in_water(_delta:float):
 	char_body.velocity.y = -1 * char_move_data.water_up_speed
 
 ## 水中下潜
