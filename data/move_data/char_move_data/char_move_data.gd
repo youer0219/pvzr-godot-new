@@ -17,6 +17,7 @@ const MAX_FALL_VELOCITY := 200
 ## 可跳跃次数
 @export_range(1,2,1) var jump_times:int = 1
 @export var jump_lateral_move:float = 120
+@export var is_endless_jump:bool = false
 
 ## 跳跃速度
 @export var jump_velocity:float = 120

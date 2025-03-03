@@ -1,11 +1,8 @@
 class_name CharMove
 extends Node2D
 
-### 表示碰到墙壁
-#signal has_meet_wall
 ## 表示第二段跳跃
 signal tiwce_jump
-
 
 enum LATERAL_MOVE_DIRECTION {
 	LEFT = -1, ## 方向：左
@@ -60,10 +57,11 @@ func lengthwise_clamb(_delta:float):
 func lengthwise_jump(_delta:float):
 	char_body.velocity.y = -1 * char_move_data.jump_velocity
 
-	if char_move_data.jump_times - current_jump_times == 1 \
+	if char_move_data.jump_times - current_jump_times >= 1 \
 	and char_move_data.jump_times > 1:
 		# char_body.velocity.x += char_move_data.jump_lateral_move ## 二段跳时有一段横移。但目前缺少方向，
-		# 可能的实现方法采取回调。发射信号，由高层获取必要的数据，再调用char-move。
+		# TODO: 二段跳时的横移。可能的实现方法采取回调。发射信号，由高层获取必要的数据，再调用char-move。
+		# 也可能会分解到行为树中（特别是僵尸戴夫的无限跳跃似乎没有横移功能）
 		tiwce_jump.emit()
 	current_jump_times -= 1
 
@@ -123,8 +121,8 @@ func can_clamp()->bool:
 
 ## 能否跳跃
 func can_jump()->bool:
-	return current_jump_times > 0 and not is_first_time_on_water
-
+	return not is_first_time_on_water and (current_jump_times > 0 or char_move_data.is_endless_jump )
+ 
 ## 能否刷新跳跃次数
 func can_reset_jump_times()->bool:
 	if is_on_floor():
