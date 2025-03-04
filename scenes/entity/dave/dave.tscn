@@ -1,10 +1,10 @@
-[gd_scene load_steps=49 format=3 uid="uid://bm4mj40jvngin"]
+[gd_scene load_steps=51 format=3 uid="uid://bm4mj40jvngin"]
 
 [ext_resource type="Script" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
 [ext_resource type="PackedScene" uid="uid://cl374yswj54dg" path="res://scenes/move/char_move/char_move.tscn" id="3_dxq6e"]
-[ext_resource type="Script" path="res://ai/tasks/BTCheckInput.gd" id="4_p0ape"]
-[ext_resource type="Script" path="res://ai/tasks/BTSetLateralDirection.gd" id="4_y16dw"]
+[ext_resource type="Script" path="res://ai/tasks/check_input.gd" id="4_p0ape"]
+[ext_resource type="Script" path="res://ai/tasks/char_lateral_move.gd" id="4_y16dw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 6.0
@@ -21,11 +21,11 @@ var/can_clamp/type = 1
 var/can_clamp/value = false
 var/can_clamp/hint = 0
 var/can_clamp/hint_string = ""
-var/leteral_dirction/name = &"leteral_dirction"
-var/leteral_dirction/type = 2
-var/leteral_dirction/value = 1
-var/leteral_dirction/hint = 1
-var/leteral_dirction/hint_string = "-1,1"
+var/can_active_move/name = &"can_active_move"
+var/can_active_move/type = 1
+var/can_active_move/value = true
+var/can_active_move/hint = 0
+var/can_active_move/hint_string = ""
 
 [sub_resource type="BTFail" id="BTFail_imklv"]
 
@@ -62,24 +62,23 @@ args_include_delta = true
 custom_name = "apply gravity"
 children = [SubResource("BTCallMethod_1hgt6")]
 
-[sub_resource type="BTAction" id="BTAction_mblts"]
-script = ExtResource("4_y16dw")
-lateral_direction_var = &"lateral_direction"
+[sub_resource type="BBVariant" id="BBVariant_ld66i"]
+type = 1
+saved_value = true
+resource_name = "true"
 
-[sub_resource type="BBVariant" id="BBVariant_cctwk"]
-value_source = 1
-variable = &"leteral_dirction"
-resource_name = "$leteral_dirction"
+[sub_resource type="BTCheckVar" id="BTCheckVar_cjaxf"]
+variable = &"can_active_move"
+value = SubResource("BBVariant_ld66i")
 
-[sub_resource type="BBNode" id="BBNode_52qiu"]
+[sub_resource type="BBNode" id="BBNode_uda8l"]
 saved_value = NodePath("CharMove")
 resource_name = "CharMove"
 
-[sub_resource type="BTCallMethod" id="BTCallMethod_keguw"]
-node = SubResource("BBNode_52qiu")
-method = &"lateral_move"
-args_include_delta = true
-args = Array[BBVariant]([SubResource("BBVariant_cctwk")])
+[sub_resource type="BTAction" id="BTAction_mblts"]
+script = ExtResource("4_y16dw")
+char_move_node = SubResource("BBNode_uda8l")
+method_name = &"lateral_move"
 
 [sub_resource type="BBNode" id="BBNode_bpogw"]
 saved_value = NodePath("CharMove")
@@ -91,7 +90,7 @@ method = &"lateral_jump"
 
 [sub_resource type="BTSequence" id="BTSequence_if2bs"]
 custom_name = "lateral_move"
-children = [SubResource("BTAction_mblts"), SubResource("BTCallMethod_keguw"), SubResource("BTCallMethod_6ubdw")]
+children = [SubResource("BTAction_mblts"), SubResource("BTCallMethod_6ubdw")]
 
 [sub_resource type="BTCondition" id="BTCondition_rqk4m"]
 script = ExtResource("4_p0ape")
@@ -153,12 +152,26 @@ args_include_delta = true
 custom_name = "Jump"
 children = [SubResource("BTCondition_galdy"), SubResource("BTCallMethod_6qaef"), SubResource("BTCheckTrigger_tmx34"), SubResource("BTCallMethod_xh280")]
 
-[sub_resource type="BTSequence" id="BTSequence_e86wt"]
-custom_name = "success"
-
 [sub_resource type="BTSelector" id="BTSelector_igf22"]
 custom_name = "up_move"
-children = [SubResource("BTSequence_hla4l"), SubResource("BTSequence_soe41"), SubResource("BTSequence_e86wt")]
+children = [SubResource("BTSequence_hla4l"), SubResource("BTSequence_soe41")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_sg2bf"]
+children = [SubResource("BTSelector_igf22")]
+
+[sub_resource type="BTSequence" id="BTSequence_g0f4e"]
+custom_name = "Active Move"
+children = [SubResource("BTCheckVar_cjaxf"), SubResource("BTSequence_if2bs"), SubResource("BTAlwaysSucceed_sg2bf")]
+
+[sub_resource type="BTSequence" id="BTSequence_vkqe8"]
+custom_name = "move"
+children = [SubResource("BTSequence_tt6ex"), SubResource("BTSequence_g0f4e")]
+
+[sub_resource type="BTSelector" id="BTSelector_j7tap"]
+children = [SubResource("BTSequence_go84y"), SubResource("BTSequence_e15bm"), SubResource("BTSequence_dltlq"), SubResource("BTSequence_vkqe8")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_u6qt6"]
+children = [SubResource("BTSelector_j7tap")]
 
 [sub_resource type="BBNode" id="BBNode_u1bmu"]
 saved_value = NodePath("CharMove")
@@ -168,15 +181,8 @@ resource_name = "CharMove"
 node = SubResource("BBNode_u1bmu")
 method = &"move_and_slide"
 
-[sub_resource type="BTSequence" id="BTSequence_vkqe8"]
-custom_name = "move"
-children = [SubResource("BTSequence_tt6ex"), SubResource("BTSequence_if2bs"), SubResource("BTSelector_igf22"), SubResource("BTCallMethod_ej4xv")]
-
-[sub_resource type="BTSelector" id="BTSelector_j7tap"]
-children = [SubResource("BTSequence_go84y"), SubResource("BTSequence_e15bm"), SubResource("BTSequence_dltlq"), SubResource("BTSequence_vkqe8")]
-
 [sub_resource type="BTSequence" id="BTSequence_45gku"]
-children = [SubResource("BTSelector_j7tap")]
+children = [SubResource("BTAlwaysSucceed_u6qt6"), SubResource("BTCallMethod_ej4xv")]
 
 [sub_resource type="BTParallel" id="BTParallel_sadgf"]
 children = [SubResource("BTSequence_45gku")]
