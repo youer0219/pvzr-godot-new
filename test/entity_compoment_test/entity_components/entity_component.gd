@@ -16,6 +16,8 @@ extends RigidBody2D
 ## 灰烬 / 冰冻 / 一般 ： 脱离时会恢复一般状态或进入灰烬状态。
 ## ## 灰烬本身还分两种：静止 / 消失+粒子
 
+## 冰冻效果：6565ff
+
 signal throw_out(entity_component:EntityComponent)
 
 @export var phy_enable:bool = false:set = _set_phy_enable
