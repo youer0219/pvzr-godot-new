@@ -1,4 +1,5 @@
 extends Camera2D
+class_name MoveCamera
 
 @export var enable:bool = false:
 	set(value):
