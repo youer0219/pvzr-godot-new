@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://d27ql2svxqnsf"]
+
+[ext_resource type="Script" path="res://test/entity_compoment_test/entity_components/entity_component.gd" id="1_ea3l7"]
+[ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://test/entity_compoment_test/entity_components/投篮车僵尸-首.png" id="2_e106a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3sbo"]
+bounce = 0.3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o0fn"]
+size = Vector2(10, 3)
+
+[node name="EntityComponent" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_q3sbo")
+lock_rotation = true
+freeze = true
+script = ExtResource("1_ea3l7")
+
+[node name="Image" type="Sprite2D" parent="."]
+position = Vector2(-13, 18)
+scale = Vector2(2, 2)
+texture = ExtResource("2_e106a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -10)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_4o0fn")

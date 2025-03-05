@@ -1,0 +1,42 @@
+[gd_scene load_steps=10 format=3 uid="uid://6bn3n322w0b1"]
+
+[ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
+[ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_decorative_map.tscn" id="2_mk1kk"]
+[ext_resource type="PackedScene" uid="uid://cpcqmein2p3c5" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_inner_map.tscn" id="3_y6km7"]
+[ext_resource type="PackedScene" uid="uid://cc7ne0my3hwjm" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_ladder_map.tscn" id="4_472qy"]
+[ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
+[ext_resource type="Script" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
+[ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://test/entity_compoment_test/entity_components/EntityComponent.tscn" id="8_tbda8"]
+[ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="9_sf4kt"]
+
+[sub_resource type="Resource" id="Resource_brqar"]
+script = ExtResource("6_xsv7b")
+map_name = "Home"
+back_type = 0
+is_auto_scroll = false
+auto_scroll_speed = 300
+sunny_water_hight = 4
+rain_water_hight = 11
+extra_delete_ladder_cells_in_raining_day = Array[Vector2i]([Vector2i(25, 12)])
+front_map_gen_type = 0
+outer_map_scene = ExtResource("5_vosbv")
+inner_map_scene = ExtResource("3_y6km7")
+ladder_map_scene = ExtResource("4_472qy")
+decorative_map_scene = ExtResource("2_mk1kk")
+is_raining = false
+is_night_time = false
+is_boss_level = false
+is_pink_sky = false
+
+[node name="CollisionWorld" type="Node2D"]
+
+[node name="EntityComponent" parent="." instance=ExtResource("8_tbda8")]
+position = Vector2(1196, 124)
+collision_mask = 1
+
+[node name="Map" parent="." instance=ExtResource("1_ew60k")]
+map_data = SubResource("Resource_brqar")
+
+[node name="MoveCamera" parent="." instance=ExtResource("9_sf4kt")]
+position = Vector2(1220, 156)
+enable = true

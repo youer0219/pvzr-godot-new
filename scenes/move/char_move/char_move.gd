@@ -4,12 +4,6 @@ extends Node2D
 ## 表示第二段跳跃
 signal tiwce_jump
 
-enum LATERAL_MOVE_DIRECTION {
-	LEFT = -1, ## 方向：左
-	RIGHT = 1, ## 方向：右
-	IDLE = 0,  ## 静止不动
-}
-
 @export var char_body:CharacterBody2D
 @export var char_move_data:CharMoveData
 
