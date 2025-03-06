@@ -1,72 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbw88i6c2kx40"]
+[gd_scene load_steps=3 format=3 uid="uid://cbw88i6c2kx40"]
 
-[ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://test/entity_compoment_test/entity_components/random_shake_and_blink.gdshader" id="1_5pjtr"]
+[ext_resource type="PackedScene" uid="uid://c3t1mfjcman2u" path="res://components/shaders_sprite2d/shaders_sprite2d.tscn" id="3_cvtmm"]
 [ext_resource type="Texture2D" uid="uid://cfpsvjyccomh0" path="res://test/entity_compoment_test/entity_components/普通僵尸.png" id="3_sjxq1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxwo5"]
-shader = ExtResource("1_5pjtr")
-shader_parameter/hit_effect = 0.1
-shader_parameter/shake_intensity = 10.0
-shader_parameter/blink_color = Color(1, 0.145098, 1, 1)
-shader_parameter/blink_intensity = 0.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_p1yey"]
-viewport_path = NodePath("Sprite2D2/SubViewport")
-
-[sub_resource type="Shader" id="Shader_s76ye"]
-code = "shader_type canvas_item;
-// 颜色替换参数
-uniform vec4 replace_color : source_color = vec4(0.0, 0.0, 0.0, 1.0); // 目标颜色（默认红色）
-// 消失效果参数
-uniform float dissolve_amount : hint_range(0.0, 1.0) = 0.0; // 消失进度（0=全显示，1=全消失）
-
-void fragment() {
-    vec4 original_color = texture(TEXTURE, UV);
-    
-    // 1. 颜色替换逻辑（仅处理不透明像素）
-    if ((original_color.a - 1.0) < 0.001) {
-        original_color.rgb = replace_color.rgb;
-    }
-    
-    // 2. 硬边缘消失逻辑（无平滑过渡）
-    float uv_y = 1.0 - UV.y; // 底部为0，顶部为1
-    float alpha = step(dissolve_amount, uv_y); // 大于等于阈值时alpha=1.0，否则0.0
-    original_color.a *= alpha;
-    
-    COLOR = original_color;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_burv7"]
-shader = SubResource("Shader_s76ye")
-shader_parameter/replace_color = Color(0, 0, 0, 1)
-shader_parameter/dissolve_amount = 0.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_27rl2"]
-viewport_path = NodePath("Sprite2D2/SubViewport/Sprite2D/SubViewport2")
 
 [node name="ApplyShadersTest" type="Node2D"]
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_uxwo5")
-texture = SubResource("ViewportTexture_p1yey")
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+process_callback = 0
 
-[node name="SubViewport" type="SubViewport" parent="Sprite2D2"]
-disable_3d = true
-transparent_bg = true
-size = Vector2i(36, 36)
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D2/SubViewport"]
-material = SubResource("ShaderMaterial_burv7")
-position = Vector2(18, 18)
-texture = SubResource("ViewportTexture_27rl2")
-
-[node name="SubViewport2" type="SubViewport" parent="Sprite2D2/SubViewport/Sprite2D"]
-disable_3d = true
-transparent_bg = true
-size = Vector2i(36, 36)
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D2/SubViewport/Sprite2D/SubViewport2"]
-material = SubResource("ShaderMaterial_burv7")
-position = Vector2(18, 18)
+[node name="ShadersSprite2D" parent="." instance=ExtResource("3_cvtmm")]
 texture = ExtResource("3_sjxq1")

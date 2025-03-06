@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3t1mfjcman2u"]
+
+[ext_resource type="Script" uid="uid://cfpmb34cr3cav" path="res://components/shaders_sprite2d/shaders_sprite_2d.gd" id="1_rmko8"]
+[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://test/entity_compoment_test/entity_components/ashes_disappear.gdshader" id="2_34taa"]
+[ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://test/entity_compoment_test/entity_components/random_shake_and_blink.gdshader" id="3_48my4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mbdiw"]
+shader = ExtResource("2_34taa")
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.542
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_urt4q"]
+shader = ExtResource("3_48my4")
+shader_parameter/hit_effect = 0.167
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+
+[node name="ShadersSprite2D" type="Node2D"]
+script = ExtResource("1_rmko8")
+shaders_dir = Dictionary[StringName, Material]({
+&"shader1": SubResource("ShaderMaterial_mbdiw"),
+&"shader2": SubResource("ShaderMaterial_urt4q")
+})
