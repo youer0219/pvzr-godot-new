@@ -1,10 +1,10 @@
 [gd_scene load_steps=51 format=3 uid="uid://bm4mj40jvngin"]
 
-[ext_resource type="Script" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
+[ext_resource type="Script" uid="uid://dqp5f1li4o8dy" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
 [ext_resource type="PackedScene" uid="uid://cl374yswj54dg" path="res://scenes/move/char_move/char_move.tscn" id="3_dxq6e"]
-[ext_resource type="Script" path="res://ai/tasks/check_input.gd" id="4_p0ape"]
-[ext_resource type="Script" path="res://ai/tasks/char_lateral_move.gd" id="4_y16dw"]
+[ext_resource type="Script" uid="uid://dwpy45yf4i072" path="res://ai/tasks/check_input.gd" id="4_p0ape"]
+[ext_resource type="Script" uid="uid://dsg75n1wkc8nj" path="res://ai/tasks/char_lateral_move.gd" id="4_y16dw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 6.0

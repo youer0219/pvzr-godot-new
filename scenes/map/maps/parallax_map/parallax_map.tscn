@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://bjmv0pqm705w5"]
 
-[ext_resource type="Script" path="res://scenes/map/maps/parallax_map/parallax_map.gd" id="1_ljwck"]
+[ext_resource type="Script" uid="uid://bupy0cr2jlklv" path="res://scenes/map/maps/parallax_map/parallax_map.gd" id="1_ljwck"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="1_p86cf"]
 [ext_resource type="Resource" uid="uid://c337pm7bqqh8n" path="res://data/map_data/home_map.tres" id="2_02unm"]
 [ext_resource type="TileSet" uid="uid://d23irg0u1c71h" path="res://scenes/map/map_tile_set.tres" id="2_lrl7s"]

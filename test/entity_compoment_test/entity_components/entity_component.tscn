@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d27ql2svxqnsf"]
 
-[ext_resource type="Script" path="res://test/entity_compoment_test/entity_components/entity_component.gd" id="1_ea3l7"]
-[ext_resource type="Shader" path="res://test/entity_compoment_test/entity_components/random_shake_and_blink.gdshader" id="2_glm8k"]
+[ext_resource type="Script" uid="uid://i87m07eulceq" path="res://test/entity_compoment_test/entity_components/entity_component.gd" id="1_ea3l7"]
+[ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://test/entity_compoment_test/entity_components/random_shake_and_blink.gdshader" id="2_glm8k"]
 [ext_resource type="Texture2D" uid="uid://cfpsvjyccomh0" path="res://test/entity_compoment_test/entity_components/普通僵尸.png" id="3_emetk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3sbo"]

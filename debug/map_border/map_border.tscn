@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cq08ylfmgkm8h"]
 
-[ext_resource type="Script" path="res://debug/map_border/map_border.gd" id="1_ex2ow"]
+[ext_resource type="Script" uid="uid://0sondfhlpes" path="res://debug/map_border/map_border.gd" id="1_ex2ow"]
 
 [node name="MapBorder" type="Node2D"]
 script = ExtResource("1_ex2ow")
