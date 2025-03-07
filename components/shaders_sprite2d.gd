@@ -3,19 +3,23 @@ class_name ShadersSprite2D
 extends Sprite2D
 ## 使用方法：
 ## 在bottom_texture中添加图像；在shaders_dir中添加着色器名称与着色器材质资源
+## 不要自己配置sprite2d的texture和material属性，会被替换！
 ## 该节点在编辑器中也能实时显示效果。但目前存在因数据配置出错等问题导致图像不能正确显示的问题。
-## 可以采取的策略是重新添加bottom_texture或shaders_dir以触发更新函数
-## 这里允许创建CanvasItemMaterial类型的材质，但作者没有用过，所以没有测试……
+## 可以在配置正确的数据后，点击generate按钮刷新一下
+## WARNING:这里允许创建CanvasItemMaterial类型的材质，但作者没有用过，所以没有测试……
 
+## 已知编辑器报错：ERROR: Path to node is invalid: 'Sprite2D/@SubViewport@23869'.
+## 但对于程序似乎没有影响
 
+@export_tool_button("generate") var genarete_func = generate
 @export var bottom_texture:Texture2D:
 	set(value):
 		bottom_texture = value
 		generate()
 		update_configuration_warnings()
-@export var shaders_dir:Dictionary[StringName,Material]:
+@export var shaders_dic:Dictionary[StringName,Material]:
 	set(value):
-		shaders_dir = value
+		shaders_dic = value
 		generate()
 		update_configuration_warnings()
 
@@ -23,7 +27,6 @@ var first_sub_viewport:SubViewport
 
 func _ready() -> void:
 	generate()
-
 
 func clear():
 	texture = null
@@ -39,10 +42,10 @@ func set_shader_param_by_name(choose_material_name:StringName,param:StringName, 
 	choose_material.set_shader_parameter(param,value)
 
 func get_material_by_name(choose_material_name:StringName)->Material:
-	if not shaders_dir.has(choose_material_name):
+	if not shaders_dic.has(choose_material_name):
 		push_warning(name + " shaders_dir" + "not has "+ choose_material_name)
 		return null
-	return shaders_dir[choose_material_name]
+	return shaders_dic[choose_material_name]
 
 func generate():
 	clear()
@@ -50,43 +53,39 @@ func generate():
 	if bottom_texture == null:
 		return
 	
-	var shaders_dir_size := shaders_dir.size()
+	var shaders_dic_size := shaders_dic.size()
 	
 	## 没有shader，返回
-	if shaders_dir_size == 0:
+	if shaders_dic_size == 0:
 		return
 	
 	var last_sprite_2d:Sprite2D = self
-	var shaders_array:Array = shaders_dir.values()
+	var shaders_array:Array = shaders_dic.values()
 	
 	for shader in shaders_array:
 		assert(shader.is_class("ShaderMaterial") or shader.is_class("CanvasItemMaterial"),"错误的sprite材质配置")
 	
-	if shaders_dir_size == 1:
-		texture = bottom_texture
-		material = shaders_array[0]
-		return
-	
-	for index in shaders_dir_size:
-		var new_material:Material = shaders_array[index]
-		last_sprite_2d.material = new_material
-		## 添加subviewport
+	for index in shaders_dic_size:
+		last_sprite_2d.material = shaders_array[index]
 		
-		var new_subviewport:SubViewport = _get_subviewport()
-		last_sprite_2d.add_child(new_subviewport)
-		if first_sub_viewport == null:
-			first_sub_viewport = new_subviewport
-		
-		## 给sprite2d添加viewport-texture
-		last_sprite_2d.texture = new_subviewport.get_texture()
-		
-		## 添加新的sprite2d
-		var new_sprite_2d:Sprite2D = Sprite2D.new()
-		new_sprite_2d.position = bottom_texture.get_size() / 2.0
-		new_subviewport.add_child(new_sprite_2d)
-		last_sprite_2d = new_sprite_2d
-	
-	last_sprite_2d.texture = bottom_texture
+		if shaders_dic_size - index == 1:
+			last_sprite_2d.texture = bottom_texture
+		else:
+			## 添加subviewport
+			var new_subviewport:SubViewport = _get_subviewport()
+			last_sprite_2d.add_child(new_subviewport)
+			if first_sub_viewport == null:
+				first_sub_viewport = new_subviewport
+			
+			## 给sprite2d添加viewport-texture
+			last_sprite_2d.texture = new_subviewport.get_texture()
+			
+			## 添加新的sprite2d
+			var new_sprite_2d:Sprite2D = Sprite2D.new()
+			new_sprite_2d.position = bottom_texture.get_size() / 2.0
+			new_subviewport.add_child(new_sprite_2d)
+			last_sprite_2d = new_sprite_2d
+
 
 ## 内部方法。获取一个适配图像大小的禁用3D渲染的透明背景的SubViewport实例化节点。
 func _get_subviewport()->SubViewport:
@@ -100,11 +99,11 @@ func _get_subviewport()->SubViewport:
 func _get_configuration_warnings():
 	var warnings = []
 	
-	if shaders_dir.size() <= 1:
+	if shaders_dic.size() <= 1:
 		## 不建议在没有或只有一个shader的情况下使用该节点
 		warnings.append("It is not recommended to use this node when there is no shader or only one shader.")
 	
-	var shader_materals := shaders_dir.values()
+	var shader_materals := shaders_dic.values()
 	for shader_materal in shader_materals:
 		if not (shader_materal.is_class("ShaderMaterial") or shader_materal.is_class("CanvasItemMaterial")):
 			## 请保证字典中的材质为ShaderMaterial或CanvasItemMaterial类型
