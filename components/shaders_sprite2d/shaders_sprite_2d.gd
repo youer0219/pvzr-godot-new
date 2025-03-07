@@ -59,6 +59,9 @@ func generate():
 			continue
 		var index_sprite_2d:Sprite2D = sprite2d_array[index]
 		index_sprite_2d.position = texture_size / 2.0
+		
+		if index_sprite_2d.texture is ViewportTexture:
+			print("sprite_2d.texture.viewport_path: ",index_sprite_2d.texture.viewport_path)
 
 func _get_configuration_warnings():
 	var warnings = []
