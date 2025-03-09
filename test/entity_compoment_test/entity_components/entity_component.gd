@@ -20,6 +20,8 @@ extends RigidBody2D
 
 signal throw_out(entity_component:EntityComponent)
 
+@onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
+
 @export var phy_enable:bool = false:set = _set_phy_enable
 
 
@@ -35,7 +37,13 @@ func _ready() -> void:
 
 func _set_phy_enable(value:bool):
 	phy_enable = value
+	
+	if not is_node_ready():
+		await ready
+	
+	## 抛出时启动物理。启动后，实体组件将与world碰撞。不启动时，实体应该静止并不碰撞。
 	freeze = not phy_enable
+	entity_collision_shape.set_deferred("disabled", not phy_enable)
 
 
 func throw(direction:int):

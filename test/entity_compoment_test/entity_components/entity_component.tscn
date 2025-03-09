@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://i87m07eulceq" path="res://test/entity_compoment_test/entity_components/entity_component.gd" id="1_ea3l7"]
 [ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://test/entity_compoment_test/entity_components/random_shake_and_blink.gdshader" id="2_glm8k"]
-[ext_resource type="Texture2D" uid="uid://cfpsvjyccomh0" path="res://test/entity_compoment_test/entity_components/普通僵尸.png" id="3_emetk"]
+[ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://test/entity_compoment_test/entity_components/投篮车僵尸-首.png" id="3_u6y8c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3sbo"]
 bounce = 0.3
@@ -29,9 +29,9 @@ script = ExtResource("1_ea3l7")
 material = SubResource("ShaderMaterial_13214")
 position = Vector2(-13, 18)
 scale = Vector2(2, 2)
-texture = ExtResource("3_emetk")
+texture = ExtResource("3_u6y8c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="EntityCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(1, -10)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_4o0fn")
