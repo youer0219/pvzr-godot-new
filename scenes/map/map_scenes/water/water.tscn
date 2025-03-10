@@ -470,7 +470,9 @@ animations = [{
 
 [node name="Water" type="Area2D"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 8
+linear_damp_space_override = 1
+linear_damp = 45.0
 script = ExtResource("3_bg3hq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
