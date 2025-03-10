@@ -11,13 +11,6 @@ extends RigidBody2D
 ## 抛出后有一点弹性。梯子等碰撞体很小，且位于顶部。所以可以达到图像没入地面但仍然弹跳的效果
 ## 入水后有阻尼效果
 
-## 视觉： -- shader如何混用或统一
-## 是否摇晃
-## 灰烬 / 冰冻 / 一般 ： 脱离时会恢复一般状态或进入灰烬状态。
-## ## 灰烬本身还分两种：静止 / 消失+粒子
-
-## 冰冻效果：6565ff
-
 signal throw_out(entity_component:EntityComponent)
 
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
