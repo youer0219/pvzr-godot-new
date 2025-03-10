@@ -35,7 +35,7 @@ size = Vector2(194, 89.5)
 metadata/_edit_lock_ = true
 
 [node name="EntityComponent" parent="." instance=ExtResource("8_tbda8")]
-position = Vector2(1196, 124)
+position = Vector2(1085, 154)
 collision_layer = 1
 collision_mask = 1
 
@@ -47,10 +47,10 @@ position = Vector2(1220, 156)
 enable = true
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(967, 87)
+position = Vector2(1199, 196)
+scale = Vector2(1.48093, 1.00374)
 linear_damp_space_override = 1
 linear_damp = 45.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(112, 100.75)
 shape = SubResource("RectangleShape2D_h858w")

@@ -6,6 +6,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3sbo"]
 bounce = 0.3
+absorbent = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4o0fn"]
 size = Vector2(12, 3.5)
