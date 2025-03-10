@@ -17,10 +17,11 @@ const FREEZE_COLOR := "6565FF"
 @export var blink_color:Color = Color(1,1,1,1)
 
 func _ready() -> void:
+	super()
 	if Engine.is_editor_hint():
 		return
 	
-	test()
+	#test()
 
 func test():
 	await get_tree().create_timer(1.0).timeout
@@ -55,3 +56,6 @@ func _set_ashes_shader_dissolve_amount(value:float):
 
 func _set_blink_shader_blink_intensity(value:float):
 	set_shader_param_by_name(SHAKE_AND_BLINK,"blink_intensity",value)
+
+func _notification(what: int) -> void:
+	super(what)

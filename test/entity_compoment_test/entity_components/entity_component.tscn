@@ -1,21 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://d27ql2svxqnsf"]
+[gd_scene load_steps=6 format=3 uid="uid://d27ql2svxqnsf"]
 
 [ext_resource type="Script" uid="uid://i87m07eulceq" path="res://test/entity_compoment_test/entity_components/entity_component.gd" id="1_ea3l7"]
-[ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://test/entity_compoment_test/entity_components/random_shake_and_blink.gdshader" id="2_glm8k"]
+[ext_resource type="PackedScene" uid="uid://jvv80h74co6g" path="res://components/entity_component/entity_component_image/entity_component_image.tscn" id="2_u6y8c"]
 [ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://test/entity_compoment_test/entity_components/投篮车僵尸-首.png" id="3_u6y8c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3sbo"]
 bounce = 0.3
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_13214"]
-shader = ExtResource("2_glm8k")
-shader_parameter/hit_effect = 0.0
-shader_parameter/shake_intensity = 10.0
-shader_parameter/blink_color = Color(1, 1, 1, 1)
-shader_parameter/blink_intensity = 0.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4o0fn"]
-size = Vector2(10, 3)
+size = Vector2(12, 3.5)
 
 [node name="EntityComponent" type="RigidBody2D"]
 collision_layer = 0
@@ -25,13 +18,12 @@ lock_rotation = true
 freeze = true
 script = ExtResource("1_ea3l7")
 
-[node name="Image" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_13214")
-position = Vector2(-13, 18)
+[node name="EntityComponentImage" parent="." instance=ExtResource("2_u6y8c")]
 scale = Vector2(2, 2)
-texture = ExtResource("3_u6y8c")
+shaders_texture = ExtResource("3_u6y8c")
+metadata/_edit_lock_ = true
 
 [node name="EntityCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(1, -10)
+position = Vector2(16, -28)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_4o0fn")
