@@ -13,25 +13,36 @@ extends RigidBody2D
 
 signal entity_component_leave_out(entity_component:EntityComponent)
 
+enum EntityComponentAction {
+	THROW,         ## 抛出
+	#MAGNETIC_PULL, ## 被磁力菇吸引.直接通过信号链接应该就好.
+	ASH_HEAD,      ## 头的灰烬效果
+	ASH_BODY,      ## 身体的灰烬效果
+	FREE,          ## 消失。一般用于其他组件的灰烬效果
+	NO_ACTION,     ## 无行动
+	SPECIAL,       ## 特殊。比如小丑盒子在僵尸一般死亡后触发。
+	}
+
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
 @onready var entity_component_image: EntityComponentImage = $EntityComponentImage
 
-
 @export var phy_enable:bool = false:set = _set_phy_enable
 
+@export var common_dead_action_type:EntityComponentAction = EntityComponentAction.THROW
+@export var ash_dead_action_type:EntityComponentAction = EntityComponentAction.NO_ACTION
 
 var is_in_body := true
 
 func _ready() -> void:
-	entity_component_leave_out.connect(
-		func(entity_component:EntityComponent):
-			print(entity_component.name + " 发出throw_out信号，交给父节点处理")
-	)
-	
 	await get_tree().create_timer(1.0).timeout
 	#throw(Vector2i.LEFT.x)
 	#apply_magnetic_pull(Vector2.ZERO)
 	#ash_body()
+	var damage_data = preload("res://data/damage_data/test_damage_data.tres")
+	damage_data.target_pos = global_position
+	damage_data.from_pos = Vector2.ZERO
+	damage_data.damage_type = DamageData.DamageType.EXPLOSIVE_DAMAGE
+	entity_dead(damage_data)
 
 func _set_phy_enable(value:bool):
 	phy_enable = value
@@ -42,6 +53,38 @@ func _set_phy_enable(value:bool):
 	## 抛出时启动物理。启动后，实体组件将与world碰撞。不启动时，实体应该静止并不碰撞。
 	freeze = not phy_enable
 	entity_collision_shape.set_deferred("disabled", not phy_enable)
+
+
+func entity_dead(damage_data:DamageData):
+	## 因灰烬伤害死亡
+	if damage_data.damage_type == DamageData.DamageType.EXPLOSIVE_DAMAGE:
+		apply_entity_component_action(ash_dead_action_type,damage_data)
+		return
+	## TODO:因碾压伤害死亡。对于僵尸来说并没有什么特殊的，植物会变成扁形。
+	## 目前暂时当作一般伤害处理
+	
+	apply_entity_component_action(common_dead_action_type,damage_data)
+
+
+func apply_entity_component_action(entity_component_action:EntityComponentAction,damage_data:DamageData):
+	match entity_component_action:
+		EntityComponentAction.THROW:
+			throw(damage_data.get_throw_direction())
+		EntityComponentAction.ASH_HEAD:
+			ash_head()
+		EntityComponentAction.ASH_BODY:
+			ash_body()
+		EntityComponentAction.FREE:
+			queue_free()
+		EntityComponentAction.SPECIAL:
+			special_action()
+		EntityComponentAction.NO_ACTION:
+			print(name + " NO_ACTION ")
+			pass
+
+func special_action():
+	push_error("抽象方法。请实现后再调用。无行动不要使用这个行为类型。")
+	pass
 
 func ash_body():
 	entity_component_image.ash()
