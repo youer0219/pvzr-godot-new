@@ -44,8 +44,6 @@ func throw(direction:int):
 	phy_enable = true
 	
 	var tween:Tween = create_tween()
-	tween.tween_callback(self.apply_central_impulse.bind(Vector2(direction * 100 , -1 * 300)))
-	tween.tween_interval(0.5)
-	tween.tween_callback(self.apply_central_impulse.bind(Vector2.ZERO))
-	tween.tween_interval(2)
+	apply_impulse(Vector2(direction * 80 , -400))
+	tween.tween_interval(3.0)
 	tween.tween_callback(self.queue_free)
