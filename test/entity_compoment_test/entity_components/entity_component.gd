@@ -12,7 +12,15 @@ extends RigidBody2D
 ## 入水后有阻尼效果
 
 signal entity_component_leave_out(entity_component:EntityComponent)
+signal entity_component_dead(entity_component:EntityComponent,damage_data:DamageData)
+signal entity_component_damaged(entity_component:EntityComponent)
+signal entity_component_half_hp(entity_component:EntityComponent)
 
+enum EntityComponentType {
+	MAIN_BODY,        # 本体
+	ACCESSORY_TIER_1, # I类饰品
+	ACCESSORY_TIER_2  # II类饰品
+}
 enum EntityComponentAction {
 	THROW,         ## 抛出
 	#MAGNETIC_PULL, ## 被磁力菇吸引.直接通过信号链接应该就好.
@@ -26,12 +34,17 @@ enum EntityComponentAction {
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
 @onready var entity_component_image: EntityComponentImage = $EntityComponentImage
 
+@export var init_hp:float = 5.0
+@export var entity_component_type:EntityComponentType = EntityComponentType.MAIN_BODY
 @export var phy_enable:bool = false:set = _set_phy_enable
 
+@export_group("Action Setting")
+@export var component_dead_action_type:EntityComponentAction = EntityComponentAction.THROW
 @export var common_dead_action_type:EntityComponentAction = EntityComponentAction.THROW
 @export var ash_dead_action_type:EntityComponentAction = EntityComponentAction.NO_ACTION
 
 var is_in_body := true
+var curr_hp:float = init_hp
 
 func _ready() -> void:
 	await get_tree().create_timer(1.0).timeout
@@ -41,8 +54,9 @@ func _ready() -> void:
 	var damage_data = preload("res://data/damage_data/test_damage_data.tres")
 	damage_data.target_pos = global_position
 	damage_data.from_pos = Vector2.ZERO
+	damage_data.damage = 10.0
 	damage_data.damage_type = DamageData.DamageType.EXPLOSIVE_DAMAGE
-	entity_dead(damage_data)
+	apply_damage(damage_data)
 
 func _set_phy_enable(value:bool):
 	phy_enable = value
@@ -54,6 +68,24 @@ func _set_phy_enable(value:bool):
 	freeze = not phy_enable
 	entity_collision_shape.set_deferred("disabled", not phy_enable)
 
+func apply_damage(damage_data:DamageData)->DamageData:
+	if damage_data.damage >= curr_hp:
+		damage_data.damage -= curr_hp
+		curr_hp = 0
+		component_dead(damage_data)
+		entity_component_dead.emit(self,damage_data)
+	else:
+		var has_up_half_hp:bool = curr_hp > init_hp / 2.0
+		curr_hp -= damage_data.damage
+		if has_up_half_hp and curr_hp < init_hp / 2.0:
+			entity_component_half_hp.emit(self)
+		damage_data.damage = 0
+		entity_component_damaged.emit(self)
+	
+	return damage_data
+
+func component_dead(damage_data:DamageData):
+	apply_entity_component_action(component_dead_action_type,damage_data)
 
 func entity_dead(damage_data:DamageData):
 	## 因灰烬伤害死亡
