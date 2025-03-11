@@ -11,21 +11,23 @@ extends RigidBody2D
 ## 抛出后有一点弹性。梯子等碰撞体很小，且位于顶部。所以可以达到图像没入地面但仍然弹跳的效果
 ## 入水后有阻尼效果
 
-signal throw_out(entity_component:EntityComponent)
+signal leave_out(entity_component:EntityComponent)
 
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
 
 @export var phy_enable:bool = false:set = _set_phy_enable
 
+var is_in_body := true
 
 func _ready() -> void:
-	throw_out.connect(
+	leave_out.connect(
 		func(entity_component:EntityComponent):
 			print(entity_component.name + " 发出throw_out信号，交给父节点处理")
 	)
 	
 	await get_tree().create_timer(1.0).timeout
-	throw(Vector2i.LEFT.x)
+	#throw(Vector2i.LEFT.x)
+	#apply_magnetic_pull(Vector2.ZERO)
 
 
 func _set_phy_enable(value:bool):
@@ -38,9 +40,22 @@ func _set_phy_enable(value:bool):
 	freeze = not phy_enable
 	entity_collision_shape.set_deferred("disabled", not phy_enable)
 
+func apply_magnetic_pull(target_global_pos:Vector2):
+	is_in_body = false
+	phy_enable = false
+	## TODO:或许要应用一个偏移量来使其正对磁力菇的预估位置
+	var tween:Tween = create_tween()
+	tween.tween_property(self,"global_position",target_global_pos,5.5)
+	tween.tween_interval(25.0)
+	tween.tween_callback(self.queue_free)
+
+
+func can_apply_magnetic_pull()->bool:
+	return not is_in_body
 
 func throw(direction:int):
-	throw_out.emit(self)
+	is_in_body = false
+	leave_out.emit(self)
 	phy_enable = true
 	
 	var tween:Tween = create_tween()
