@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyqig51uluybf"]
+
+[ext_resource type="Script" uid="uid://b8a2e14nmlnht" path="res://components/entity_component/entity_component_manager.gd" id="1_qg5lj"]
+
+[node name="EntityComponentManager" type="Node2D"]
+script = ExtResource("1_qg5lj")

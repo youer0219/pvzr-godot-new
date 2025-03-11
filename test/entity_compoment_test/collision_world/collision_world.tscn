@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=12 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
 [ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_decorative_map.tscn" id="2_mk1kk"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cc7ne0my3hwjm" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_ladder_map.tscn" id="4_472qy"]
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
-[ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://test/entity_compoment_test/entity_components/entity_component.tscn" id="8_tbda8"]
+[ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://components/entity_component/entity_component_manager.tscn" id="7_hqmd0"]
+[ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://components/entity_component/entity_component.tscn" id="8_tbda8"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="9_sf4kt"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
@@ -37,7 +38,9 @@ metadata/_edit_lock_ = true
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
 map_data = SubResource("Resource_brqar")
 
-[node name="EntityComponent" parent="." instance=ExtResource("8_tbda8")]
+[node name="EntityComponentManager" parent="." instance=ExtResource("7_hqmd0")]
+
+[node name="EntityComponent" parent="EntityComponentManager" instance=ExtResource("8_tbda8")]
 position = Vector2(926, 546)
 collision_layer = 1
 collision_mask = 1
