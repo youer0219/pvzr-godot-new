@@ -11,15 +11,17 @@ extends RigidBody2D
 ## 抛出后有一点弹性。梯子等碰撞体很小，且位于顶部。所以可以达到图像没入地面但仍然弹跳的效果
 ## 入水后有阻尼效果
 
+## TODO:暂时保留这个信号。主要是因为body组件不能脱离。
+## 未来可能在data中添加一个bool变量来处理
 signal entity_component_leave_out(entity_component:EntityComponent)
 signal entity_component_dead(entity_component:EntityComponent,damage_data:DamageData)
 signal entity_component_damaged(entity_component:EntityComponent)
 signal entity_component_half_hp(entity_component:EntityComponent)
 
 enum EntityComponentType {
-	MAIN_BODY,        # 本体
-	ACCESSORY_TIER_1, # I类饰品
-	ACCESSORY_TIER_2  # II类饰品
+	MAIN_BODY,        ## 本体
+	ACCESSORY_TIER_1, ## I类饰品
+	ACCESSORY_TIER_2  ## II类饰品
 }
 enum EntityComponentAction {
 	THROW,         ## 抛出
@@ -34,35 +36,26 @@ enum EntityComponentAction {
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
 @onready var entity_component_image: EntityComponentImage = $EntityComponentImage
 
-@export var init_hp:float = 5.0
-@export var entity_component_type:EntityComponentType = EntityComponentType.MAIN_BODY
-@export var phy_enable:bool = false:set = _set_phy_enable
-
-@export_group("Action Setting")
-@export var component_dead_action_type:EntityComponentAction = EntityComponentAction.THROW
-@export var common_dead_action_type:EntityComponentAction = EntityComponentAction.THROW
-@export var ash_dead_action_type:EntityComponentAction = EntityComponentAction.NO_ACTION
+@export var entity_component_data:EntityComponentData:set = _set_entity_component_data
 
 var is_in_body := true
-var curr_hp:float = init_hp
+var curr_hp:float = 0.0
+var phy_enable:bool = false:set = _set_phy_enable
 
-func _ready() -> void:
-	await get_tree().create_timer(1.0).timeout
-	#throw(Vector2i.LEFT.x)
-	#apply_magnetic_pull(Vector2.ZERO)
-	#ash_body()
-	var damage_data = preload("res://data/damage_data/test_damage_data.tres")
-	damage_data.target_pos = global_position
-	damage_data.from_pos = Vector2.ZERO
-	damage_data.damage = 10.0
-	damage_data.damage_type = DamageData.DamageType.EXPLOSIVE_DAMAGE
-	apply_damage(damage_data)
-
-func _set_phy_enable(value:bool):
-	phy_enable = value
+func _set_entity_component_data(value:EntityComponentData):
+	entity_component_data = value
 	
 	if not is_node_ready():
 		await ready
+	
+	entity_component_image.shaders_texture = entity_component_data.component_texture
+	## 除了初始化时一般不会有data的set触发，所以这是安全的。
+	## 如果存在问题，可以考虑在类中新建一个init-hp变量。
+	## 更新这个变量并等比例更新curr-hp。但存在浮点数误差。
+	curr_hp = entity_component_data.init_hp
+
+func _set_phy_enable(value:bool):
+	phy_enable = value
 	
 	## 抛出时启动物理。启动后，实体组件将与world碰撞。不启动时，实体应该静止并不碰撞。
 	freeze = not phy_enable
@@ -75,9 +68,9 @@ func apply_damage(damage_data:DamageData)->DamageData:
 		component_dead(damage_data)
 		entity_component_dead.emit(self,damage_data)
 	else:
-		var has_up_half_hp:bool = curr_hp > init_hp / 2.0
+		var has_up_half_hp:bool = curr_hp > entity_component_data.init_hp / 2.0
 		curr_hp -= damage_data.damage
-		if has_up_half_hp and curr_hp < init_hp / 2.0:
+		if has_up_half_hp and curr_hp < entity_component_data.init_hp / 2.0:
 			entity_component_half_hp.emit(self)
 		damage_data.damage = 0
 		entity_component_damaged.emit(self)
@@ -85,17 +78,17 @@ func apply_damage(damage_data:DamageData)->DamageData:
 	return damage_data
 
 func component_dead(damage_data:DamageData):
-	apply_entity_component_action(component_dead_action_type,damage_data)
+	apply_entity_component_action(entity_component_data.component_dead_action_type,damage_data)
 
 func entity_dead(damage_data:DamageData):
 	## 因灰烬伤害死亡
 	if damage_data.damage_type == DamageData.DamageType.EXPLOSIVE_DAMAGE:
-		apply_entity_component_action(ash_dead_action_type,damage_data)
+		apply_entity_component_action(entity_component_data.ash_dead_action_type,damage_data)
 		return
 	## TODO:因碾压伤害死亡。对于僵尸来说并没有什么特殊的，植物会变成扁形。
 	## 目前暂时当作一般伤害处理
 	
-	apply_entity_component_action(common_dead_action_type,damage_data)
+	apply_entity_component_action(entity_component_data.common_dead_action_type,damage_data)
 
 
 func apply_entity_component_action(entity_component_action:EntityComponentAction,damage_data:DamageData):

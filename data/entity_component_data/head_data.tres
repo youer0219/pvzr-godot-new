@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=3 format=3 uid="uid://b2tk4v7426e3x"]
+
+[ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://assets/sprites/entity_component/heads/投篮车僵尸-首.png" id="1_fh47t"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_rjke3"]
+
+[resource]
+script = ExtResource("1_rjke3")
+init_hp = 5.0
+component_texture = ExtResource("1_fh47t")
+entity_component_type = 0
+component_dead_action_type = 4
+common_dead_action_type = 0
+ash_dead_action_type = 1
+metadata/_custom_type_script = "uid://3o6cf4yej0ey"
