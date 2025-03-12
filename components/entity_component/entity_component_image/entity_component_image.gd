@@ -11,8 +11,9 @@ const ASHES :StringName = "ashes"
 ## 灰烬 / 冰冻 / 一般 / 魅惑： 脱离时会恢复一般状态或进入灰烬状态。
 ## ## 灰烬本身还分两种：静止 / 消失+粒子
 
-## 冰冻效果： 6565ff
+## 冰冻效果： 6565ff 魅惑效果： ff25ff
 const FREEZE_COLOR := "6565FF"
+const CHARM_COLOR := "ff25ff"
 
 @export var blink_color:Color = Color(1,1,1,1)
 
