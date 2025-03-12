@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://c77xg7d8nc3v0"]
+
+[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="1_5jptf"]
+[ext_resource type="Script" uid="uid://bjoq816n54yxb" path="res://components/entity_component/entity_component_image/entity_component_image.gd" id="2_bxjsl"]
+[ext_resource type="Texture2D" uid="uid://cfpsvjyccomh0" path="res://test/entity_compoment_test/entity_components/普通僵尸.png" id="3_hs1v3"]
+[ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://assets/shaders/random_shake_and_blink.gdshader" id="4_ejem8"]
+[ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://test/entity_compoment_test/test_visual/test_canvsa_group.gdshader" id="5_70ict"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cfajj"]
+shader = ExtResource("1_5jptf")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fmd3g"]
+shader = ExtResource("4_ejem8")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ca72m"]
+shader = ExtResource("5_70ict")
+
+[node name="TestVisual" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+process_callback = 0
+
+[node name="EntityComponentImage3" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_cfajj")
+position = Vector2(23, 1)
+script = ExtResource("2_bxjsl")
+shaders_texture = ExtResource("3_hs1v3")
+shaders_dic = Dictionary[StringName, Material]({
+&"ashes": SubResource("ShaderMaterial_cfajj"),
+&"shake_and_blink": SubResource("ShaderMaterial_fmd3g")
+})
+canvas_item_default_texture_filter = 0
+metadata/_custom_type_script = "uid://dkyeoxpgfc55q"
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+modulate = Color(1, 0.145098, 1, 1)
+self_modulate = Color(0.396078, 0.396078, 1, 1)
+material = SubResource("ShaderMaterial_ca72m")
+position = Vector2(-19, 0)
+
+[node name="EntityComponentImage2" type="Sprite2D" parent="CanvasGroup"]
+material = SubResource("ShaderMaterial_cfajj")
+script = ExtResource("2_bxjsl")
+shaders_texture = ExtResource("3_hs1v3")
+shaders_dic = Dictionary[StringName, Material]({
+&"ashes": SubResource("ShaderMaterial_cfajj"),
+&"shake_and_blink": SubResource("ShaderMaterial_fmd3g")
+})
+canvas_item_default_texture_filter = 0
+metadata/_custom_type_script = "uid://dkyeoxpgfc55q"
