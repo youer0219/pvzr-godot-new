@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://d27ql2svxqnsf"]
+[gd_scene load_steps=8 format=3 uid="uid://d27ql2svxqnsf"]
 
 [ext_resource type="Script" uid="uid://i87m07eulceq" path="res://components/entity_component/entity_component.gd" id="1_ea3l7"]
-[ext_resource type="PackedScene" uid="uid://jvv80h74co6g" path="res://components/entity_component/entity_component_image/entity_component_image.tscn" id="2_u6y8c"]
 [ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/head_data.tres" id="2_yiqpc"]
 [ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://assets/sprites/entity_component/heads/投篮车僵尸-首.png" id="3_u6y8c"]
+[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="3_yiqpc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yiqpc"]
+resource_local_to_scene = true
+shader = ExtResource("3_yiqpc")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3sbo"]
 bounce = 0.3
@@ -13,6 +20,7 @@ absorbent = true
 size = Vector2(12, 3.5)
 
 [node name="EntityComponent" type="RigidBody2D"]
+material = SubResource("ShaderMaterial_yiqpc")
 collision_layer = 0
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_q3sbo")
@@ -21,10 +29,10 @@ freeze = true
 script = ExtResource("1_ea3l7")
 entity_component_data = ExtResource("2_yiqpc")
 
-[node name="EntityComponentImage" parent="." instance=ExtResource("2_u6y8c")]
+[node name="EntityComponentImage" type="Sprite2D" parent="."]
+use_parent_material = true
 scale = Vector2(2, 2)
-shaders_texture = ExtResource("3_u6y8c")
-metadata/_edit_lock_ = true
+texture = ExtResource("3_u6y8c")
 
 [node name="EntityCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(16, -28)

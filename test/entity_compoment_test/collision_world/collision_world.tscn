@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=13 format=3 uid="uid://6bn3n322w0b1"]
 
+[ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
 [ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_decorative_map.tscn" id="2_mk1kk"]
 [ext_resource type="PackedScene" uid="uid://cpcqmein2p3c5" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_inner_map.tscn" id="3_y6km7"]
@@ -33,6 +34,7 @@ is_pink_sky = false
 size = Vector2(194, 89.5)
 
 [node name="CollisionWorld" type="Node2D"]
+script = ExtResource("1_a0j4q")
 metadata/_edit_lock_ = true
 
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
@@ -41,6 +43,7 @@ map_data = SubResource("Resource_brqar")
 [node name="EntityComponentManager" parent="." instance=ExtResource("7_hqmd0")]
 
 [node name="EntityComponent" parent="EntityComponentManager" instance=ExtResource("8_tbda8")]
+unique_name_in_owner = true
 position = Vector2(926, 546)
 collision_layer = 1
 collision_mask = 1

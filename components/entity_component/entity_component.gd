@@ -34,7 +34,7 @@ enum EntityComponentAction {
 	}
 
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
-@onready var entity_component_image: EntityComponentImage = $EntityComponentImage
+@onready var entity_component_image: Sprite2D = $EntityComponentImage
 
 @export var entity_component_data:EntityComponentData:set = _set_entity_component_data
 
@@ -48,7 +48,7 @@ func _set_entity_component_data(value:EntityComponentData):
 	if not is_node_ready():
 		await ready
 	
-	entity_component_image.shaders_texture = entity_component_data.component_texture
+	entity_component_image.texture = entity_component_data.component_texture
 	## 除了初始化时一般不会有data的set触发，所以这是安全的。
 	## 如果存在问题，可以考虑在类中新建一个init-hp变量。
 	## 更新这个变量并等比例更新curr-hp。但存在浮点数误差。
@@ -63,8 +63,9 @@ func _set_phy_enable(value:bool):
 
 func apply_damage(damage_data:DamageData)->DamageData:
 	if damage_data.damage >= curr_hp:
-		damage_data.damage -= curr_hp
-		curr_hp = 0
+		if curr_hp > 0:
+			damage_data.damage -= curr_hp
+			curr_hp = 0
 		component_dead(damage_data)
 		entity_component_dead.emit(self,damage_data)
 	else:
@@ -112,14 +113,14 @@ func special_action():
 	pass
 
 func ash_body():
-	entity_component_image.ash()
+	ash()
 	await get_tree().create_timer(1.25).timeout
-	entity_component_image.ash_disapply()
+	ash_disapply()
 	await get_tree().create_timer(1.25).timeout
 	queue_free()
 
 func ash_head():
-	entity_component_image.ash()
+	ash()
 	await get_tree().create_timer(1.25).timeout
 	leave_out()
 	phy_enable = true
@@ -150,4 +151,19 @@ func throw(direction:int):
 func leave_out():
 	entity_component_leave_out.emit(self)
 	is_in_body = false
-	## TODO:清理Image的冰冻状态。但似乎不影响魅惑状态。不过现在冰冻没实现，之后处理。
+
+func ash_pre_clear():
+	## TODO:停止闪烁。停止冰冻与魅惑。等后两者实现后再研究具体处理。
+	pass
+
+func ash():
+	ash_pre_clear()
+	material.set_shader_parameter("use_replace_color",true)
+	material.set_shader_parameter("replace_color",Color.BLACK)
+
+func ash_disapply():
+	var tween:Tween = create_tween()
+	tween.tween_method(_set_ashes_shader_dissolve_amount,0.0,1.0,1)
+
+func _set_ashes_shader_dissolve_amount(value:float):
+	material.set_shader_parameter("dissolve_amount",value)

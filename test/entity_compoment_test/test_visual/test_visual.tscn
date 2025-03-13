@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c77xg7d8nc3v0"]
+[gd_scene load_steps=11 format=3 uid="uid://c77xg7d8nc3v0"]
 
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="1_5jptf"]
 [ext_resource type="Script" uid="uid://bd5mwd8llkk6n" path="res://test/entity_compoment_test/test_visual/test_visual.gd" id="1_bxjsl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cfpsvjyccomh0" path="res://test/entity_compoment_test/entity_components/普通僵尸.png" id="3_hs1v3"]
 [ext_resource type="Shader" uid="uid://085aqemmy8o" path="res://assets/shaders/random_shake_and_blink.gdshader" id="4_ejem8"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="5_70ict"]
+[ext_resource type="Texture2D" uid="uid://bwljxukxmrgjh" path="res://assets/sprites/entity_component/helmet/铁桶.png" id="7_hs1v3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cfajj"]
 shader = ExtResource("1_5jptf")
@@ -55,7 +56,7 @@ position = Vector2(-19, 0)
 [node name="EntityComponentImage2" type="Sprite2D" parent="CanvasGroup"]
 material = SubResource("ShaderMaterial_cfajj")
 script = ExtResource("2_bxjsl")
-shaders_texture = ExtResource("3_hs1v3")
+shaders_texture = ExtResource("7_hs1v3")
 shaders_dic = Dictionary[StringName, Material]({
 &"ashes": SubResource("ShaderMaterial_cfajj"),
 &"shake_and_blink": SubResource("ShaderMaterial_fmd3g")
