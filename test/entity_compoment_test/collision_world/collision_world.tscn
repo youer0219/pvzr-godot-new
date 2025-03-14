@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=15 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://components/entity_component/entity_component_manager.tscn" id="7_hqmd0"]
 [ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://components/entity_component/entity_component.tscn" id="8_tbda8"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="9_sf4kt"]
+[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="10_rsxef"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -30,6 +31,13 @@ is_night_time = false
 is_boss_level = false
 is_pink_sky = false
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmk3r"]
+resource_local_to_scene = true
+shader = ExtResource("10_rsxef")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
 size = Vector2(194, 89.5)
 
@@ -44,6 +52,7 @@ map_data = SubResource("Resource_brqar")
 
 [node name="EntityComponent" parent="EntityComponentManager" instance=ExtResource("8_tbda8")]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_lmk3r")
 position = Vector2(926, 546)
 collision_layer = 1
 collision_mask = 1

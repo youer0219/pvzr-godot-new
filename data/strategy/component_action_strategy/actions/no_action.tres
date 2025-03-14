@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="NoActionStrategy" load_steps=2 format=3 uid="uid://bfpbprn4v6hpm"]
+
+[ext_resource type="Script" uid="uid://bmgmid8c42vhn" path="res://data/strategy/component_action_strategy/actions_script/no_action_strategy.gd" id="1_e4b8g"]
+
+[resource]
+script = ExtResource("1_e4b8g")
+strategy_name = "NoAction"
+metadata/_custom_type_script = "uid://bmgmid8c42vhn"

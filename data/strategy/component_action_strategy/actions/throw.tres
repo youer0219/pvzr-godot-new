@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ThrowActionStrategy" load_steps=2 format=3 uid="uid://biem3n7dv1e14"]
+
+[ext_resource type="Script" uid="uid://b84tc1b2mshj" path="res://data/strategy/component_action_strategy/actions_script/throw_action_strategy.gd" id="1_fjjyi"]
+
+[resource]
+script = ExtResource("1_fjjyi")
+horizontal_force = 80.0
+vertical_force = -400.0
+strategy_name = "Throw"
+metadata/_custom_type_script = "uid://b84tc1b2mshj"

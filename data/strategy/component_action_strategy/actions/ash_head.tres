@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AshHeadStrategy" load_steps=2 format=3 uid="uid://bty0yxvydfqhg"]
+
+[ext_resource type="Script" uid="uid://snlti0dx2qi6" path="res://data/strategy/component_action_strategy/actions_script/ash_head_action_strategy.gd" id="1_3yxw6"]
+
+[resource]
+script = ExtResource("1_3yxw6")
+strategy_name = "AshHead"
+metadata/_custom_type_script = "uid://snlti0dx2qi6"
