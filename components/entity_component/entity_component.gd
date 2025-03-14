@@ -1,3 +1,4 @@
+@tool
 class_name EntityComponent
 extends RigidBody2D
 
@@ -26,9 +27,13 @@ func _set_entity_component_data(value: EntityComponentData) -> void:
 	
 	if not is_node_ready():
 		await ready
-	
-	entity_component_image.texture = entity_component_data.component_texture
+	if not entity_component_data.changed.is_connected(_set_component_texture):
+		entity_component_data.changed.connect(_set_component_texture)
+	_set_component_texture()
 	curr_hp = entity_component_data.init_hp ## 只在初始化时set一次，所以是安全的
+
+func _set_component_texture():
+	entity_component_image.texture = entity_component_data.component_texture
 
 func _set_phy_enable(value: bool) -> void:
 	phy_enable = value

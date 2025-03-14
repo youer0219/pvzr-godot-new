@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cj4xpn0fqe0tl"
-path="res://.godot/imported/伴舞僵尸-身.png-c57f3ff4fb962aadddf8a1c5a2fd609a.ctex"
+path="res://.godot/imported/伴舞僵尸-身.png-4dd7b099e8da1cceff7508cd3e5e68d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/entity_compoment_test/entity_components/伴舞僵尸-身.png"
-dest_files=["res://.godot/imported/伴舞僵尸-身.png-c57f3ff4fb962aadddf8a1c5a2fd609a.ctex"]
+source_file="res://assets/sprites/entity_component/body/伴舞僵尸-身.png"
+dest_files=["res://.godot/imported/伴舞僵尸-身.png-4dd7b099e8da1cceff7508cd3e5e68d9.ctex"]
 
 [params]
 
