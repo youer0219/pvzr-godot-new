@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=25 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -13,10 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="9_sf4kt"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="10_ji6ks"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="10_rsxef"]
-[ext_resource type="Resource" uid="uid://bty0yxvydfqhg" path="res://data/strategy/component_action_strategy/actions/ash_head.tres" id="11_3ldi5"]
 [ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="12_n5mjp"]
 [ext_resource type="Texture2D" uid="uid://cj4xpn0fqe0tl" path="res://assets/sprites/entity_component/body/伴舞僵尸-身.png" id="13_8vnb8"]
+[ext_resource type="Resource" uid="uid://k7kubdpumlfj" path="res://data/strategy/component_action_strategy/actions/ash_body.tres" id="13_bstds"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="14_bstds"]
+[ext_resource type="Resource" uid="uid://bfpbprn4v6hpm" path="res://data/strategy/component_action_strategy/actions/no_action.tres" id="15_bstds"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -58,9 +59,9 @@ script = ExtResource("14_bstds")
 init_hp = 0.0
 component_texture = ExtResource("13_8vnb8")
 component_type = 0
-component_dead_strategy = ExtResource("11_3ldi5")
+component_dead_strategy = ExtResource("15_bstds")
 common_dead_strategy = ExtResource("12_n5mjp")
-ash_dead_strategy = ExtResource("11_3ldi5")
+ash_dead_strategy = ExtResource("13_bstds")
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lmk3r"]
@@ -80,7 +81,9 @@ metadata/_edit_lock_ = true
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
 map_data = SubResource("Resource_brqar")
 
-[node name="EntityComponentManager" parent="." instance=ExtResource("7_hqmd0")]
+[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "main_body_component") instance=ExtResource("7_hqmd0")]
+main_body_canvas_group = NodePath("EntityComponentCanvasGroup")
+main_body_component = NodePath("EntityComponentCanvasGroup/EntityComponent2")
 
 [node name="EntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
 material = SubResource("ShaderMaterial_62hll")

@@ -19,7 +19,4 @@ func execute(component: EntityComponent, _damage_data: DamageData) -> void:
 		1.0, 
 		1.0
 	)
-	await tween.finished
-	
-	# 溶解完成后移除组件
-	component.queue_free()
+	tween.tween_callback(component.queue_free)

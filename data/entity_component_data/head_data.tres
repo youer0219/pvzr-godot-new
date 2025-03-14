@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://b2tk4v7426e3x"]
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=6 format=3 uid="uid://b2tk4v7426e3x"]
 
 [ext_resource type="Resource" uid="uid://bty0yxvydfqhg" path="res://data/strategy/component_action_strategy/actions/ash_head.tres" id="1_8sbid"]
 [ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://assets/sprites/entity_component/heads/投篮车僵尸-首.png" id="1_fh47t"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_rjke3"]
 [ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="2_0qhu3"]
+[ext_resource type="Resource" uid="uid://bfpbprn4v6hpm" path="res://data/strategy/component_action_strategy/actions/no_action.tres" id="3_0qhu3"]
 
 [resource]
 script = ExtResource("1_rjke3")
 init_hp = 5.0
 component_texture = ExtResource("1_fh47t")
 component_type = 0
-component_dead_strategy = ExtResource("1_8sbid")
+component_dead_strategy = ExtResource("3_0qhu3")
 common_dead_strategy = ExtResource("2_0qhu3")
 ash_dead_strategy = ExtResource("1_8sbid")
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"

@@ -37,6 +37,7 @@ func _set_component_texture():
 
 func _set_phy_enable(value: bool) -> void:
 	phy_enable = value
+	
 	freeze = not phy_enable
 	entity_collision_shape.set_deferred("disabled", not phy_enable)
 

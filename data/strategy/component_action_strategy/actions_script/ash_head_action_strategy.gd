@@ -7,11 +7,12 @@ func execute(component: EntityComponent, _damage_data: DamageData) -> void:
 	component.material.set_shader_parameter("use_replace_color", true)
 	component.material.set_shader_parameter("replace_color", Color.BLACK)
 	
-	# 等待1.25秒后脱离主体
-	await component.get_tree().create_timer(1.25).timeout
-	component.leave_out()
-	component.phy_enable = true
-	
-	# 再等待1.25秒后结束
-	await component.get_tree().create_timer(1.25).timeout
-	component.queue_free()
+	var tween := component.create_tween()
+	tween.tween_interval(1.25)
+	tween.tween_callback(component.leave_out)
+	tween.tween_callback(
+		func():
+			component.phy_enable = true
+	)
+	tween.tween_interval(1.25)
+	tween.tween_callback(component.queue_free)
