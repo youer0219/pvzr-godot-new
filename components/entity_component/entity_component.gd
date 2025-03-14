@@ -76,7 +76,7 @@ func _execute_strategy(strategy:ComponentActionStrategy,damage_data:DamageData):
 			strategy.execute(self, damage_data)
 		else:
 			## TODO:目前不是很确定这个的意义。
-			## 为什么多次执行AshHead策略不会报错？
+			## 为什么多次执行AshHead策略不会报错？  -- 可能的原因在于tween与component绑定了
 			print(strategy)
 			print("策略无法执行！")
 	else:
