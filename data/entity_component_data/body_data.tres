@@ -2,14 +2,14 @@
 
 [ext_resource type="Resource" uid="uid://k7kubdpumlfj" path="res://data/strategy/component_action_strategy/actions/ash_body.tres" id="1_vxepc"]
 [ext_resource type="Resource" uid="uid://bfpbprn4v6hpm" path="res://data/strategy/component_action_strategy/actions/no_action.tres" id="2_3fxda"]
-[ext_resource type="Texture2D" uid="uid://cj4xpn0fqe0tl" path="res://assets/sprites/entity_component/body/伴舞僵尸-身.png" id="3_88xyn"]
+[ext_resource type="Texture2D" uid="uid://dj62840mugrtp" path="res://assets/sprites/entity_component/body/梯子僵尸-身.png" id="3_vxepc"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="4_56x6u"]
 
 [resource]
 script = ExtResource("4_56x6u")
 init_hp = 5.0
 has_hp = false
-component_texture = ExtResource("3_88xyn")
+component_texture = ExtResource("3_vxepc")
 component_type = 0
 common_dead_strategy = ExtResource("2_3fxda")
 ash_dead_strategy = ExtResource("1_vxepc")

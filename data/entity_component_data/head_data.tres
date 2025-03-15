@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://b2tk4v7426e3x"]
 
 [ext_resource type="Resource" uid="uid://bty0yxvydfqhg" path="res://data/strategy/component_action_strategy/actions/ash_head.tres" id="1_8sbid"]
-[ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://assets/sprites/entity_component/heads/投篮车僵尸-首.png" id="1_fh47t"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_rjke3"]
 [ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="2_0qhu3"]
+[ext_resource type="Texture2D" uid="uid://bd2fwmbegdfqm" path="res://assets/sprites/entity_component/heads/梯子僵尸-首.png" id="3_qh4iy"]
 
 [resource]
 script = ExtResource("1_rjke3")
 init_hp = 5.0
 has_hp = true
-component_texture = ExtResource("1_fh47t")
+component_texture = ExtResource("3_qh4iy")
 component_type = 0
 common_dead_strategy = ExtResource("2_0qhu3")
 ash_dead_strategy = ExtResource("1_8sbid")

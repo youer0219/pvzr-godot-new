@@ -20,6 +20,7 @@ signal entity_dead(damage_data: DamageData)
 @export var entity_component_data: EntityComponentData:set = _set_entity_component_data
 
 var is_in_body := true
+var is_ash:bool = false
 var curr_hp: float = 0.0
 var phy_enable: bool = false:set = _set_phy_enable
 

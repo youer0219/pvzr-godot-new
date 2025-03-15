@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=29 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="7_hqmd0"]
+[ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://scenes/entity/entity_component/entity_component.tscn" id="8_tbda8"]
 [ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://scenes/entity/entity_component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="9_8vnb8"]
+[ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="9_bstds"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="9_sf4kt"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="10_ji6ks"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="10_rsxef"]
@@ -91,6 +93,10 @@ shader_parameter/use_replace_color = false
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/dissolve_amount = 0.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8vnb8"]
+radius = 12.0
+height = 46.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
 size = Vector2(194, 89.5)
 
@@ -100,51 +106,54 @@ script = ExtResource("1_a0j4q")
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
 map_data = SubResource("Resource_brqar")
 
-[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessore_two_entity_component", "main_body_component") instance=ExtResource("7_hqmd0")]
+[node name="梯子僵尸" type="Sprite2D" parent="."]
+position = Vector2(980, 547)
+scale = Vector2(2, 2)
+texture = ExtResource("8_8vnb8")
+
+[node name="Entity" type="RigidBody2D" parent="."]
+position = Vector2(888, 531)
+collision_layer = 0
+script = ExtResource("9_bstds")
+
+[node name="EntityComponentManager" parent="Entity" node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessore_two_entity_component", "main_body_component") instance=ExtResource("7_hqmd0")]
+unique_name_in_owner = true
 main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
 accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
 accessore_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
 main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
 
-[node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
+[node name="MainBodyEntityComponentCanvasGroup" parent="Entity/EntityComponentManager" instance=ExtResource("9_8vnb8")]
 material = SubResource("ShaderMaterial_62hll")
 
-[node name="EntityComponent2" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
-unique_name_in_owner = true
+[node name="EntityComponent2" parent="Entity/EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
 material = SubResource("ShaderMaterial_q28cp")
-position = Vector2(934, 543)
-collision_layer = 1
 collision_mask = 1
 entity_component_data = ExtResource("13_3ldi5")
 
-[node name="EntityComponent" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
-unique_name_in_owner = true
+[node name="EntityComponent" parent="Entity/EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
 material = SubResource("ShaderMaterial_lmk3r")
-position = Vector2(926, 546)
-collision_layer = 1
 collision_mask = 1
 
-[node name="AccessoryOneEntityComponentCanvasGroup2" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
+[node name="AccessoryOneEntityComponentCanvasGroup2" parent="Entity/EntityComponentManager" instance=ExtResource("9_8vnb8")]
 material = SubResource("ShaderMaterial_8vnb8")
 
-[node name="EntityComponent3" parent="EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" instance=ExtResource("8_tbda8")]
-unique_name_in_owner = true
+[node name="EntityComponent3" parent="Entity/EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" instance=ExtResource("8_tbda8")]
 material = SubResource("ShaderMaterial_3ldi5")
-position = Vector2(932, 538)
-collision_layer = 1
 collision_mask = 1
 entity_component_data = ExtResource("17_bstds")
 
-[node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="Entity/EntityComponentManager" instance=ExtResource("9_8vnb8")]
 material = SubResource("ShaderMaterial_n5mjp")
 
-[node name="EntityComponent4" parent="EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
-unique_name_in_owner = true
+[node name="EntityComponent4" parent="Entity/EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
 material = SubResource("ShaderMaterial_bstds")
-position = Vector2(932, 538)
-collision_layer = 1
 collision_mask = 1
 entity_component_data = ExtResource("15_n5mjp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entity"]
+position = Vector2(-3, 2)
+shape = SubResource("CapsuleShape2D_8vnb8")
 
 [node name="MoveCamera" parent="." instance=ExtResource("9_sf4kt")]
 position = Vector2(1029, 475)

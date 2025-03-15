@@ -27,7 +27,7 @@ func get_entity_components()->Array[EntityComponent]:
 func shake(value:float):
 	material.set_shader_parameter("shake_intensity",clampf(value,0.0,1.0))
 
-## 闪烁方法 与灰烬存在冲突，但交给上层解决
+## 闪烁方法
 func blink():
 	material.set_shader_parameter("blink_color",blink_color)
 	var tween = create_tween()
@@ -38,6 +38,6 @@ func blink():
 func _set_blink_intensity(value:float):
 	material.set_shader_parameter("blink_intensity", value)
 
-## 冰冻/魅惑 事实上与灰烬无冲突
+## 冰冻/魅惑
 func apply_modulate_color(color:Color):
 	material.set_shader_parameter("base_modulate",color)

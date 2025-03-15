@@ -4,6 +4,8 @@ class_name EntityComponentManager
 signal entity_component_leave_out(entity_component:EntityComponent)
 signal entity_dead(damage_data:DamageData)
 
+const ENTITY_COMPONENT = preload("res://scenes/entity/entity_component/entity_component.tscn")
+
 @export var main_body_canvas_group:EntityComponentCanvasGroup
 @export var accessory_one_entity_component:EntityComponentCanvasGroup
 @export var accessore_two_entity_component:EntityComponentCanvasGroup
@@ -11,6 +13,8 @@ signal entity_dead(damage_data:DamageData)
 
 
 func _ready() -> void:
+	## 目前采取在编辑器中搭建节点的配置方法，未来可能更新为通过entity-data配置。
+	## 但现在存在 main_body_component 不好指定与 组件位置不好确定等问题
 	main_body_component.entity_dead.connect(_on_entity_dead)
 	
 	main_body_component.entity_component_damaged.connect(_on_entity_component_damaged)
@@ -41,6 +45,8 @@ func apply_damage(damage_data:DamageData):
 	else:
 		_on_entity_dead(damage_data)
 
+
+#region 事件信号处理
 ## 处理实体组件死亡信号的方法
 ## 根据造成死亡的伤害类型调用组件的各个方法
 
@@ -70,6 +76,7 @@ func _on_entity_component_leave_out(entity_component:EntityComponent):
 
 ## 处理实体半血信号的方法(暂时没有好的实现思路，不管)
 
+#endregion
 
 #region 获取某类/所有组件的方法
 
