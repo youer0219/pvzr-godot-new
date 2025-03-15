@@ -42,12 +42,15 @@ material = ExtResource("2_aus0x")
 
 [node name="InnerMap" parent="FrontMap/InnerCanvasGroup" instance=ExtResource("6_o61rt")]
 
-[node name="DecorativeParent" type="CanvasGroup" parent="FrontMap"]
+[node name="DecorativeParent" type="Node2D" parent="FrontMap"]
 unique_name_in_owner = true
 
 [node name="DecorativeMap" parent="FrontMap/DecorativeParent" instance=ExtResource("7_uryy1")]
 
-[node name="LadderMap" parent="FrontMap" instance=ExtResource("8_5i4bp")]
+[node name="LadderParent" type="Node2D" parent="FrontMap"]
+unique_name_in_owner = true
+
+[node name="LadderMap" parent="FrontMap/LadderParent" instance=ExtResource("8_5i4bp")]
 unique_name_in_owner = true
 
 [node name="WaterCanvasGroup" type="CanvasGroup" parent="FrontMap"]

@@ -11,7 +11,10 @@ enum FrontMapGenerationType {
 @onready var inner_canvas_group: CanvasGroup = %InnerCanvasGroup
 @onready var outer_canvas_group: CanvasGroup = %OuterCanvasGroup
 @onready var water_canvas_group: CanvasGroup = %WaterCanvasGroup
-@onready var decorative_parent: CanvasGroup = %DecorativeParent
+
+@onready var decorative_parent: Node2D = %DecorativeParent
+#@onready var ladder_parent: Node2D = %LadderParent
+
 @onready var water_map: WaterMap = %WaterMap
 @onready var ladder_map: TileMapLayer = %LadderMap
 
@@ -34,21 +37,28 @@ func _generation_front_map():
 			inner_map = map_data.inner_map_scene.instantiate() as TileMapLayer
 			inner_map.collision_enabled = false
 			inner_canvas_group.add_child(inner_map)
+			
 			if map_data.ladder_map_scene:
+				## TODO:是否由更好的做法？
 				var new_ladder_map_scene = map_data.ladder_map_scene.instantiate()
 				generate_ladders_by_cells(get_ladders_form_ladder_map(new_ladder_map_scene))
+				new_ladder_map_scene.queue_free()
+				
 			if map_data.decorative_map_scene:
 				var decorative_map_scene = map_data.decorative_map_scene.instantiate() as TileMapLayer
 				decorative_map_scene.collision_enabled = false
 				decorative_parent.add_child(decorative_map_scene)
 		FrontMapGenerationType.RANDOM:
+			
 			var random_seed := RandomMap.get_random_seed()
 			outer_map = map_data.random_map_scene.instantiate() as RandomMap
 			outer_map.generate_map(random_seed,RandomMap.Type.OUTER)
 			outer_canvas_group.add_child(outer_map)
+			
 			inner_map = map_data.random_map_scene.instantiate() as RandomMap
 			inner_map.generate_map(random_seed,RandomMap.Type.INNER)
 			inner_canvas_group.add_child(inner_map)
+			
 			var ladder_cells = outer_map.get_random_ladder_cells()
 			if ladder_cells:
 				generate_ladders_by_cells(ladder_cells)
