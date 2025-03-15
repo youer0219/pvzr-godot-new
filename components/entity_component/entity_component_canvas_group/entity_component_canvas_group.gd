@@ -31,8 +31,8 @@ func shake(value:float):
 func blink():
 	material.set_shader_parameter("blink_color",blink_color)
 	var tween = create_tween()
-	tween.tween_method(_set_blink_intensity,0.0,0.7,0.25)
-	tween.tween_method(_set_blink_intensity,0.7,0.3,0.25)
+	tween.tween_method(_set_blink_intensity,0.0,0.7,0.15)
+	tween.tween_method(_set_blink_intensity,0.7,0.3,0.15)
 	tween.tween_callback(_set_blink_intensity.bind(0))
 
 func _set_blink_intensity(value:float):

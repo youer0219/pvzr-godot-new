@@ -38,3 +38,4 @@ texture = ExtResource("3_u6y8c")
 position = Vector2(16, -28)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_4o0fn")
+disabled = true

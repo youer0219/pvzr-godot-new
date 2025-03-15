@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=23 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -13,10 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="9_sf4kt"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="10_ji6ks"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="10_rsxef"]
-[ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="12_n5mjp"]
-[ext_resource type="Texture2D" uid="uid://cj4xpn0fqe0tl" path="res://assets/sprites/entity_component/body/伴舞僵尸-身.png" id="13_8vnb8"]
-[ext_resource type="Resource" uid="uid://k7kubdpumlfj" path="res://data/strategy/component_action_strategy/actions/ash_body.tres" id="13_bstds"]
-[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="14_bstds"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/body_data.tres" id="13_3ldi5"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="17_bstds"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -53,17 +51,23 @@ shader_parameter/use_replace_color = false
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/dissolve_amount = 0.0
 
-[sub_resource type="Resource" id="Resource_ji6ks"]
-script = ExtResource("14_bstds")
-init_hp = 5.0
-has_hp = false
-component_texture = ExtResource("13_8vnb8")
-component_type = 0
-common_dead_strategy = ExtResource("12_n5mjp")
-ash_dead_strategy = ExtResource("13_bstds")
-metadata/_custom_type_script = "uid://3o6cf4yej0ey"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lmk3r"]
+resource_local_to_scene = true
+shader = ExtResource("10_rsxef")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vnb8"]
+resource_local_to_scene = true
+shader = ExtResource("10_ji6ks")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ldi5"]
 resource_local_to_scene = true
 shader = ExtResource("10_rsxef")
 shader_parameter/use_replace_color = false
@@ -79,27 +83,39 @@ script = ExtResource("1_a0j4q")
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
 map_data = SubResource("Resource_brqar")
 
-[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "main_body_component") instance=ExtResource("7_hqmd0")]
-main_body_canvas_group = NodePath("EntityComponentCanvasGroup")
-main_body_component = NodePath("EntityComponentCanvasGroup/EntityComponent")
+[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "main_body_component") instance=ExtResource("7_hqmd0")]
+main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
+accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
+main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
 
-[node name="EntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
+[node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
 material = SubResource("ShaderMaterial_62hll")
 
-[node name="EntityComponent2" parent="EntityComponentManager/EntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
+[node name="EntityComponent2" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_q28cp")
 position = Vector2(934, 543)
 collision_layer = 1
 collision_mask = 1
-entity_component_data = SubResource("Resource_ji6ks")
+entity_component_data = ExtResource("13_3ldi5")
 
-[node name="EntityComponent" parent="EntityComponentManager/EntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
+[node name="EntityComponent" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_lmk3r")
 position = Vector2(926, 546)
 collision_layer = 1
 collision_mask = 1
+
+[node name="AccessoryOneEntityComponentCanvasGroup2" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
+material = SubResource("ShaderMaterial_8vnb8")
+
+[node name="EntityComponent3" parent="EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" instance=ExtResource("8_tbda8")]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_3ldi5")
+position = Vector2(932, 538)
+collision_layer = 1
+collision_mask = 1
+entity_component_data = ExtResource("17_bstds")
 
 [node name="MoveCamera" parent="." instance=ExtResource("9_sf4kt")]
 position = Vector2(1029, 475)

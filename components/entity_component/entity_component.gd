@@ -42,7 +42,7 @@ func _set_phy_enable(value: bool) -> void:
 	freeze = not phy_enable
 	entity_collision_shape.set_deferred("disabled", not phy_enable)
 
-func apply_damage(damage_data: DamageData) -> DamageData:
+func apply_damage(damage_data: DamageData):
 	if entity_component_data.has_hp:
 		if damage_data.damage >= curr_hp:
 			if curr_hp > 0:
@@ -61,12 +61,12 @@ func apply_damage(damage_data: DamageData) -> DamageData:
 				#entity_component_half_hp.emit(self)
 			damage_data.damage = 0
 			entity_component_damaged.emit(self)
-	return damage_data
+
 
 func component_dead(damage_data: DamageData) -> void:
 	_execute_strategy(entity_component_data.component_dead_strategy,damage_data)
 
-func _on_entity_dead(damage_data: DamageData) -> void:
+func on_entity_dead(damage_data: DamageData) -> void:
 	if damage_data.damage_type == DamageData.DamageType.EXPLOSIVE_DAMAGE:
 		_execute_strategy(entity_component_data.ash_dead_strategy,damage_data)
 	else:

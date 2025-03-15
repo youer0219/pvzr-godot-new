@@ -4,7 +4,7 @@ class_name EntityComponentManager
 
 
 @export var main_body_canvas_group:EntityComponentCanvasGroup
-
+@export var accessory_one_entity_component:EntityComponentCanvasGroup
 @export var main_body_component:EntityComponent
 
 ## 传递伤害。根据BUFF决定着色器的状态。
@@ -14,10 +14,19 @@ class_name EntityComponentManager
 func _ready() -> void:
 	main_body_component.entity_dead.connect(_on_entity_dead)
 	main_body_component.entity_component_damaged.connect(_on_entity_component_damaged)
+	
+	for entity_component:EntityComponent in get_accessory_one_entity_components():
+		entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
 
 
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
+	## 因为资源传递的是引用，所以不需要返回一个资源回来了。
+	## TODO:因为饰品没有自动脱离，所以目前伤害无法正常传递到main-body处
+	for entity_component in get_accessory_one_entity_components():
+		entity_component.apply_damage(damage_data)
+		if damage_data.damage <= 0:
+			return
 	
 	if main_body_component != null:
 		main_body_component.apply_damage(damage_data)
@@ -31,10 +40,9 @@ func _on_entity_dead(damage_data:DamageData):
 	## 实体死亡后本体组件的引用直接设为空，避免出错
 	main_body_component = null
 	
-	var main_body_entity_components := get_main_body_entity_components()
-	main_body_entity_components.all(
+	get_all_components().all(
 		func(entity_component:EntityComponent):
-			entity_component._on_entity_dead(damage_data)
+			entity_component.on_entity_dead(damage_data)
 			return true
 	)
 
@@ -44,12 +52,18 @@ func _on_entity_component_damaged(entity_component: EntityComponent):
 		pass
 	else:
 		main_body_canvas_group.blink()
+		accessory_one_entity_component.blink()
 
 ## 处理实体脱离信号的方法
 
 
 ## 处理实体半血信号的方法(暂时没有好的实现思路，不管)
 
-
 func get_main_body_entity_components()->Array[EntityComponent]:
 	return main_body_canvas_group.get_entity_components()
+
+func get_accessory_one_entity_components()->Array[EntityComponent]:
+	return accessory_one_entity_component.get_entity_components()
+
+func get_all_components()->Array[EntityComponent]:
+	return get_main_body_entity_components() + get_accessory_one_entity_components()
