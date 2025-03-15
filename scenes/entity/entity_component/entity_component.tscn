@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d27ql2svxqnsf"]
 
-[ext_resource type="Script" uid="uid://i87m07eulceq" path="res://components/entity_component/entity_component.gd" id="1_ea3l7"]
+[ext_resource type="Script" uid="uid://i87m07eulceq" path="res://scenes/entity/entity_component/entity_component.gd" id="1_ea3l7"]
 [ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/head_data.tres" id="2_yiqpc"]
 [ext_resource type="Texture2D" uid="uid://cjdm3l0g6xpbt" path="res://assets/sprites/entity_component/heads/投篮车僵尸-首.png" id="3_u6y8c"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="3_yiqpc"]
