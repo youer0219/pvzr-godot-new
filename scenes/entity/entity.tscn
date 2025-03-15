@@ -1,0 +1,113 @@
+[gd_scene load_steps=18 format=3 uid="uid://ca5sagkxqmyt1"]
+
+[ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
+[ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
+[ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://scenes/entity/entity_component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="3_8fgnl"]
+[ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="4_8816o"]
+[ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://scenes/entity/entity_component/entity_component.tscn" id="5_vimme"]
+[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="6_yrfi6"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/body_data.tres" id="7_8tboq"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="8_upjvl"]
+[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/ladder_data.tres" id="9_flv0i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62hll"]
+resource_local_to_scene = true
+shader = ExtResource("4_8816o")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q28cp"]
+resource_local_to_scene = true
+shader = ExtResource("6_yrfi6")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmk3r"]
+resource_local_to_scene = true
+shader = ExtResource("6_yrfi6")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vnb8"]
+resource_local_to_scene = true
+shader = ExtResource("4_8816o")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ldi5"]
+resource_local_to_scene = true
+shader = ExtResource("6_yrfi6")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n5mjp"]
+resource_local_to_scene = true
+shader = ExtResource("4_8816o")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bstds"]
+resource_local_to_scene = true
+shader = ExtResource("6_yrfi6")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8vnb8"]
+radius = 12.0
+height = 46.0
+
+[node name="Entity" type="RigidBody2D"]
+collision_layer = 0
+script = ExtResource("1_1w0ui")
+
+[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessore_two_entity_component", "main_body_component") instance=ExtResource("2_uphax")]
+unique_name_in_owner = true
+main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
+accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
+accessore_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
+main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
+
+[node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
+material = SubResource("ShaderMaterial_62hll")
+
+[node name="EntityComponent2" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
+material = SubResource("ShaderMaterial_q28cp")
+collision_mask = 1
+entity_component_data = ExtResource("7_8tboq")
+
+[node name="EntityComponent" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
+material = SubResource("ShaderMaterial_lmk3r")
+collision_mask = 1
+
+[node name="AccessoryOneEntityComponentCanvasGroup2" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
+material = SubResource("ShaderMaterial_8vnb8")
+
+[node name="EntityComponent3" parent="EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" instance=ExtResource("5_vimme")]
+material = SubResource("ShaderMaterial_3ldi5")
+collision_mask = 1
+entity_component_data = ExtResource("8_upjvl")
+
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
+material = SubResource("ShaderMaterial_n5mjp")
+
+[node name="EntityComponent4" parent="EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
+material = SubResource("ShaderMaterial_bstds")
+collision_mask = 1
+entity_component_data = ExtResource("9_flv0i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 2)
+shape = SubResource("CapsuleShape2D_8vnb8")

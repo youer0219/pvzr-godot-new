@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var entity: RigidBody2D = $Entity
 
 
 func _ready() -> void:
@@ -11,4 +12,4 @@ func _ready() -> void:
 	for i in range(10):
 		damage_data.damage = 5.0
 		await get_tree().create_timer(0.4).timeout
-		%EntityComponentManager.apply_damage(damage_data)
+		entity.apply_damage(damage_data)
