@@ -1,5 +1,5 @@
 class_name EntityComponentCanvasGroup
-extends Node2D
+extends CanvasGroup
 
 ## 冰冻效果： 6565ff 魅惑效果： ff25ff 
 const FREEZE_COLOR := Color("6565ff")

@@ -10,6 +10,7 @@
 script = ExtResource("3_sfxfw")
 init_hp = 25.0
 has_hp = true
+is_main_body = false
 component_texture = ExtResource("3_3niix")
 component_type = 2
 component_dead_strategy = ExtResource("1_qqf1d")

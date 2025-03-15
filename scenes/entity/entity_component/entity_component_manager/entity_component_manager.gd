@@ -24,6 +24,9 @@ func _ready() -> void:
 	for entity_component:EntityComponent in get_all_components():
 		entity_component.entity_component_leave_out.connect(_on_entity_component_leave_out)
 
+	#var entity_component_data := preload("res://data/entity_component_data/body_data.tres")
+	#add_entity_component(entity_component_data)
+
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
 	## 因为资源传递的是引用，所以不需要返回一个资源回来了
@@ -44,6 +47,26 @@ func apply_damage(damage_data:DamageData):
 		main_body_component.apply_damage(damage_data)
 	else:
 		_on_entity_dead(damage_data)
+
+
+func add_entity_component(entity_component_data:EntityComponentData):
+	var new_entity_component = ENTITY_COMPONENT.instantiate() as EntityComponent
+	new_entity_component.entity_component_data = entity_component_data
+	
+	new_entity_component.entity_component_leave_out.connect(_on_entity_component_leave_out)
+	new_entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
+	
+	match entity_component_data.component_type:
+		EntityComponent.EntityComponentType.MAIN_BODY:
+			## TODO:目前依赖数据中的指定，配置起来还是不安全。暂时这样吧。
+			if entity_component_data.is_main_body:
+				main_body_component = new_entity_component
+				main_body_component.entity_dead.connect(_on_entity_dead)
+			main_body_canvas_group.add_child(new_entity_component)
+		EntityComponent.EntityComponentType.ACCESSORY_TIER_1:
+			accessore_two_entity_component.add_child(new_entity_component)
+		EntityComponent.EntityComponentType.ACCESSORY_TIER_2:
+			accessore_two_entity_component.add_child(new_entity_component)
 
 
 #region 事件信号处理

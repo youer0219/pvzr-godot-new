@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name Entity
 
 @onready var entity_component_manager: EntityComponentManager = %EntityComponentManager
 
@@ -9,6 +9,7 @@ func _ready() -> void:
 
 
 func apply_damage(damage_data:DamageData):
+	damage_data.target_pos = global_position ## 补充伤害的上下文
 	entity_component_manager.apply_damage(damage_data)
 
 func _on_entity_component_leave_out(entity_component:EntityComponent):

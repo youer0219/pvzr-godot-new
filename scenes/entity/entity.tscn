@@ -19,14 +19,14 @@ shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
 shader_parameter/base_modulate = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q28cp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmk3r"]
 resource_local_to_scene = true
 shader = ExtResource("6_yrfi6")
 shader_parameter/use_replace_color = false
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/dissolve_amount = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmk3r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q28cp"]
 resource_local_to_scene = true
 shader = ExtResource("6_yrfi6")
 shader_parameter/use_replace_color = false
@@ -83,14 +83,14 @@ main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityCompone
 [node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
 material = SubResource("ShaderMaterial_62hll")
 
+[node name="EntityComponent" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
+material = SubResource("ShaderMaterial_lmk3r")
+collision_mask = 1
+
 [node name="EntityComponent2" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
 material = SubResource("ShaderMaterial_q28cp")
 collision_mask = 1
 entity_component_data = ExtResource("7_8tboq")
-
-[node name="EntityComponent" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
-material = SubResource("ShaderMaterial_lmk3r")
-collision_mask = 1
 
 [node name="AccessoryOneEntityComponentCanvasGroup2" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
 material = SubResource("ShaderMaterial_8vnb8")
