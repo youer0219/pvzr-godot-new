@@ -8,7 +8,7 @@ func execute(component: EntityComponent, _damage_data: DamageData) -> void:
 	component.material.set_shader_parameter("replace_color", Color.BLACK)
 	
 	var tween := component.create_tween()
-	tween.tween_interval(1.25)
+	tween.tween_interval(2)
 	tween.tween_callback(component.leave_out)
 	tween.tween_callback(
 		func():

@@ -2,6 +2,7 @@ extends Node2D
 class_name EntityComponentManager
 
 signal entity_component_leave_out(entity_component:EntityComponent)
+signal entity_dead(damage_data:DamageData)
 
 @export var main_body_canvas_group:EntityComponentCanvasGroup
 @export var accessory_one_entity_component:EntityComponentCanvasGroup
@@ -22,10 +23,13 @@ func _ready() -> void:
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
 	## 因为资源传递的是引用，所以不需要返回一个资源回来了
-	for entity_component in get_accessory_two_entity_components():
-		entity_component.apply_damage(damage_data)
-		if damage_data.damage <= 0: ## 这里设计为可以等于0，这样可以阻断为0的伤害，不要闪烁
-			return
+	
+	## 目前似乎只有正面伤害稳定触发二类防具。但报纸和其他伤害的机制有待明确。
+	if damage_data.damage_type == DamageData.DamageType.FRONTAL_DAMAGE:
+		for entity_component in get_accessory_two_entity_components():
+			entity_component.apply_damage(damage_data)
+			if damage_data.damage <= 0: ## 这里设计为可以等于0，这样可以阻断为0的伤害，不要闪烁
+				return
 	
 	for entity_component in get_accessory_one_entity_components():
 		entity_component.apply_damage(damage_data)
@@ -49,6 +53,8 @@ func _on_entity_dead(damage_data:DamageData):
 			entity_component.on_entity_dead(damage_data)
 			return true
 	)
+	
+	entity_dead.emit(damage_data)
 
 ## 处理实体组件受伤信号的方法
 func _on_entity_component_damaged(entity_component: EntityComponent):
