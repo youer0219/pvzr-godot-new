@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=24 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://cj4xpn0fqe0tl" path="res://assets/sprites/entity_component/body/伴舞僵尸-身.png" id="13_8vnb8"]
 [ext_resource type="Resource" uid="uid://k7kubdpumlfj" path="res://data/strategy/component_action_strategy/actions/ash_body.tres" id="13_bstds"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="14_bstds"]
-[ext_resource type="Resource" uid="uid://bfpbprn4v6hpm" path="res://data/strategy/component_action_strategy/actions/no_action.tres" id="15_bstds"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -56,10 +55,10 @@ shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="Resource" id="Resource_ji6ks"]
 script = ExtResource("14_bstds")
-init_hp = 0.0
+init_hp = 5.0
+has_hp = false
 component_texture = ExtResource("13_8vnb8")
 component_type = 0
-component_dead_strategy = ExtResource("15_bstds")
 common_dead_strategy = ExtResource("12_n5mjp")
 ash_dead_strategy = ExtResource("13_bstds")
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"
@@ -76,14 +75,13 @@ size = Vector2(194, 89.5)
 
 [node name="CollisionWorld" type="Node2D"]
 script = ExtResource("1_a0j4q")
-metadata/_edit_lock_ = true
 
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
 map_data = SubResource("Resource_brqar")
 
 [node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "main_body_component") instance=ExtResource("7_hqmd0")]
 main_body_canvas_group = NodePath("EntityComponentCanvasGroup")
-main_body_component = NodePath("EntityComponentCanvasGroup/EntityComponent2")
+main_body_component = NodePath("EntityComponentCanvasGroup/EntityComponent")
 
 [node name="EntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
 material = SubResource("ShaderMaterial_62hll")
