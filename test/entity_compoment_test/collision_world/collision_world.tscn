@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=26 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -14,6 +14,7 @@
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="10_ji6ks"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="10_rsxef"]
 [ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/body_data.tres" id="13_3ldi5"]
+[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/ladder_data.tres" id="15_n5mjp"]
 [ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="17_bstds"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
@@ -74,6 +75,22 @@ shader_parameter/use_replace_color = false
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/dissolve_amount = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n5mjp"]
+resource_local_to_scene = true
+shader = ExtResource("10_ji6ks")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bstds"]
+resource_local_to_scene = true
+shader = ExtResource("10_rsxef")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
 size = Vector2(194, 89.5)
 
@@ -83,9 +100,10 @@ script = ExtResource("1_a0j4q")
 [node name="Map" parent="." instance=ExtResource("1_ew60k")]
 map_data = SubResource("Resource_brqar")
 
-[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "main_body_component") instance=ExtResource("7_hqmd0")]
+[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessore_two_entity_component", "main_body_component") instance=ExtResource("7_hqmd0")]
 main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
 accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
+accessore_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
 main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
 
 [node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
@@ -116,6 +134,17 @@ position = Vector2(932, 538)
 collision_layer = 1
 collision_mask = 1
 entity_component_data = ExtResource("17_bstds")
+
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("9_8vnb8")]
+material = SubResource("ShaderMaterial_n5mjp")
+
+[node name="EntityComponent4" parent="EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" instance=ExtResource("8_tbda8")]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bstds")
+position = Vector2(932, 538)
+collision_layer = 1
+collision_mask = 1
+entity_component_data = ExtResource("15_n5mjp")
 
 [node name="MoveCamera" parent="." instance=ExtResource("9_sf4kt")]
 position = Vector2(1029, 475)

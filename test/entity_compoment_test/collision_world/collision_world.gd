@@ -14,9 +14,9 @@ func _ready() -> void:
 	)
 	
 	var damage_data:DamageData = preload("res://data/damage_data/test_damage_data.tres").duplicate()
-	damage_data.damage_type = DamageData.DamageType.EXPLOSIVE_DAMAGE
-	for i in range(7):
-		damage_data.damage = 3.0
+	damage_data.damage_type = DamageData.DamageType.FRONTAL_DAMAGE
+	for i in range(8):
+		damage_data.damage = 5.0
 		await get_tree().create_timer(0.5).timeout
 		$EntityComponentManager.apply_damage(damage_data)
 
