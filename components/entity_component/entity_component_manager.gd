@@ -1,7 +1,7 @@
 extends Node2D
 class_name EntityComponentManager
 
-
+signal entity_component_leave_out(entity_component:EntityComponent)
 
 @export var main_body_canvas_group:EntityComponentCanvasGroup
 @export var accessory_one_entity_component:EntityComponentCanvasGroup
@@ -17,15 +17,17 @@ func _ready() -> void:
 	
 	for entity_component:EntityComponent in get_accessory_one_entity_components():
 		entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
+	
+	for entity_component:EntityComponent in get_all_components():
+		entity_component.entity_component_leave_out.connect(_on_entity_component_leave_out)
 
 
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
-	## 因为资源传递的是引用，所以不需要返回一个资源回来了。
-	## TODO:因为饰品没有自动脱离，所以目前伤害无法正常传递到main-body处
+	## 因为资源传递的是引用，所以不需要返回一个资源回来了
 	for entity_component in get_accessory_one_entity_components():
 		entity_component.apply_damage(damage_data)
-		if damage_data.damage <= 0:
+		if damage_data.damage < 0: ## 不等于0，这样为0时依然可以传递伤害，触发闪烁
 			return
 	
 	if main_body_component != null:
@@ -55,7 +57,8 @@ func _on_entity_component_damaged(entity_component: EntityComponent):
 		accessory_one_entity_component.blink()
 
 ## 处理实体脱离信号的方法
-
+func _on_entity_component_leave_out(entity_component:EntityComponent):
+	entity_component_leave_out.emit(entity_component)
 
 ## 处理实体半血信号的方法(暂时没有好的实现思路，不管)
 
