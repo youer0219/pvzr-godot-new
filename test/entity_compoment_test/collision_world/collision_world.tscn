@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://ca5sagkxqmyt1" path="res://scenes/entity/entity.tscn" id="9_a0j4q"]
+[ext_resource type="PackedScene" uid="uid://ct7ra1e7r7tfy" path="res://debug/test_target_node/test_target_node.tscn" id="10_rsxef"]
+[ext_resource type="Script" uid="uid://bbly5t7ucvtax" path="res://debug/test_target_node/test_target_node.gd" id="11_lmk3r"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -61,3 +63,6 @@ shape = SubResource("RectangleShape2D_h858w")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 513)
 process_callback = 0
+
+[node name="TestTargetNode" parent="." instance=ExtResource("10_rsxef")]
+script = ExtResource("11_lmk3r")

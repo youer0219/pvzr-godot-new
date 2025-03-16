@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=21 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/body_data.tres" id="7_8tboq"]
 [ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="8_upjvl"]
 [ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/ladder_data.tres" id="9_flv0i"]
+[ext_resource type="BehaviorTree" uid="uid://dgkkbn43s7kb3" path="res://ai/trees/entity.tres" id="11_8fgnl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_62hll"]
 resource_local_to_scene = true
@@ -70,6 +71,8 @@ shader_parameter/dissolve_amount = 0.0
 radius = 12.0
 height = 46.0
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_8816o"]
+
 [node name="Entity" type="RigidBody2D"]
 collision_layer = 8
 script = ExtResource("1_1w0ui")
@@ -109,3 +112,7 @@ entity_component_data = ExtResource("9_flv0i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 2)
 shape = SubResource("CapsuleShape2D_8vnb8")
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("11_8fgnl")
+blackboard_plan = SubResource("BlackboardPlan_8816o")

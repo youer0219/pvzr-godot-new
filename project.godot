@@ -32,6 +32,7 @@ enabled=PackedStringArray("res://addons/gaea/plugin.cfg")
 [global_group]
 
 map=""
+test_target="测试寻路"
 
 [input]
 

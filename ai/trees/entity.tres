@@ -1,0 +1,72 @@
+[gd_resource type="BehaviorTree" load_steps=19 format=3 uid="uid://dgkkbn43s7kb3"]
+
+[ext_resource type="Script" uid="uid://r4odarp2i2yk" path="res://ai/tasks/get_node_in_group.gd" id="1_ffycl"]
+[ext_resource type="Script" uid="uid://bxxumn8nd172h" path="res://ai/tasks/in_range.gd" id="2_pqmdn"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_uphax"]
+var/target_node/name = &"target_node"
+var/target_node/type = 24
+var/target_node/hint = 34
+var/target_node/hint_string = ""
+
+[sub_resource type="BTComment" id="BTComment_o6hhw"]
+custom_name = "攻击行为"
+
+[sub_resource type="BTComment" id="BTComment_ffycl"]
+custom_name = "攻速限制"
+children = [SubResource("BTComment_o6hhw")]
+
+[sub_resource type="BTComment" id="BTComment_pqmdn"]
+custom_name = "是否可以攻击"
+children = [SubResource("BTComment_ffycl")]
+
+[sub_resource type="BTComment" id="BTComment_ly2rq"]
+custom_name = "寻找目标"
+
+[sub_resource type="BTComment" id="BTComment_xiodb"]
+custom_name = "是否存在目标"
+children = [SubResource("BTComment_ly2rq")]
+
+[sub_resource type="BTComment" id="BTComment_5j61p"]
+custom_name = "寻找路径"
+
+[sub_resource type="BTComment" id="BTComment_khdha"]
+custom_name = "终点与目标点位置对比"
+children = [SubResource("BTComment_5j61p")]
+
+[sub_resource type="BTComment" id="BTComment_582u8"]
+custom_name = "路径是否合理"
+children = [SubResource("BTComment_khdha")]
+
+[sub_resource type="BTComment" id="BTComment_aj20n"]
+custom_name = "是否存在路径"
+children = [SubResource("BTComment_582u8")]
+
+[sub_resource type="BTComment" id="BTComment_n7c86"]
+custom_name = "当前位置与下一点位置"
+
+[sub_resource type="BTComment" id="BTComment_5vqqo"]
+custom_name = "根据路径和环境移动"
+children = [SubResource("BTComment_n7c86")]
+
+[sub_resource type="BTAction" id="BTAction_pqmdn"]
+script = ExtResource("1_ffycl")
+group = &"test_target"
+index = 0
+result_var = &"target_node"
+
+[sub_resource type="BTCondition" id="BTCondition_ly2rq"]
+script = ExtResource("2_pqmdn")
+distance_min = 0.0
+distance_max = 5.0
+target_var = &"target_node"
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_xiodb"]
+text = "1111"
+
+[sub_resource type="BTSequence" id="BTSequence_khdha"]
+children = [SubResource("BTComment_pqmdn"), SubResource("BTComment_xiodb"), SubResource("BTComment_aj20n"), SubResource("BTComment_5vqqo"), SubResource("BTAction_pqmdn"), SubResource("BTCondition_ly2rq"), SubResource("BTConsolePrint_xiodb")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_uphax")
+root_task = SubResource("BTSequence_khdha")
