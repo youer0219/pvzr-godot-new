@@ -8,15 +8,6 @@ const BLOOD_COLOR  := Color(1,0,0,1)
 
 @export var blink_color:Color = Color(1,1,1,1)
 
-func _ready() -> void:
-	pass
-
-func _test():
-	await get_tree().create_timer(1.0).timeout
-	print(get_entity_components())
-	shake(.5)
-	blink()
-	apply_modulate_color(CHARM_COLOR * FREEZE_COLOR)
 
 ## 提供所有的entity-component数组。如果混入意外值会报错。
 func get_entity_components()->Array[EntityComponent]:

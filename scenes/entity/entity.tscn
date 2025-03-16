@@ -87,11 +87,9 @@ material = SubResource("ShaderMaterial_62hll")
 
 [node name="EntityComponent" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
 material = SubResource("ShaderMaterial_lmk3r")
-collision_mask = 1
 
 [node name="EntityComponent2" parent="EntityComponentManager/MainBodyEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
 material = SubResource("ShaderMaterial_q28cp")
-collision_mask = 1
 entity_component_data = ExtResource("7_8tboq")
 
 [node name="AccessoryOneEntityComponentCanvasGroup2" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
@@ -99,7 +97,6 @@ material = SubResource("ShaderMaterial_8vnb8")
 
 [node name="EntityComponent3" parent="EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" instance=ExtResource("5_vimme")]
 material = SubResource("ShaderMaterial_3ldi5")
-collision_mask = 1
 entity_component_data = ExtResource("8_upjvl")
 
 [node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
@@ -107,7 +104,6 @@ material = SubResource("ShaderMaterial_n5mjp")
 
 [node name="EntityComponent4" parent="EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" instance=ExtResource("5_vimme")]
 material = SubResource("ShaderMaterial_bstds")
-collision_mask = 1
 entity_component_data = ExtResource("9_flv0i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -14,21 +14,6 @@ const ENTITY_COMPONENT = preload("res://scenes/entity/entity_component/entity_co
 @export var main_body_component:EntityComponent
 
 
-func _ready() -> void:
-	## 目前采取在编辑器中搭建节点的配置方法，未来可能更新为通过entity-data配置。
-	## 但现在存在 main_body_component 不好指定与 组件位置不好确定等问题
-	main_body_component.entity_dead.connect(_on_entity_dead)
-	
-	main_body_component.entity_component_damaged.connect(_on_entity_component_damaged)
-	for entity_component:EntityComponent in get_accessory_entity_components():
-		entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
-	
-	for entity_component:EntityComponent in get_all_components():
-		entity_component.entity_component_leave_out.connect(_on_entity_component_leave_out)
-
-	#var entity_component_data := preload("res://data/entity_component_data/body_data.tres")
-	#add_entity_component(entity_component_data)
-
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
 	## 因为资源传递的是引用，所以不需要返回一个资源回来了
