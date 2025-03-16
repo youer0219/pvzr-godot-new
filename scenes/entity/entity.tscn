@@ -71,7 +71,7 @@ radius = 12.0
 height = 46.0
 
 [node name="Entity" type="RigidBody2D"]
-collision_layer = 0
+collision_layer = 8
 script = ExtResource("1_1w0ui")
 
 [node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component", "main_body_component") instance=ExtResource("2_uphax")]
