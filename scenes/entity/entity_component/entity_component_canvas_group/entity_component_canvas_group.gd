@@ -23,6 +23,11 @@ func get_entity_components()->Array[EntityComponent]:
 	## 第三个参数写内置类名，不写class-name声明的类名
 	return Array(get_children(),TYPE_OBJECT,"RigidBody2D",EntityComponent)
 
+## 清除所有组件
+func clear_entity_components():
+	for child in get_children():
+		child.queue_free()
+
 ## 震动方法
 func shake(value:float):
 	material.set_shader_parameter("shake_intensity",clampf(value,0.0,1.0))

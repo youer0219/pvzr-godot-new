@@ -6,9 +6,11 @@ signal entity_dead(damage_data:DamageData)
 
 const ENTITY_COMPONENT = preload("res://scenes/entity/entity_component/entity_component.tscn")
 
+@export var entity_data:EntityData:set = _set_entity_data
+
 @export var main_body_canvas_group:EntityComponentCanvasGroup
 @export var accessory_one_entity_component:EntityComponentCanvasGroup
-@export var accessore_two_entity_component:EntityComponentCanvasGroup
+@export var accessory_two_entity_component:EntityComponentCanvasGroup
 @export var main_body_component:EntityComponent
 
 
@@ -48,6 +50,9 @@ func apply_damage(damage_data:DamageData):
 	else:
 		_on_entity_dead(damage_data)
 
+func add_entity_components(entity_component_datas:Array[EntityComponentData]):
+	for entity_component_data:EntityComponentData in entity_component_datas:
+		add_entity_component(entity_component_data)
 
 func add_entity_component(entity_component_data:EntityComponentData):
 	var new_entity_component = ENTITY_COMPONENT.instantiate() as EntityComponent
@@ -64,9 +69,23 @@ func add_entity_component(entity_component_data:EntityComponentData):
 				main_body_component.entity_dead.connect(_on_entity_dead)
 			main_body_canvas_group.add_child(new_entity_component)
 		EntityComponent.EntityComponentType.ACCESSORY_TIER_1:
-			accessore_two_entity_component.add_child(new_entity_component)
+			accessory_one_entity_component.add_child(new_entity_component)
 		EntityComponent.EntityComponentType.ACCESSORY_TIER_2:
-			accessore_two_entity_component.add_child(new_entity_component)
+			accessory_two_entity_component.add_child(new_entity_component)
+
+func clear_entity_components():
+	main_body_canvas_group.clear_entity_components()
+	accessory_one_entity_component.clear_entity_components()
+	accessory_two_entity_component.clear_entity_components()
+
+func _set_entity_data(value:EntityData):
+	entity_data = value
+	
+	if not is_node_ready():
+		await ready
+	
+	clear_entity_components()
+	add_entity_components(entity_data.entity_component_datas)
 
 
 #region 事件信号处理
@@ -88,7 +107,7 @@ func _on_entity_dead(damage_data:DamageData):
 ## 处理实体组件受伤信号的方法
 func _on_entity_component_damaged(entity_component: EntityComponent):
 	if entity_component.get_entity_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_2:
-		accessore_two_entity_component.blink()
+		accessory_two_entity_component.blink()
 	else:
 		main_body_canvas_group.blink()
 		accessory_one_entity_component.blink()
@@ -110,7 +129,7 @@ func get_accessory_one_entity_components()->Array[EntityComponent]:
 	return accessory_one_entity_component.get_entity_components()
 
 func get_accessory_two_entity_components()->Array[EntityComponent]:
-	return accessore_two_entity_component.get_entity_components()
+	return accessory_two_entity_component.get_entity_components()
 
 func get_accessory_entity_components()->Array[EntityComponent]:
 	return get_accessory_one_entity_components() + get_accessory_two_entity_components()

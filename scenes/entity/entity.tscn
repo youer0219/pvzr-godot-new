@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=19 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
 [ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://scenes/entity/entity_component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="3_8fgnl"]
+[ext_resource type="Resource" uid="uid://morvfvefddx" path="res://data/entity_data/entity.tres" id="3_uphax"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="4_8816o"]
 [ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://scenes/entity/entity_component/entity_component.tscn" id="5_vimme"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="6_yrfi6"]
@@ -73,11 +74,12 @@ height = 46.0
 collision_layer = 0
 script = ExtResource("1_1w0ui")
 
-[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessore_two_entity_component", "main_body_component") instance=ExtResource("2_uphax")]
+[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component", "main_body_component") instance=ExtResource("2_uphax")]
 unique_name_in_owner = true
+entity_data = ExtResource("3_uphax")
 main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
 accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
-accessore_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
+accessory_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
 main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
 
 [node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
