@@ -1,6 +1,8 @@
 class_name FrontMap
 extends Node2D
 
+signal front_map_generate_finished(outer_map:TileMapLayer)
+
 enum FrontMapGenerationType {
 	FIXED, ## 固定地图
 	RANDOM ## 随机地图。内外部种子一致。
@@ -66,6 +68,8 @@ func _generation_front_map():
 	water_map.create_water_layer(outer_map.get_used_cells(),map_data.water_hight,map_data.is_night_time)
 	
 	_delete_extra_ladders_in_raining_day()
+	
+	call_deferred("emit_signal","front_map_generate_finished",outer_map) ## 延迟发送信号
 
 func _clear_front_map():
 	for child in inner_canvas_group.get_children():
@@ -117,6 +121,9 @@ func _is_cell_used_in_ladder_map(cell:Vector2i)->bool:
 
 func _set_map_data(value:MapData):
 	map_data = value
+	
+	if map_data == null:
+		return
 	
 	if not is_node_ready():
 		await ready
