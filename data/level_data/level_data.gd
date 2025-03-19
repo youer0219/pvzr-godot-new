@@ -2,7 +2,6 @@ class_name LevelData
 extends Resource
 
 const SPRITE_CELL_SIZE := Vector2(16,16)
-const MAP_CELL_SIZE := Vector2(32,32)
 const MAP_SIZE := Vector2(72,24)
 
 enum LEVEL_TIME_TYPE {DAY,NIGHT}

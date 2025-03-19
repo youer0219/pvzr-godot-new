@@ -5,7 +5,7 @@ extends Resource
 ## 只是记录家院地图中需要额外删除的梯子的位置。目前不使用这个数据。
 const HOME_EXTRA_LADDER_CELLS = [Vector2i(25,12)]
 
-const MAP_CELL_SIZE := Vector2(32,32)
+const MAP_CELL_SIZE := Vector2(16,16)
 const MAP_SIZE := Vector2(72,24)
 const PINK_SKY_PROBABILITY := 100
 

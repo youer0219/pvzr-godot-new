@@ -33,11 +33,14 @@ func get_top_water_line()->float:
 	var water_height := map_data.water_hight
 	return (MapData.MAP_SIZE.y - water_height ) * MapData.MAP_CELL_SIZE.y
 
+
 func _set_map_data(value:MapData):
 	map_data = value
 	
 	if not is_node_ready():
 		await ready
+	
+	map_path_finder.top_water_cell_y = int(map_data.MAP_SIZE.y - map_data.water_hight)
 	
 	bottom_map.map_data = map_data
 	parallax_map.map_data = map_data

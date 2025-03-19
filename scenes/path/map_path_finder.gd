@@ -17,12 +17,13 @@ const MAX_CACHE_QUEUE_SIZE := 50
 
 const PLATFROM_POINT_WEIGHT := 1
 const WALL_EDGE_POINT_WEIGHT := 5
-const AIR_POINT_WEIGHT := 1000
+const AIR_POINT_WEIGHT := 10
 
 @export var cache_enabled := true  # 是否启用路径缓存
 
 var astar := AStarGrid2D.new()
 var map:TileMapLayer
+var top_water_cell_y:int
 var platform_path: Array[Vector2i]
 var platform_edge_path:Array[Vector2i]
 var platform_down_path:Array[Vector2i]
@@ -70,6 +71,12 @@ func update_one_cell(cell:Vector2i):
 	else:
 		astar.set_point_weight_scale(cell,AIR_POINT_WEIGHT)
 
+func get_global_path(global_from:Vector2,global_to:Vector2)->Array[Vector2]:
+	var global_path:Array[Vector2] = []
+	var path_array := get_id_path(global_pos_to_map_cell(global_from),global_pos_to_map_cell(global_to))
+	for path in path_array:
+		global_path.append(map_cell_to_global_pos(path))
+	return global_path
 
 func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 	# 检查缓存
@@ -90,7 +97,7 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 	
 	var path:Array[Vector2i] = []
 	
-	if from.y < get_top_water_cell_y():
+	if from.y < top_water_cell_y:
 		path.append(from)
 	else:
 		from = find_platform_tile(from)
@@ -139,7 +146,7 @@ func clear_cache():
 
 func is_solid_cell(cell:Vector2i)->bool:
 	## 禁止水线下的点
-	if cell.y >= get_top_water_cell_y():
+	if cell.y >= top_water_cell_y:
 		return true
 	## 地形限制
 	if get_used_cells().has(cell):
@@ -157,15 +164,15 @@ func find_platform_tile(input_coord: Vector2i) -> Vector2i:
 	var current_y = input_coord.y
 	
 	# 判断搜索方向
-	if current_y <= get_top_water_cell_y():
+	if current_y <= top_water_cell_y:
 		## 实体高于水线时，从当前位置向下搜索，找到第一个平台点
-		for y in range(current_y, get_top_water_cell_y()):
+		for y in range(current_y, top_water_cell_y):
 			var coord = Vector2i(x, y)
 			if is_platform_cell(coord):
 				return coord
 	else:
 		## 实体低于水线时，向上搜索，找到上面第一个平台点
-		for y in range(get_top_water_cell_y() + Vector2i.UP.y,MAP_TOP_Y,-1):
+		for y in range(top_water_cell_y + Vector2i.UP.y,MAP_TOP_Y,-1):
 			var coord = Vector2i(x, y)
 			if is_platform_cell(coord):
 				return coord
@@ -185,7 +192,7 @@ func is_platform_cell(coord: Vector2i) -> bool:
 
 	# 3. 下方格子有瓦片，或者在水线上一格
 	var below = Vector2i(coord.x, coord.y + 1)
-	if not is_used_cell(below) and not coord.y + Vector2i.DOWN.y == get_top_water_cell_y():
+	if not is_used_cell(below) and not coord.y + Vector2i.DOWN.y == top_water_cell_y:
 		return false
 
 	return true
@@ -202,9 +209,6 @@ func is_wall_edge_cell(cell:Vector2i)->bool:
 func get_used_cells()->Array[Vector2i]:
 	return map.get_used_cells()
 
-func get_top_water_cell_y()->int:
-	return 16
-
 func filter_path(raw_path: Array[Vector2i]) -> Array[Vector2i]:
 	# 处理空路径和简单路径的情况
 	if raw_path.size() <= 2:
@@ -220,7 +224,7 @@ func filter_path(raw_path: Array[Vector2i]) -> Array[Vector2i]:
 		if water_out_cell.has(raw_path[i-1]):
 			filtered.append(raw_path[i-1])
 			continue
-		elif raw_path[i-1].y + 1 == get_top_water_cell_y() and raw_path[i].y + 1 == get_top_water_cell_y():
+		elif raw_path[i-1].y + 1 == top_water_cell_y and raw_path[i].y + 1 == top_water_cell_y:
 			if get_used_cells().has(raw_path[i] + Vector2i.DOWN) and not get_used_cells().has(raw_path[i-1] + Vector2i.DOWN):
 				water_out_cell.append(raw_path[i-1])
 				filtered.append(raw_path[i-1])
@@ -239,3 +243,9 @@ func filter_path(raw_path: Array[Vector2i]) -> Array[Vector2i]:
 	filtered.append(raw_path[-1])
 	
 	return filtered
+
+func global_pos_to_map_cell(global_pos:Vector2)->Vector2i:
+	return map.local_to_map(map.to_local(global_pos))
+
+func map_cell_to_global_pos(cell:Vector2i)->Vector2:
+	return map.to_global(map.map_to_local(cell))

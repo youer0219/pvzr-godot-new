@@ -49,7 +49,7 @@ texture = ExtResource("8_8vnb8")
 position = Vector2(455, 266)
 
 [node name="Entity2" parent="." instance=ExtResource("9_a0j4q")]
-position = Vector2(502, 269)
+position = Vector2(503, 266)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(246, 330)
@@ -65,4 +65,10 @@ position = Vector2(667, 64)
 script = ExtResource("11_lmk3r")
 
 [node name="MoveCamera" parent="." instance=ExtResource("12_lmk3r")]
+position = Vector2(534, 183)
 enable = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
