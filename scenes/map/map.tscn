@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cg0vbixt3r2by"]
+[gd_scene load_steps=15 format=3 uid="uid://cg0vbixt3r2by"]
 
 [ext_resource type="Script" uid="uid://5r43g5dhsupg" path="res://scenes/map/map.gd" id="1_bg42m"]
 [ext_resource type="Material" uid="uid://b6vwig8n1tsy8" path="res://scenes/map/canvas_group_outline.tres" id="2_aus0x"]
+[ext_resource type="Resource" uid="uid://0jfqjtnqslpc" path="res://data/map_data/mountain_map.tres" id="2_cumk7"]
 [ext_resource type="PackedScene" uid="uid://dk7rdm6n5suwf" path="res://scenes/map/maps/bottom_map/bottom_map.tscn" id="2_jmlc7"]
 [ext_resource type="Resource" uid="uid://c337pm7bqqh8n" path="res://data/map_data/home_map.tres" id="2_sg8f4"]
 [ext_resource type="PackedScene" uid="uid://d1hw7tc37dsu8" path="res://scenes/map/maps/water_map/water_map.tscn" id="4_2hf12"]
@@ -14,11 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="9_ovcln"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8yfa"]
-size = Vector2(32, 1120)
+size = Vector2(32, 480)
 
 [node name="Map" type="Node2D" groups=["map"]]
 script = ExtResource("1_bg42m")
-map_data = ExtResource("2_sg8f4")
+map_data = ExtResource("2_cumk7")
+metadata/_edit_lock_ = true
 
 [node name="BackgroundMap" type="ParallaxBackground" parent="."]
 
@@ -28,10 +30,10 @@ unique_name_in_owner = true
 [node name="ParallaxMap" parent="BackgroundMap" instance=ExtResource("4_wpv3r")]
 unique_name_in_owner = true
 modulate = Color(0.450648, 0.450648, 0.450648, 1)
+motion_mirroring = Vector2(1152, 0)
 
 [node name="FrontMap" type="Node2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(2, 2)
 script = ExtResource("5_jrpki")
 map_data = ExtResource("2_sg8f4")
 
@@ -69,20 +71,21 @@ material = ExtResource("2_aus0x")
 [node name="OuterMap" parent="FrontMap/OuterCanvasGroup" instance=ExtResource("9_ovcln")]
 
 [node name="MapBorderCollisions" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="LeftMapBorderCollision" type="StaticBody2D" parent="MapBorderCollisions"]
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorderCollisions/LeftMapBorderCollision"]
-position = Vector2(-16, 208)
+position = Vector2(-17, 144)
 shape = SubResource("RectangleShape2D_p8yfa")
 
 [node name="RightMapBorderCollision" type="StaticBody2D" parent="MapBorderCollisions"]
-position = Vector2(2336, 0)
+position = Vector2(1184, 64)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorderCollisions/RightMapBorderCollision"]
-position = Vector2(-16, 208)
+position = Vector2(-16, 80)
 shape = SubResource("RectangleShape2D_p8yfa")
 
 [node name="MapBorder" parent="." instance=ExtResource("7_jbne1")]

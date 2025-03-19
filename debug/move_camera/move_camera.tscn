@@ -3,5 +3,6 @@
 [ext_resource type="Script" uid="uid://b5qxru3k3i72u" path="res://debug/move_camera/move_camera.gd" id="1_2jaoj"]
 
 [node name="MoveCamera" type="Camera2D"]
+zoom = Vector2(2, 2)
 process_callback = 0
 script = ExtResource("1_2jaoj")
