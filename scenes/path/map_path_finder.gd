@@ -16,12 +16,12 @@ const MAP_TOP_Y := 0
 const MAX_CACHE_QUEUE_SIZE := 50
 
 const PLATFROM_POINT_WEIGHT := 1
-const WALL_EDGE_POINT_WEIGHT := 5
-const AIR_POINT_WEIGHT := 10
+const WALL_EDGE_POINT_WEIGHT := 2
+const AIR_POINT_WEIGHT := 3
 
 @export var cache_enabled := true  # 是否启用路径缓存
 
-var astar := AStarGrid2D.new()
+var astar := PVZRAStarGrid2D.new()
 var map:TileMapLayer
 var top_water_cell_y:int
 var platform_path: Array[Vector2i]
