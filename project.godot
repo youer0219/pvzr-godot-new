@@ -15,6 +15,10 @@ run/main_scene="uid://6bn3n322w0b1"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PathShowTool="*res://global/PathShowTool/PathShowTool.tscn"
+
 [display]
 
 window/size/viewport_width=640
