@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=24 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
@@ -13,6 +13,12 @@
 [ext_resource type="BehaviorTree" uid="uid://dgkkbn43s7kb3" path="res://ai/trees/entity.tres" id="11_8fgnl"]
 [ext_resource type="PackedScene" uid="uid://da45g6e1pkfwy" path="res://scenes/move/entity_move/entity_move.tscn" id="11_vimme"]
 [ext_resource type="Script" uid="uid://cfl7mjo6g5aya" path="res://scenes/move/entity_move/entity_move.gd" id="12_yrfi6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vimme"]
+friction = 0.1
+rough = true
+bounce = 0.5
+absorbent = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_62hll"]
 resource_local_to_scene = true
@@ -71,12 +77,13 @@ shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8vnb8"]
 radius = 5.0
-height = 26.0
+height = 22.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_8816o"]
 
 [node name="Entity" type="RigidBody2D"]
 collision_layer = 8
+physics_material_override = SubResource("PhysicsMaterial_vimme")
 lock_rotation = true
 script = ExtResource("1_1w0ui")
 metadata/_edit_lock_ = true
@@ -88,6 +95,7 @@ main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
 accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
 accessory_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
 main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
+metadata/_edit_lock_ = true
 
 [node name="MainBodyEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("3_8fgnl")]
 material = SubResource("ShaderMaterial_62hll")
@@ -114,18 +122,20 @@ material = SubResource("ShaderMaterial_bstds")
 entity_component_data = ExtResource("9_flv0i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_8vnb8")
 
 [node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray") instance=ExtResource("11_vimme")]
 script = ExtResource("12_yrfi6")
 entity = NodePath("..")
 floor_ray = NodePath("FloorRayCast2D")
-max_speed = 50.0
-jump_impulse = 150.0
+move_force = 200.0
+horizontal_jump_impulse = 40.0
 
 [node name="FloorRayCast2D" type="RayCast2D" parent="EntityMove"]
-position = Vector2(0, 12)
-target_position = Vector2(0, 4)
+position = Vector2(4, 14)
+target_position = Vector2(-9, 0)
+hit_from_inside = true
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("11_8fgnl")
