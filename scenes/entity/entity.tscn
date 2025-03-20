@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=23 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
@@ -11,6 +11,8 @@
 [ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="8_upjvl"]
 [ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/ladder_data.tres" id="9_flv0i"]
 [ext_resource type="BehaviorTree" uid="uid://dgkkbn43s7kb3" path="res://ai/trees/entity.tres" id="11_8fgnl"]
+[ext_resource type="PackedScene" uid="uid://da45g6e1pkfwy" path="res://scenes/move/entity_move/entity_move.tscn" id="11_vimme"]
+[ext_resource type="Script" uid="uid://cfl7mjo6g5aya" path="res://scenes/move/entity_move/entity_move.gd" id="12_yrfi6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_62hll"]
 resource_local_to_scene = true
@@ -75,7 +77,9 @@ height = 26.0
 
 [node name="Entity" type="RigidBody2D"]
 collision_layer = 8
+lock_rotation = true
 script = ExtResource("1_1w0ui")
+metadata/_edit_lock_ = true
 
 [node name="EntityComponentManager" parent="." node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component", "main_body_component") instance=ExtResource("2_uphax")]
 unique_name_in_owner = true
@@ -111,6 +115,17 @@ entity_component_data = ExtResource("9_flv0i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8vnb8")
+
+[node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray") instance=ExtResource("11_vimme")]
+script = ExtResource("12_yrfi6")
+entity = NodePath("..")
+floor_ray = NodePath("FloorRayCast2D")
+max_speed = 50.0
+jump_impulse = 150.0
+
+[node name="FloorRayCast2D" type="RayCast2D" parent="EntityMove"]
+position = Vector2(0, 12)
+target_position = Vector2(0, 4)
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("11_8fgnl")
