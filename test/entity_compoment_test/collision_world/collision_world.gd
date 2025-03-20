@@ -17,5 +17,6 @@ extends Node2D
 
 
 func _on_timer_timeout() -> void:
-	var new_path := map.map_path_finder.get_global_path(entity.global_position,get_global_mouse_position())
-	PathShowTool.draw_path(self,new_path,Color.AZURE,5.0)
+	pass
+	#var new_path := map.map_path_finder.get_global_path(entity.global_position,get_global_mouse_position())
+	#PathShowTool.draw_path(self,new_path,Color.AZURE,5.0)

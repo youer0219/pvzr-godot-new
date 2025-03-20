@@ -85,7 +85,7 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 		if cached_path:
 			return cached_path
 
-	if from.x <= astar.region.position.x or from.x >= astar.region.end.x:
+	if from.x <= astar.region.position.x or from.x >= astar.region.end.x or from.y <= astar.region.position.y:
 		return []
 	
 	if not astar.is_in_boundsv(to):
@@ -101,9 +101,11 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 		path.append(from)
 	else:
 		from = find_platform_tile(from)
+		if from == VECTOR2I_NULL:
+			return []
 	
 	## 允许搜索一条不可达路径，用于冰车完全封闭路径时，但要求目标位于有效位置
-	var allow_partial_path:bool = not astar.is_point_solid(platfrom_to) 
+	var allow_partial_path:bool = not astar.is_point_solid(platfrom_to)
 	path.append_array(astar.get_id_path(from,platfrom_to,allow_partial_path))
 	path.append(to)
 	
