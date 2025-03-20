@@ -17,7 +17,7 @@ bounce = 0.3
 absorbent = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4o0fn"]
-size = Vector2(12, 3.5)
+size = Vector2(6, 1.75)
 
 [node name="EntityComponent" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_yiqpc")
@@ -34,7 +34,7 @@ use_parent_material = true
 texture = ExtResource("4_v420n")
 
 [node name="EntityCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(14, -21)
+position = Vector2(6, -12)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_4o0fn")
 disabled = true

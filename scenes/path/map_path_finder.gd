@@ -17,7 +17,7 @@ const MAX_CACHE_QUEUE_SIZE := 50
 
 const PLATFROM_POINT_WEIGHT := 1
 const WALL_EDGE_POINT_WEIGHT := 2
-const AIR_POINT_WEIGHT := 3
+const AIR_POINT_WEIGHT := 2.5
 
 @export var cache_enabled := true  # 是否启用路径缓存
 
