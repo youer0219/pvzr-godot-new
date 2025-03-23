@@ -45,10 +45,7 @@ position = Vector2(578, 271)
 texture = ExtResource("8_8vnb8")
 
 [node name="Entity" parent="." instance=ExtResource("9_a0j4q")]
-position = Vector2(355, 289)
-
-[node name="Entity2" parent="." instance=ExtResource("9_a0j4q")]
-position = Vector2(503, 266)
+position = Vector2(361, 261)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(184, 345)
@@ -60,7 +57,7 @@ linear_damp = 45.0
 shape = SubResource("RectangleShape2D_h858w")
 
 [node name="MoveCamera" parent="." instance=ExtResource("12_lmk3r")]
-position = Vector2(534, 183)
+position = Vector2(412, 244)
 enable = true
 
 [node name="Timer" type="Timer" parent="."]
