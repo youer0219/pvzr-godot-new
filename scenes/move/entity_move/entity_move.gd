@@ -34,8 +34,8 @@ func _physics_process(_delta):
 	
 	# 处理跳跃优先级
 	var vertical_impulse = handle_main_jump()
-	if vertical_impulse == 0:
-		vertical_impulse = handle_small_jump(input_dir, is_grounded)
+	if vertical_impulse == 0 and input_dir != 0:
+		vertical_impulse = handle_small_jump()
 	
 	# 应用垂直冲量
 	if vertical_impulse != 0:
@@ -61,9 +61,9 @@ func handle_main_jump() -> float:
 		return impulse
 	return 0.0
 
-func handle_small_jump(input_dir: float, is_grounded: bool) -> float:
+func handle_small_jump() -> float:
 	# 横移小跳逻辑（仅地面生效）
-	if is_grounded && input_dir != 0:
+	if is_grounded:
 		var target_vy = -small_jump_speed
 		var speed_ratio = clamp(abs(entity.linear_velocity.x) / max_speed,0, 1)
 		if speed_ratio <= min_speed_radio:

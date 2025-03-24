@@ -76,7 +76,7 @@ shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8vnb8"]
-radius = 3.0
+radius = 5.0
 height = 22.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_8816o"]
