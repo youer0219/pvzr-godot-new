@@ -125,18 +125,20 @@ entity_component_data = ExtResource("9_flv0i")
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_8vnb8")
 
-[node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray") instance=ExtResource("11_vimme")]
+[node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray01", "floor_ray02") instance=ExtResource("11_vimme")]
 script = ExtResource("12_yrfi6")
 entity = NodePath("..")
-floor_ray = NodePath("FloorRayCast2D")
-jump_speed = -225
+floor_ray01 = NodePath("FloorRayCast2D01")
+floor_ray02 = NodePath("FloorRayCast2D02")
 
-[node name="FloorRayCast2D" type="RayCast2D" parent="EntityMove"]
+[node name="FloorRayCast2D01" type="RayCast2D" parent="EntityMove"]
 position = Vector2(-2, 10)
+enabled = false
 target_position = Vector2(0, 2.1)
 
-[node name="FloorRayCast2D2" type="RayCast2D" parent="EntityMove"]
+[node name="FloorRayCast2D02" type="RayCast2D" parent="EntityMove"]
 position = Vector2(2, 10)
+enabled = false
 target_position = Vector2(0, 2.1)
 
 [node name="JumpTimer" type="Timer" parent="EntityMove"]
