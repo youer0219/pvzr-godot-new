@@ -4,6 +4,8 @@ extends Node2D
 @export var entity: Entity
 @export var floor_ray01: RayCast2D
 @export var floor_ray02: RayCast2D
+@export var ladder_ray:RayCast2D
+@export var jump_timer:Timer
 
 # 移动参数
 @export var move_force := 150.0
@@ -13,15 +15,26 @@ extends Node2D
 
 # 跳跃参数
 @export var jump_speed := -225
+@export var clamp_speed := -100 ## 绝对值不低于60
 @export var max_jump_count := 1
+@export var jump_gap_time:float = 0.13
 
 var horizontal_damping: float:
 	get: return move_force / max_speed
 var is_grounded:bool:
 	get:
 		return floor_ray01.is_colliding() or floor_ray02.is_colliding()
+var is_on_ladder:bool:
+	get:
+		return ladder_ray.is_colliding()
+var is_jump_timer_timeout:bool:
+	get:
+		return jump_timer.time_left == 0
 
 var jump_remaining := max_jump_count
+
+func _ready() -> void:
+	_jump_timer_restart()
 
 func _physics_process(_delta):
 	update_ray_state()
@@ -33,13 +46,14 @@ func _physics_process(_delta):
 	handle_horizontal_damping()
 	
 	# 处理跳跃优先级
-	var vertical_impulse = handle_main_jump()
+	var vertical_impulse = clamb_ladder()
+	if vertical_impulse == 0:
+		vertical_impulse = handle_main_jump()
 	if vertical_impulse == 0 and input_dir != 0:
 		vertical_impulse = handle_small_jump()
 	
 	# 应用垂直冲量
-	if vertical_impulse != 0:
-		entity.apply_central_impulse(Vector2(0, vertical_impulse))
+	entity.apply_central_impulse(Vector2(0, vertical_impulse))
 	
 	# 处理水平移动
 	handle_horizontal_movement(input_dir)
@@ -54,10 +68,18 @@ func handle_horizontal_damping():
 	entity.apply_central_force(Vector2(damping_force, 0))
 
 func handle_main_jump() -> float:
-	# 主跳跃逻辑（空中允许二段跳）
-	if Input.is_action_just_pressed("move_up") && jump_remaining > 0:
+	# 主跳跃逻辑
+	if Input.is_action_just_pressed("move_up") && jump_remaining > 0 && is_jump_timer_timeout:
 		var impulse = entity.mass * (jump_speed - entity.linear_velocity.y)
 		jump_remaining -= 1
+		_jump_timer_restart()
+		return impulse
+	return 0.0
+
+func clamb_ladder()->float:
+	if Input.is_action_pressed("move_up") && is_on_ladder && is_jump_timer_timeout:
+		var impulse = entity.mass * (clamp_speed - entity.linear_velocity.y)
+		_jump_timer_restart()
 		return impulse
 	return 0.0
 
@@ -79,3 +101,6 @@ func handle_horizontal_movement(input_dir: float):
 func update_ray_state():
 	floor_ray01.force_raycast_update()
 	floor_ray02.force_raycast_update()
+
+func _jump_timer_restart():
+	jump_timer.start(jump_gap_time)
