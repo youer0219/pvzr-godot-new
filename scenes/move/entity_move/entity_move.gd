@@ -14,10 +14,12 @@ extends Node2D
 @export var min_speed_radio:float = 0.3
 
 # 跳跃参数
-@export var jump_speed := -225
-@export var clamp_speed := -100 ## 绝对值不低于60
+@export var jump_speed := 225.0
+@export var clamp_speed := 130.0
 @export var max_jump_count := 1
-@export var jump_gap_time:float = 0.13
+@export var jump_gap_time:float = 0.2
+
+@export var float_speed := 100.0
 
 var horizontal_damping: float:
 	get: return move_force / max_speed
@@ -31,67 +33,61 @@ var is_jump_timer_timeout:bool:
 	get:
 		return jump_timer.time_left == 0
 
+var velocity:Vector2
 var jump_remaining := max_jump_count
 
 func _ready() -> void:
 	_jump_timer_restart()
 
 func _physics_process(_delta):
+	velocity = entity.linear_velocity
+	
 	update_ray_state()
 	
 	var input_dir = Input.get_axis("move_left", "move_right")
 	
 	# 地面状态检测
-	update_jump_counter()
-	handle_horizontal_damping()
+	if is_grounded:
+		update_jump_counter()
 	
 	# 处理跳跃优先级
-	var vertical_impulse = clamb_ladder()
-	if vertical_impulse == 0:
-		vertical_impulse = handle_main_jump()
-	if vertical_impulse == 0 and input_dir != 0:
-		vertical_impulse = handle_small_jump()
+	if Input.is_action_pressed("move_up") && is_on_ladder && is_jump_timer_timeout:
+		clamb_ladder()
+	elif Input.is_action_just_pressed("move_up") && jump_remaining > 0 && is_jump_timer_timeout:
+		main_jump()
+	elif input_dir != 0 and is_grounded:
+		small_jump()
 	
-	# 应用垂直冲量
-	entity.apply_central_impulse(Vector2(0, vertical_impulse))
+	# 应用冲量
+	var impulse = entity.mass * (velocity - entity.linear_velocity)
+	entity.apply_central_impulse(impulse)
 	
 	# 处理水平移动
+	handle_horizontal_damping()
 	handle_horizontal_movement(input_dir)
 
 func update_jump_counter():
-	if is_grounded:
-		jump_remaining = max_jump_count
+	jump_remaining = max_jump_count
 
 func handle_horizontal_damping():
 	# 应用横向阻尼力
 	var damping_force = -entity.linear_velocity.x * horizontal_damping * entity.mass
 	entity.apply_central_force(Vector2(damping_force, 0))
 
-func handle_main_jump() -> float:
-	# 主跳跃逻辑
-	if Input.is_action_just_pressed("move_up") && jump_remaining > 0 && is_jump_timer_timeout:
-		var impulse = entity.mass * (jump_speed - entity.linear_velocity.y)
-		jump_remaining -= 1
-		_jump_timer_restart()
-		return impulse
-	return 0.0
+func main_jump():
+	velocity.y = -1 * jump_speed
+	jump_remaining -= 1
+	_jump_timer_restart()
 
-func clamb_ladder()->float:
-	if Input.is_action_pressed("move_up") && is_on_ladder && is_jump_timer_timeout:
-		var impulse = entity.mass * (clamp_speed - entity.linear_velocity.y)
-		_jump_timer_restart()
-		return impulse
-	return 0.0
+func clamb_ladder():
+	velocity.y = -1 * clamp_speed
+	_jump_timer_restart()
 
-func handle_small_jump() -> float:
-	# 横移小跳逻辑（仅地面生效）
-	if is_grounded:
-		var target_vy = -small_jump_speed
-		var speed_ratio = clamp(abs(entity.linear_velocity.x) / max_speed,0, 1)
-		if speed_ratio <= min_speed_radio:
-			return 0.0
-		return entity.mass * (target_vy - entity.linear_velocity.y) * speed_ratio
-	return 0.0
+func small_jump():
+	var speed_ratio = clamp(abs(entity.linear_velocity.x) / max_speed,0, 1)
+	if speed_ratio <= min_speed_radio:
+		return
+	velocity.y = -1 * small_jump_speed * speed_ratio
 
 func handle_horizontal_movement(input_dir: float):
 	# 处理横向移动输入
