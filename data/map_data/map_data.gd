@@ -9,6 +9,8 @@ const MAP_CELL_SIZE := Vector2(16,16)
 const MAP_SIZE := Vector2(72,24)
 const PINK_SKY_PROBABILITY := 100
 
+const DEFAULT_WATER_HIGHT := 1.0
+
 const LADDER_SOURCE_ID := 1
 const MAP_SCENE_SOURCE_ID := 2
 const WATER_SCENE_ID := 1

@@ -18,8 +18,10 @@ extends Node2D
 @export var clamp_speed := 130.0
 @export var max_jump_count := 1
 @export var jump_gap_time:float = 0.2
-
 @export var float_speed := 100.0
+
+# 水中运动
+@export var can_dive:bool
 
 var horizontal_damping: float:
 	get: return move_force / max_speed
@@ -49,6 +51,7 @@ func _physics_process(_delta):
 	# 地面状态检测
 	if is_grounded:
 		update_jump_counter()
+
 	
 	# 处理跳跃优先级
 	if Input.is_action_pressed("move_up") && is_on_ladder && is_jump_timer_timeout:
@@ -57,6 +60,10 @@ func _physics_process(_delta):
 		main_jump()
 	elif input_dir != 0 and is_grounded:
 		small_jump()
+	
+	## TODO:漂浮/下沉的速度太快了。但不这样做幅度太低了。可能需要调整重力值。
+	if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4:
+		velocity.y = -100
 	
 	# 应用冲量
 	var impulse = entity.mass * (velocity - entity.linear_velocity)

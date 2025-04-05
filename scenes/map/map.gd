@@ -1,6 +1,8 @@
 class_name Map
 extends Node2D
 
+const MAP_KEY := "MAP"
+
 enum MapGenerationType {
 	FIXED, ## 固定地图
 	RANDOM ## 随机地图。内外部种子一致。
@@ -19,6 +21,7 @@ enum MapGenerationType {
 
 func _ready() -> void:
 	front_map.front_map_generate_finished.connect(map_path_finder.update_points)
+	GlobalData.set_data(MAP_KEY,self)
 
 func generate_ladder_by_cell(cell:Vector2i):
 	front_map.generate_ladder_by_cell(cell)
@@ -40,8 +43,11 @@ func _set_map_data(value:MapData):
 	if not is_node_ready():
 		await ready
 	
-	map_path_finder.top_water_cell_y = int(map_data.MAP_SIZE.y - map_data.water_hight)
+	map_path_finder.top_water_cell_y = get_top_water_cell_y()
 	
 	bottom_map.map_data = map_data
 	parallax_map.map_data = map_data
 	front_map.map_data = map_data
+
+func get_top_water_cell_y()->int:
+	return int(map_data.MAP_SIZE.y - map_data.water_hight)
