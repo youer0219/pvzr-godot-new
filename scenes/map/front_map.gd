@@ -1,6 +1,7 @@
 class_name FrontMap
 extends Node2D
 
+@warning_ignore("unused_signal")
 signal front_map_generate_finished(outer_map:TileMapLayer)
 
 enum FrontMapGenerationType {
