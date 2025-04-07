@@ -166,7 +166,7 @@ func find_platform_tile(input_coord: Vector2i) -> Vector2i:
 	var current_y = input_coord.y
 	
 	# 判断搜索方向
-	if current_y <= top_water_cell_y:
+	if current_y < top_water_cell_y:
 		## 实体高于水线时，从当前位置向下搜索，找到第一个平台点
 		for y in range(current_y, top_water_cell_y):
 			var coord = Vector2i(x, y)
