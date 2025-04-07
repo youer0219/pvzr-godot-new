@@ -10,6 +10,8 @@ class_name MapPathFinder
 ## 3.添加了一个wall-edge使之更加偏向与跟随建筑移动
 ## 4.添加路径缓存机制（最大 MAX_CACHE_QUEUE_SIZE 条）
 
+const MAP_PATH_FINDER_KEY := "MapPathFinder"
+
 const ENTITY_HEIGHT := 2
 const VECTOR2I_NULL := Vector2i(-1,-1)
 const MAP_TOP_Y := 0
@@ -37,6 +39,7 @@ var cache_queue := []  # 用于维护缓存顺序
 
 func _ready():
 	astar_ready()
+	GlobalData.set_data(MAP_PATH_FINDER_KEY,self)
 
 func astar_ready():
 	# 栅格上用来寻路的区域

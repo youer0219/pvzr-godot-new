@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=25 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
@@ -13,6 +13,7 @@
 [ext_resource type="BehaviorTree" uid="uid://dgkkbn43s7kb3" path="res://ai/trees/entity.tres" id="11_8fgnl"]
 [ext_resource type="PackedScene" uid="uid://da45g6e1pkfwy" path="res://scenes/move/entity_move/entity_move.tscn" id="11_vimme"]
 [ext_resource type="Script" uid="uid://cfl7mjo6g5aya" path="res://scenes/move/entity_move/entity_move.gd" id="12_yrfi6"]
+[ext_resource type="Script" uid="uid://c8lx6uaj6ftau" path="res://scenes/entity/func/entity_path_finder.gd" id="13_yrfi6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vimme"]
 friction = 0.0
@@ -126,6 +127,7 @@ position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_8vnb8")
 
 [node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray01", "floor_ray02", "ladder_ray", "jump_timer") instance=ExtResource("11_vimme")]
+unique_name_in_owner = true
 script = ExtResource("12_yrfi6")
 entity = NodePath("..")
 floor_ray01 = NodePath("FloorRayCast2D01")
@@ -155,6 +157,10 @@ process_callback = 0
 wait_time = 0.05
 one_shot = true
 autostart = true
+
+[node name="EntityPathFinder" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("13_yrfi6")
+entity = NodePath("..")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("11_8fgnl")

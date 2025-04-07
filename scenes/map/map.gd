@@ -1,7 +1,7 @@
 class_name Map
 extends Node2D
 
-const MAP_KEY := "MAP"
+const MAP_KEY := "Map"
 
 enum MapGenerationType {
 	FIXED, ## 固定地图
