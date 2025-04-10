@@ -98,18 +98,16 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 	if platfrom_to == VECTOR2I_NULL:
 		return []
 	
+	var platfrom_from:Vector2i = find_platform_tile(from)
+	if platfrom_from == VECTOR2I_NULL:
+		return []
+	
 	var path:Array[Vector2i] = []
 	
-	if from.y < top_water_cell_y:
-		path.append(from)
-	else:
-		from = find_platform_tile(from)
-		if from == VECTOR2I_NULL:
-			return []
-	
+	path.append(from)
 	## 允许搜索一条不可达路径，用于冰车完全封闭路径时，但要求目标位于有效位置
 	var allow_partial_path:bool = not astar.is_point_solid(platfrom_to)
-	path.append_array(astar.get_id_path(from,platfrom_to,allow_partial_path))
+	path.append_array(astar.get_id_path(platfrom_from,platfrom_to,allow_partial_path))
 	path.append(to)
 	
 	var filtered_path = filter_path(path)
@@ -247,10 +245,22 @@ func filter_path(raw_path: Array[Vector2i]) -> Array[Vector2i]:
 	# 确保终点始终保留
 	filtered.append(raw_path[-1])
 	
+	if filtered.size() >= 2:
+		if filtered[0] == filtered[1]:
+			filtered.remove_at(0)
+	if filtered.size() >= 2:
+		if filtered[-1] == filtered[-2]:
+			# 4.4.1 不支持直接用负数
+			filtered.resize(filtered.size() - 1)
+	
 	return filtered
 
 func global_pos_to_map_cell(global_pos:Vector2)->Vector2i:
+	if map == null:
+		return VECTOR2I_NULL
 	return map.local_to_map(map.to_local(global_pos))
 
 func map_cell_to_global_pos(cell:Vector2i)->Vector2:
+	if map == null:
+		return VECTOR2I_NULL
 	return map.to_global(map.map_to_local(cell))
