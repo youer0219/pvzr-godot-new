@@ -7,6 +7,9 @@ var curr_map_path_finder:MapPathFinder:
 	get:
 		return GlobalData.get_data(MapPathFinder.MAP_PATH_FINDER_KEY,null)
 
+#func _physics_process(_delta: float) -> void:
+	#print(get_entity_direction(get_map_path_to_global_pos(entity.get_global_mouse_position())))
+
 ## 获取MAP路径
 ## 需要：对象全局位置
 func get_map_path_to_global_pos(global_pos:Vector2)->Array[Vector2i]:
@@ -29,6 +32,34 @@ func global_pos_to_map_cell(global_pos:Vector2)->Vector2i:
 
 ## 路径处理逻辑  根据路径获取最新的行动方向
 ## 如果存在不同僵尸不同方法，可以采取策略模式（目前应该可以兼容）
-#func get_entity_direction(map_path:Array[Vector2i])->Vector2i
+func get_entity_direction(map_path:Array[Vector2i])->Vector2:
+	var direction:Vector2 = Vector2.ZERO
+	print("map_path: ",map_path)
+	if map_path.size() <= 1:
+		return direction
+	
+	## TODO: 是否应该无视向下的方向
+	if is_entity_sink_water() and map_path.size() >= 3:
+		direction = map_path[2] - map_path[0]
+	else:
+		direction = map_path[1] - map_path[0]
+	
+	return direction.normalized()
 
 ## 判断是否需要更新路径（占位）
+
+## 是否为水池边的点(用于让实体判断是否要跳跃上岸)
+func is_water_out_cell(cell:Vector2i)->bool:
+	if curr_map_path_finder == null:
+		return false
+	return curr_map_path_finder.water_out_cell.has(cell)
+
+func is_entity_sink_water()->bool:
+	if not entity or not curr_map_path_finder:
+		return false
+	
+	var entity_cell := global_pos_to_map_cell(entity.global_position)
+	if entity_cell.y >= curr_map_path_finder.top_water_cell_y:
+		return true
+	else:
+		return false
