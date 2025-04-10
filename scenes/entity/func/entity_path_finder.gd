@@ -8,7 +8,9 @@ var curr_map_path_finder:MapPathFinder:
 		return GlobalData.get_data(MapPathFinder.MAP_PATH_FINDER_KEY,null)
 
 #func _physics_process(_delta: float) -> void:
-	#print(get_entity_direction(get_map_path_to_global_pos(entity.get_global_mouse_position())))
+	#if get_tree().get_frame() % 10 == 0:
+		#print(get_map_path_to_global_pos(entity.get_global_mouse_position()))
+		#print(get_entity_direction(get_map_path_to_global_pos(entity.get_global_mouse_position())))
 
 ## 获取MAP路径
 ## 需要：对象全局位置
@@ -34,15 +36,19 @@ func global_pos_to_map_cell(global_pos:Vector2)->Vector2i:
 ## 如果存在不同僵尸不同方法，可以采取策略模式（目前应该可以兼容）
 func get_entity_direction(map_path:Array[Vector2i])->Vector2:
 	var direction:Vector2 = Vector2.ZERO
-	print("map_path: ",map_path)
+	
 	if map_path.size() <= 1:
 		return direction
 	
-	## TODO: 是否应该无视向下的方向
-	if is_entity_sink_water() and map_path.size() >= 3:
-		direction = map_path[2] - map_path[0]
-	else:
+	if map_path.size() == 2:
 		direction = map_path[1] - map_path[0]
+	elif map_path.size() >= 3:
+		if is_entity_sink_water():
+			direction = map_path[2] - map_path[0]
+		else:
+			direction = map_path[1] - map_path[0]
+			if direction.y > 0:
+				direction = map_path[2] - map_path[0]
 	
 	return direction.normalized()
 
