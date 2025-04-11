@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name Entity
 
 @onready var entity_component_manager: EntityComponentManager = %EntityComponentManager
+@onready var entity_path_finder: EntityPathFinder = %EntityPathFinder
 
 var curr_map:Map:
 	get:

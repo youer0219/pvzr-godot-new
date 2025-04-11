@@ -1,6 +1,11 @@
 extends Node
 class_name EntityPathFinder
 
+const MAP_PATH_BLACKGROUND_KEY := "MAP_PATH"
+const MAP_PATH_DEFAULT_VAR :Array[Vector2i] = []
+const DIRECTION_BLACKGROUND_KEY := "DIRECTION"
+const DIRECTION_DEFAULT_VAR := Vector2.ZERO
+
 @export var entity:Entity
 
 var curr_map_path_finder:MapPathFinder:
