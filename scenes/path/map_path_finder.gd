@@ -87,7 +87,9 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 		var cached_path = get_cached_path(from, to)
 		if cached_path:
 			return cached_path
-
+	
+	## TODO: 应该允许目标点超过地图上限
+	
 	if from.x <= astar.region.position.x or from.x >= astar.region.end.x or from.y <= astar.region.position.y:
 		return []
 	

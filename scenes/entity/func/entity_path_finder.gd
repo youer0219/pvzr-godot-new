@@ -16,12 +16,13 @@ var curr_map_path_finder:MapPathFinder:
 ## 需要：对象全局位置
 func get_map_path_to_global_pos(global_pos:Vector2)->Array[Vector2i]:
 	var map_path:Array[Vector2i] = []
+	if curr_map_path_finder == null:
+		return map_path
 	
 	var entity_cell := global_pos_to_map_cell(entity.global_position)
 	var global_pos_cell := global_pos_to_map_cell(global_pos)
 	
-	if curr_map_path_finder != null:
-		map_path = curr_map_path_finder.get_id_path(entity_cell,global_pos_cell)
+	map_path = curr_map_path_finder.get_id_path(entity_cell,global_pos_cell)
 	
 	return map_path
 
@@ -41,14 +42,14 @@ func get_entity_direction(map_path:Array[Vector2i])->Vector2:
 		return direction
 	
 	if map_path.size() == 2:
-		direction = map_path[1] - map_path[0]
+		direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
 	elif map_path.size() >= 3:
 		if is_entity_sink_water():
-			direction = map_path[2] - map_path[0]
+			direction = map_cell_to_global_pos(map_path[2]) - entity.global_position
 		else:
-			direction = map_path[1] - map_path[0]
+			direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
 			if direction.y > 0:
-				direction = map_path[2] - map_path[0]
+				direction.x = map_cell_to_global_pos(map_path[2]).x - entity.global_position.x
 	
 	return direction
 
@@ -69,3 +70,9 @@ func is_entity_sink_water()->bool:
 		return true
 	else:
 		return false
+
+func map_cell_to_global_pos(cell:Vector2i)->Vector2:
+	if curr_map_path_finder == null:
+		return MapPathFinder.VECTOR2I_NULL
+	else:
+		return curr_map_path_finder.map_cell_to_global_pos(cell)

@@ -26,6 +26,8 @@ func _tick(_delta: float) -> Status:
 	
 	agent_node.entity_move.move_by_direction(direction)
 	
+	## TODO:加入对到达的判断
+	
 	return SUCCESS
 
 # 初始化时调用一次。
@@ -39,12 +41,3 @@ func _setup() -> void:
 	
 	if not blackboard.has_var(EntityPathFinder.DIRECTION_BLACKGROUND_KEY):
 		blackboard.set_var(EntityPathFinder.DIRECTION_BLACKGROUND_KEY,EntityPathFinder.DIRECTION_DEFAULT_VAR)
-
-
-# 每次进入此任务时调用。
-func _enter() -> void:
-	pass
-
-# 每次退出此任务时调用。
-func _exit() -> void:
-	pass
