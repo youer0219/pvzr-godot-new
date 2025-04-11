@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=25 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
@@ -76,12 +76,8 @@ shader_parameter/use_replace_color = false
 shader_parameter/replace_color = Color(0, 0, 0, 1)
 shader_parameter/dissolve_amount = 0.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8vnb8"]
-radius = 4.0
-height = 22.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yrfi6"]
-size = Vector2(8, 22)
+size = Vector2(8, 21)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_8816o"]
 
@@ -126,12 +122,7 @@ material = SubResource("ShaderMaterial_bstds")
 entity_component_data = ExtResource("9_flv0i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("CapsuleShape2D_8vnb8")
-disabled = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_yrfi6")
 
 [node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray01", "floor_ray02", "ladder_ray", "jump_timer") instance=ExtResource("11_vimme")]
@@ -143,7 +134,7 @@ floor_ray02 = NodePath("FloorRayCast2D02")
 ladder_ray = NodePath("LadderRayCast2D")
 jump_timer = NodePath("JumpTimer")
 jump_speed = 240.0
-clamp_speed = 170.0
+clamp_speed = 150.0
 
 [node name="FloorRayCast2D01" type="RayCast2D" parent="EntityMove"]
 position = Vector2(-2, 10)

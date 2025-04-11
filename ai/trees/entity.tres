@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=12 format=3 uid="uid://dgkkbn43s7kb3"]
+[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://dgkkbn43s7kb3"]
 
 [ext_resource type="Script" uid="uid://cf2amidluvu3h" path="res://ai/tasks/update_map_path_and_direction.gd" id="1_ffycl"]
 
@@ -21,17 +21,11 @@ custom_name = "是否到达目标点"
 
 [sub_resource type="BTAction" id="BTAction_pqmdn"]
 script = ExtResource("1_ffycl")
-update_frequency = 3
-
-[sub_resource type="BTSequence" id="BTSequence_o6hhw"]
-children = [SubResource("BTComment_ffycl"), SubResource("BTComment_pqmdn"), SubResource("BTComment_ly2rq"), SubResource("BTComment_xiodb"), SubResource("BTAction_pqmdn")]
-
-[sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_5j61p"]
-children = [SubResource("BTSequence_o6hhw")]
+update_frequency = 5
 
 [sub_resource type="BTSequence" id="BTSequence_khdha"]
 custom_name = "Chase"
-children = [SubResource("BTComment_o6hhw"), SubResource("BTRepeatUntilSuccess_5j61p")]
+children = [SubResource("BTComment_o6hhw"), SubResource("BTComment_ffycl"), SubResource("BTComment_pqmdn"), SubResource("BTComment_ly2rq"), SubResource("BTComment_xiodb"), SubResource("BTAction_pqmdn")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_uphax")

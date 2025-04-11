@@ -12,11 +12,6 @@ var curr_map_path_finder:MapPathFinder:
 	get:
 		return GlobalData.get_data(MapPathFinder.MAP_PATH_FINDER_KEY,null)
 
-#func _physics_process(_delta: float) -> void:
-	#if get_tree().get_frame() % 10 == 0:
-		#print(get_map_path_to_global_pos(entity.get_global_mouse_position()))
-		#print(get_entity_direction(get_map_path_to_global_pos(entity.get_global_mouse_position())))
-
 ## 获取MAP路径
 ## 需要：对象全局位置
 func get_map_path_to_global_pos(global_pos:Vector2)->Array[Vector2i]:
@@ -55,7 +50,7 @@ func get_entity_direction(map_path:Array[Vector2i])->Vector2:
 			if direction.y > 0:
 				direction = map_path[2] - map_path[0]
 	
-	return direction.normalized()
+	return direction
 
 ## 判断是否需要更新路径（占位）
 

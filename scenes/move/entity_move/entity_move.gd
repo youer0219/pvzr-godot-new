@@ -81,6 +81,7 @@ func move_by_direction(direction:Vector2):
 	if is_grounded:
 		update_jump_counter()
 	
+	## TODO: 希望 横向方向 可以保持，除非direction改变
 	var input_dir:float = 0.0
 	if direction.x > 0:
 		input_dir = Vector2.RIGHT.x
