@@ -3,6 +3,7 @@ class_name Entity
 
 @onready var entity_component_manager: EntityComponentManager = %EntityComponentManager
 @onready var entity_path_finder: EntityPathFinder = %EntityPathFinder
+@onready var entity_move: EntityMove = %EntityMove
 
 var curr_map:Map:
 	get:

@@ -41,27 +41,60 @@ var jump_remaining := max_jump_count
 func _ready() -> void:
 	_jump_timer_restart()
 
-func _physics_process(_delta):
+#func _physics_process(_delta):
+	#velocity = entity.linear_velocity
+	#
+	#update_ray_state()
+	#
+	#var input_dir = Input.get_axis("move_left", "move_right")
+	#
+	## 地面状态检测
+	#if is_grounded:
+		#update_jump_counter()
+	#
+	## 处理跳跃优先级
+	#if Input.is_action_pressed("move_up") && is_on_ladder && is_jump_timer_timeout:
+		#clamb_ladder()
+	#elif Input.is_action_just_pressed("move_up") && jump_remaining > 0 && is_jump_timer_timeout:
+		#main_jump()
+	#elif input_dir != 0 and is_grounded:
+		#small_jump()
+	#
+	### TODO:漂浮/下沉的速度太快了。但不这样做幅度太低了。可能需要调整重力值。
+	#if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4:
+		#velocity.y = -100
+	#
+	## 应用冲量
+	#var impulse = entity.mass * (velocity - entity.linear_velocity)
+	#entity.apply_central_impulse(impulse)
+	#
+	## 处理水平移动
+	#handle_horizontal_damping()
+	#handle_horizontal_movement(input_dir)
+
+func move_by_direction(direction:Vector2):
 	velocity = entity.linear_velocity
 	
 	update_ray_state()
 	
-	var input_dir = Input.get_axis("move_left", "move_right")
-	
 	# 地面状态检测
 	if is_grounded:
 		update_jump_counter()
-
+	
+	var input_dir:float = 0.0
+	if direction.x > 0:
+		input_dir = Vector2.RIGHT.x
+	if direction.x < 0:
+		input_dir = Vector2.LEFT.x
 	
 	# 处理跳跃优先级
-	if Input.is_action_pressed("move_up") && is_on_ladder && is_jump_timer_timeout:
+	if direction.y < 0 && is_on_ladder && is_jump_timer_timeout:
 		clamb_ladder()
-	elif Input.is_action_just_pressed("move_up") && jump_remaining > 0 && is_jump_timer_timeout:
+	elif direction.y < 0 && jump_remaining > 0 && is_jump_timer_timeout:
 		main_jump()
 	elif input_dir != 0 and is_grounded:
 		small_jump()
 	
-	## TODO:漂浮/下沉的速度太快了。但不这样做幅度太低了。可能需要调整重力值。
 	if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4:
 		velocity.y = -100
 	

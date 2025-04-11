@@ -21,9 +21,13 @@ func _tick(_delta: float) -> Status:
 		direction = agent_node.entity_path_finder.get_entity_direction(map_path)
 		blackboard.set_var(EntityPathFinder.DIRECTION_BLACKGROUND_KEY,direction)
 		
-		blackboard.print_state()
-	
+		#blackboard.print_state()
+	else:
+		map_path = blackboard.get_var(EntityPathFinder.MAP_PATH_BLACKGROUND_KEY,EntityPathFinder.MAP_PATH_DEFAULT_VAR)
+		direction = blackboard.get_var(EntityPathFinder.DIRECTION_BLACKGROUND_KEY,EntityPathFinder.DIRECTION_DEFAULT_VAR)
 	## TODO: 是否应该继续执行下去，把根据方向移动的代码也写在这里
+	
+	agent_node.entity_move.move_by_direction(direction)
 	
 	return SUCCESS
 
