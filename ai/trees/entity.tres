@@ -1,6 +1,6 @@
 [gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://dgkkbn43s7kb3"]
 
-[ext_resource type="Script" uid="uid://cf2amidluvu3h" path="res://ai/tasks/update_map_path_and_direction.gd" id="1_ffycl"]
+[ext_resource type="Script" uid="uid://cf2amidluvu3h" path="res://ai/tasks/chase.gd" id="1_ffycl"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_uphax"]
 

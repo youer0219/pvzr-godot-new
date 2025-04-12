@@ -4,11 +4,11 @@ extends BTAction
 
 var agent_node:Entity
 
-@export var update_frequency:int = 3
+@export var update_frequency:int = 5
 
 # 显示自定义名称（需要 @tool）。
 func _generate_name() -> String:
-	return "Entity update map-path & direction"
+	return "Entity Chase"
 
 # 每次此任务被 tick（即执行）时调用。
 func _tick(_delta: float) -> Status:
