@@ -62,14 +62,6 @@ func get_entity_direction(map_path:Array[Vector2i])->Vector2:
 	
 	return direction
 
-## 判断是否需要更新路径（占位）
-
-## 是否为水池边的点(用于让实体判断是否要跳跃上岸)
-func is_water_out_cell(cell:Vector2i)->bool:
-	if curr_map_path_finder == null:
-		return false
-	return curr_map_path_finder.water_out_cell.has(cell)
-
 func is_entity_sink_water()->bool:
 	if not entity or not curr_map_path_finder:
 		return false
@@ -85,3 +77,5 @@ func map_cell_to_global_pos(cell:Vector2i)->Vector2:
 		return MapPathFinder.VECTOR2I_NULL
 	else:
 		return curr_map_path_finder.map_cell_to_global_pos(cell)
+
+## 判断是否需要更新路径（占位）
