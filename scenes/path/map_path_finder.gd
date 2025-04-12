@@ -26,9 +26,6 @@ const AIR_POINT_WEIGHT := 2.5
 var astar := PVZRAStarGrid2D.new()
 var map:TileMapLayer
 var top_water_cell_y:int
-var platform_path: Array[Vector2i]
-var platform_edge_path:Array[Vector2i]
-var platform_down_path:Array[Vector2i]
 
 ## 路径缓存系统
 var path_cache := {}
@@ -85,12 +82,10 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 		if cached_path:
 			return cached_path
 	
-	## TODO: 应该允许目标点超过地图上限
-	
-	if from.x <= astar.region.position.x or from.x >= astar.region.end.x or from.y <= astar.region.position.y:
+	if from.x <= astar.region.position.x or from.x >= astar.region.end.x:
 		return []
 	
-	if not astar.is_in_boundsv(to):
+	if to.x <= astar.region.position.x or to.x >= astar.region.end.x:
 		return []
 	
 	var platfrom_to:Vector2i = find_platform_tile(to)
