@@ -22,6 +22,7 @@ extends Node2D
 
 # 水中运动
 @export var can_dive:bool
+@export var sink_offect:float = 8.0
 
 var horizontal_damping: float:
 	get: return move_force / max_speed
@@ -61,7 +62,7 @@ func _ready() -> void:
 		#small_jump()
 	#
 	### TODO:漂浮/下沉的速度太快了。但不这样做幅度太低了。可能需要调整重力值。
-	#if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4:
+	#if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4 - sink_offect:
 		#velocity.y = -100
 	#
 	## 应用冲量
@@ -81,7 +82,6 @@ func move_by_direction(direction:Vector2):
 	if is_grounded:
 		update_jump_counter()
 	
-	## TODO: 希望 横向方向 可以保持，除非direction改变
 	var input_dir:float = 0.0
 	if direction.x > 0:
 		input_dir = Vector2.RIGHT.x
@@ -96,8 +96,9 @@ func move_by_direction(direction:Vector2):
 	elif input_dir != 0 and is_grounded:
 		small_jump()
 	
-	if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4:
+	if not can_dive and entity.position.y >= entity.get_map_water_hight_pos_y() + MapData.MAP_CELL_SIZE.y /4 - sink_offect:
 		velocity.y = -100
+		update_jump_counter()
 	
 	# 应用冲量
 	var impulse = entity.mass * (velocity - entity.linear_velocity)
@@ -105,7 +106,8 @@ func move_by_direction(direction:Vector2):
 	
 	# 处理水平移动
 	handle_horizontal_damping()
-	handle_horizontal_movement(input_dir)
+	if input_dir != 0:
+		handle_horizontal_movement(input_dir)
 
 func update_jump_counter():
 	jump_remaining = max_jump_count
@@ -132,8 +134,7 @@ func small_jump():
 
 func handle_horizontal_movement(input_dir: float):
 	# 处理横向移动输入
-	if input_dir != 0:
-		entity.apply_central_force(Vector2(input_dir * move_force, 0))
+	entity.apply_central_force(Vector2(input_dir * move_force, 0))
 
 func update_ray_state():
 	floor_ray01.force_raycast_update()

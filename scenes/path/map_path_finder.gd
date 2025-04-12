@@ -113,7 +113,8 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 	path.append(to)
 	
 	var filtered_path = filter_path(path)
-	
+	var global_filtered_path = PathShowTool.change_tilemaplayer_cells_to_global_cells(filtered_path,map)
+	PathShowTool.draw_path(self,global_filtered_path,Color.ALICE_BLUE,5)
 	# 更新缓存
 	if cache_enabled:
 		update_cache(from, to, filtered_path)

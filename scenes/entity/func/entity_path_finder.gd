@@ -45,11 +45,20 @@ func get_entity_direction(map_path:Array[Vector2i])->Vector2:
 		direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
 	elif map_path.size() >= 3:
 		if is_entity_sink_water():
-			direction = map_cell_to_global_pos(map_path[2]) - entity.global_position
+			direction.x = map_cell_to_global_pos(map_path[2]).x - entity.global_position.x
 		else:
 			direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
 			if direction.y > 0:
 				direction.x = map_cell_to_global_pos(map_path[2]).x - entity.global_position.x
+	#if map_path.size() == 2:
+		#direction = map_path[1] - map_path[0]
+	#elif map_path.size() >= 3:
+		#if is_entity_sink_water():
+			#direction = map_path[2] - map_path[0]
+		#else:
+			#direction = map_path[1] - map_path[0]
+			#if direction.y > 0:
+				#direction = map_path[2] - map_path[0]
 	
 	return direction
 
