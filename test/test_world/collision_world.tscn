@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://6bn3n322w0b1"]
 
-[ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/entity_compoment_test/collision_world/collision_world.gd" id="1_a0j4q"]
+[ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
 [ext_resource type="PackedScene" uid="uid://bqnfbl5kdbhts" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_decorative_map.tscn" id="2_mk1kk"]
 [ext_resource type="PackedScene" uid="uid://cpcqmein2p3c5" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_inner_map.tscn" id="3_y6km7"]

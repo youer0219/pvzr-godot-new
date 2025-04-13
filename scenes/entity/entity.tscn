@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://ca5sagkxqmyt1"]
 
-[ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://test/entity_compoment_test/collision_world/entity.gd" id="1_1w0ui"]
+[ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://scenes/entity/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
 [ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://scenes/entity/entity_component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="3_8fgnl"]
 [ext_resource type="Resource" uid="uid://morvfvefddx" path="res://data/entity_data/entity.tres" id="3_uphax"]
