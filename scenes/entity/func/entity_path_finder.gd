@@ -49,6 +49,7 @@ func get_entity_direction(map_path:Array[Vector2i])->Vector2:
 		else:
 			direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
 			if direction.y > 0:
+				## TODO:需要处理左下右时徘徊的问题
 				direction.x = map_cell_to_global_pos(map_path[2]).x - entity.global_position.x
 	#if map_path.size() == 2:
 		#direction = map_path[1] - map_path[0]

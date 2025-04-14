@@ -133,7 +133,6 @@ floor_ray01 = NodePath("FloorRayCast2D01")
 floor_ray02 = NodePath("FloorRayCast2D02")
 ladder_ray = NodePath("LadderRayCast2D")
 jump_timer = NodePath("JumpTimer")
-jump_speed = 240.0
 
 [node name="FloorRayCast2D01" type="RayCast2D" parent="EntityMove"]
 position = Vector2(-2, 10)
