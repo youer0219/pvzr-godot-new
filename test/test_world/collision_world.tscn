@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://ca5sagkxqmyt1" path="res://scenes/entity/entity.tscn" id="9_a0j4q"]
+[ext_resource type="PackedScene" uid="uid://b8ewo6gr5nhu2" path="res://scenes/bullet/bullet.tscn" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
@@ -62,5 +63,8 @@ enable = true
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="Bullet" parent="." instance=ExtResource("11_nhf0t")]
+position = Vector2(455, 263)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
