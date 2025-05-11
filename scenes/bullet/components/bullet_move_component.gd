@@ -6,4 +6,4 @@ class_name BaseBulletMoveComponent
 
 func _physics_process(delta: float) -> void:
 	if bullet:
-		bullet.global_position += delta * bullet.direction * bullet.speed
+		bullet.linear_velocity = bullet.speed * bullet.direction
