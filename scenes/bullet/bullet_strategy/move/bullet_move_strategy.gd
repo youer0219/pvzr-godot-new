@@ -1,8 +1,6 @@
 extends Resource
 class_name BulletMoveStrategy
 
-var enable:bool = true
-
 func ready(_bullet: Bullet, _context: Dictionary = {}):
 	assert(false, "This method must be overridden")
 
