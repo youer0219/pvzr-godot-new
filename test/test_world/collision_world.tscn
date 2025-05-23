@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=16 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -9,7 +9,8 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://ca5sagkxqmyt1" path="res://scenes/entity/entity.tscn" id="9_a0j4q"]
-[ext_resource type="PackedScene" uid="uid://b8ewo6gr5nhu2" path="res://scenes/bullet/bullet.tscn" id="11_nhf0t"]
+[ext_resource type="Script" uid="uid://cxh04uc5ayw7s" path="res://test/test_world/bullet_move_test.gd" id="11_h3mjc"]
+[ext_resource type="Texture2D" uid="uid://d1b7gookorqw0" path="res://assets/sprites/bullets/星星.png" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
@@ -33,6 +34,9 @@ is_pink_sky = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
 size = Vector2(203.69, 47.7388)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nhf0t"]
+radius = 6.0
 
 [node name="CollisionWorld" type="Node2D"]
 script = ExtResource("1_a0j4q")
@@ -58,13 +62,24 @@ linear_damp = 45.0
 shape = SubResource("RectangleShape2D_h858w")
 
 [node name="MoveCamera" parent="." instance=ExtResource("12_lmk3r")]
-position = Vector2(412, 244)
+position = Vector2(511, 244)
 enable = true
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="Bullet" parent="." instance=ExtResource("11_nhf0t")]
-position = Vector2(728, 263)
+[node name="TestBulletMove" type="Node2D" parent="."]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="TestBulletMove"]
+position = Vector2(462, 269)
+script = ExtResource("11_h3mjc")
+target_pos = Vector2(8, 4)
+bounce_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="TestBulletMove/CharacterBody2D"]
+texture = ExtResource("11_nhf0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBulletMove/CharacterBody2D"]
+shape = SubResource("CircleShape2D_nhf0t")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
