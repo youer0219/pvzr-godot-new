@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8ewo6gr5nhu2"]
+[gd_scene load_steps=7 format=3 uid="uid://b8ewo6gr5nhu2"]
 
 [ext_resource type="Texture2D" uid="uid://d1b7gookorqw0" path="res://assets/sprites/bullets/星星.png" id="1_7c8un"]
 [ext_resource type="Script" uid="uid://ci23nbaya5cdn" path="res://scenes/bullet/bullet.gd" id="1_83itf"]
 [ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="2_8g26r"]
 [ext_resource type="Script" uid="uid://cuxtb3h3l7b83" path="res://scenes/bullet/components/hit_box.gd" id="3_0vdx3"]
-[ext_resource type="Script" uid="uid://ry7ubjw2kvjv" path="res://scenes/bullet/components/penetrate_component.gd" id="5_8g26r"]
 
 [sub_resource type="Resource" id="Resource_4loxr"]
 script = ExtResource("2_8g26r")
@@ -13,15 +12,11 @@ metadata/_custom_type_script = "uid://26qwb5w4vd5u"
 [sub_resource type="CircleShape2D" id="CircleShape2D_0vdx3"]
 radius = 6.0
 
-[node name="Bullet" type="RigidBody2D"]
-gravity_scale = 0.0
-can_sleep = false
-lock_rotation = true
-contact_monitor = true
-max_contacts_reported = 1
+[node name="Bullet" type="CharacterBody2D"]
 script = ExtResource("1_83itf")
 direction = Vector2(-1, 0)
 move_strategy = SubResource("Resource_4loxr")
+bounce_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_7c8un")
@@ -35,9 +30,3 @@ script = ExtResource("3_0vdx3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 
 [node name="Components" type="Node" parent="."]
-
-[node name="BulletPenetrateComponent" type="Node" parent="Components" node_paths=PackedStringArray("bullet")]
-script = ExtResource("5_8g26r")
-bullet = NodePath("../..")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

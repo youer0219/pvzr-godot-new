@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=17 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cxh04uc5ayw7s" path="res://test/test_world/bullet_move_test.gd" id="11_h3mjc"]
 [ext_resource type="Texture2D" uid="uid://d1b7gookorqw0" path="res://assets/sprites/bullets/星星.png" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
+[ext_resource type="PackedScene" uid="uid://b8ewo6gr5nhu2" path="res://scenes/bullet/bullet.tscn" id="13_1priq"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -71,7 +72,7 @@ autostart = true
 [node name="TestBulletMove" type="Node2D" parent="."]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="TestBulletMove"]
-position = Vector2(462, 269)
+position = Vector2(508, 190)
 script = ExtResource("11_h3mjc")
 target_pos = Vector2(8, 4)
 bounce_times = 4
@@ -81,5 +82,8 @@ texture = ExtResource("11_nhf0t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestBulletMove/CharacterBody2D"]
 shape = SubResource("CircleShape2D_nhf0t")
+
+[node name="Bullet" parent="TestBulletMove" instance=ExtResource("13_1priq")]
+position = Vector2(567, 237)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

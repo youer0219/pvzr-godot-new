@@ -1,5 +1,10 @@
 extends Resource
 class_name BulletMoveStrategy
 
-func execute_strategy(_delta: float, _bullet: Bullet, _context: Dictionary = {}):
+var enable:bool = true
+
+func ready(_bullet: Bullet, _context: Dictionary = {}):
+	assert(false, "This method must be overridden")
+
+func physics_process(_delta: float, _bullet: Bullet, _context: Dictionary = {}):
 	assert(false, "This method must be overridden")
