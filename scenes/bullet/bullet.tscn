@@ -17,6 +17,8 @@ metadata/_custom_type_script = "uid://4p2ovp8ylc4x"
 radius = 6.0
 
 [node name="Bullet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_83itf")
 direction = Vector2(-1, 0)
 move_strategy = SubResource("Resource_8g26r")

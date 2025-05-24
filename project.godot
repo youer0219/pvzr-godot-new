@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/gaea/plugin.cfg")
 
 map=""
 test_target="测试寻路"
+enemy=""
 
 [input]
 
