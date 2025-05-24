@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2cth0oafw4oe"]
+
+[ext_resource type="Texture2D" uid="uid://dav05iir2twns" path="res://assets/sprites/bullets/fire_tail/火尾1.png" id="1_kxrwn"]
+[ext_resource type="Texture2D" uid="uid://dp8cw5g0lbcy7" path="res://assets/sprites/bullets/fire_tail/火尾2.png" id="2_gpfrb"]
+[ext_resource type="Texture2D" uid="uid://02vv0cg5frre" path="res://assets/sprites/bullets/fire_tail/火尾3.png" id="3_c4tnm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_211br"]
+atlas = ExtResource("1_kxrwn")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp0rj"]
+atlas = ExtResource("2_gpfrb")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jquqr"]
+atlas = ExtResource("3_c4tnm")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghnkj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_211br")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp0rj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jquqr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FireTail" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ghnkj")
+autoplay = "default"
+frame_progress = 0.539296
+flip_h = true

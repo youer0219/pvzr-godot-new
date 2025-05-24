@@ -20,3 +20,11 @@ func _on_timer_timeout() -> void:
 	pass
 	#var new_path := map.map_path_finder.get_global_path(get_global_mouse_position(),entity.global_position)
 	#PathShowTool.draw_path(self,new_path,Color.AZURE,5.0)
+
+const 卷心菜 = preload("res://assets/sprites/bullets/卷心菜.png")
+
+func _on_bullet_finder_body_entered(body: Node2D) -> void:
+	if body is Bullet:
+		print(body.bullet_data.bullet_name)
+		body.bullet_data.bullet_texture = 卷心菜
+		body.bullet_data = body.bullet_data

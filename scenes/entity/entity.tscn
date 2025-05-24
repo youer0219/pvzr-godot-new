@@ -82,7 +82,7 @@ size = Vector2(8, 21)
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_8816o"]
 
 [node name="Entity" type="RigidBody2D"]
-collision_layer = 8
+collision_layer = 16
 physics_material_override = SubResource("PhysicsMaterial_vimme")
 lock_rotation = true
 script = ExtResource("1_1w0ui")

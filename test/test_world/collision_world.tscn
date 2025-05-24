@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=15 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -34,6 +34,9 @@ is_pink_sky = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
 size = Vector2(203.69, 47.7388)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_nhf0t"]
+radius = 20.0
+
 [node name="CollisionWorld" type="Node2D"]
 script = ExtResource("1_a0j4q")
 metadata/_edit_lock_ = true
@@ -64,9 +67,18 @@ enable = true
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="TestBulletMove" type="Node2D" parent="."]
+[node name="TestBullet" type="Node2D" parent="."]
 
-[node name="Bullet" parent="TestBulletMove" instance=ExtResource("13_1priq")]
+[node name="Bullet" parent="TestBullet" instance=ExtResource("13_1priq")]
 position = Vector2(567, 237)
 
+[node name="BulletFinder" type="Area2D" parent="TestBullet"]
+position = Vector2(472, 259)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBullet/BulletFinder"]
+shape = SubResource("CircleShape2D_nhf0t")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="TestBullet/BulletFinder" to="." method="_on_bullet_finder_body_entered"]
