@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://dxgsmnwyft2wj"]
 
-[ext_resource type="Texture2D" uid="uid://d1b7gookorqw0" path="res://assets/sprites/bullets/星星.png" id="1_cynjm"]
+[ext_resource type="Texture2D" uid="uid://d1b7gookorqw0" path="res://assets/sprites/bullets/星星.png" id="1_mqa6b"]
 [ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="1_w52hc"]
 [ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="2_mqa6b"]
 
@@ -12,9 +12,9 @@ metadata/_custom_type_script = "uid://26qwb5w4vd5u"
 [resource]
 script = ExtResource("1_w52hc")
 bullet_name = "Pentagram"
-bullet_texture = ExtResource("1_cynjm")
+bullet_texture = ExtResource("1_mqa6b")
 direction = Vector2(-1, 0)
 move_strategy = SubResource("Resource_svpr3")
-can_collide_world = true
+can_collide_world = false
 bounce_times = 0
 metadata/_custom_type_script = "uid://crilgagmkjhb6"

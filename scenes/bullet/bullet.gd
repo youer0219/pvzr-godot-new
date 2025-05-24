@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody2D
 class_name Bullet
 
@@ -9,6 +10,9 @@ class_name Bullet
 var move_strategy_enable:bool = true
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if move_strategy_enable:
 		bullet_data.move_strategy.ready(self)
 
@@ -22,8 +26,10 @@ func _set_data(new_data:BulletData):
 	collision_mask = GlobalSetting.COLLISION_SETTING.get("world") \
 	if bullet_data.can_collide_world else GlobalSetting.COLLISION_SETTING.get("null")
 
-
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if move_strategy_enable:
 		bullet_data.move_strategy.physics_process(delta,self)
 	

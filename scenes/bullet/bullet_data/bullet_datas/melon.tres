@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://21sofwr66e40"]
+
+[ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="1_7eqh5"]
+[ext_resource type="Texture2D" uid="uid://dratdj8asvarx" path="res://assets/sprites/bullets/西瓜.png" id="1_ydpvd"]
+[ext_resource type="Script" uid="uid://4p2ovp8ylc4x" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_parabola_move_strategy.gd" id="2_v2jpk"]
+
+[sub_resource type="Resource" id="Resource_ll4qb"]
+script = ExtResource("2_v2jpk")
+target_pos = Vector2(1, 1)
+grid_cell = Vector2(16, 16)
+move_time = 1.0
+metadata/_custom_type_script = "uid://4p2ovp8ylc4x"
+
+[resource]
+script = ExtResource("1_7eqh5")
+bullet_name = "melon"
+bullet_texture = ExtResource("1_ydpvd")
+direction = Vector2(1, 0)
+move_strategy = SubResource("Resource_ll4qb")
+can_collide_world = true
+bounce_times = 0
+metadata/_custom_type_script = "uid://crilgagmkjhb6"
