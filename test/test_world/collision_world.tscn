@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://ca5sagkxqmyt1" path="res://scenes/entity/entity.tscn" id="9_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 [ext_resource type="PackedScene" uid="uid://b8ewo6gr5nhu2" path="res://scenes/bullet/bullet.tscn" id="13_1priq"]
-[ext_resource type="Script" uid="uid://h3i8hpi1jh16" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_seeking_move_strategy.gd" id="14_bwk18"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -34,14 +33,6 @@ is_pink_sky = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
 size = Vector2(203.69, 47.7388)
-
-[sub_resource type="Resource" id="Resource_bb18b"]
-script = ExtResource("14_bwk18")
-normal_speed = 120.0
-idle_speed = 30.0
-rotation_speed = 120.0
-target_group = "enemy"
-metadata/_custom_type_script = "uid://h3i8hpi1jh16"
 
 [node name="CollisionWorld" type="Node2D"]
 script = ExtResource("1_a0j4q")
@@ -77,6 +68,5 @@ autostart = true
 
 [node name="Bullet" parent="TestBulletMove" instance=ExtResource("13_1priq")]
 position = Vector2(567, 237)
-move_strategy = SubResource("Resource_bb18b")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -12,7 +12,7 @@ var current_target: Node2D = null          # 当前追踪目标
 
 func ready(bullet: Bullet, _context: Dictionary = {}):
 	# 保存初始方向并初始化速度
-	initial_direction = bullet.direction.normalized()
+	initial_direction = bullet.bullet_data.direction.normalized()
 	bullet.velocity = initial_direction * idle_speed
 
 func physics_process(delta: float, bullet: Bullet, _context: Dictionary = {}):
@@ -23,7 +23,7 @@ func physics_process(delta: float, bullet: Bullet, _context: Dictionary = {}):
 	
 	if enemies.is_empty():
 		# 无目标时低速直线运动
-		bullet.velocity = initial_direction * idle_speed
+		bullet.velocity = bullet.velocity.normalized() * idle_speed
 		current_target = null
 	else:
 		# 选择第一个可见目标

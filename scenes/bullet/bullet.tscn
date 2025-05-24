@@ -1,17 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8ewo6gr5nhu2"]
+[gd_scene load_steps=6 format=3 uid="uid://b8ewo6gr5nhu2"]
 
 [ext_resource type="Texture2D" uid="uid://d1b7gookorqw0" path="res://assets/sprites/bullets/星星.png" id="1_7c8un"]
 [ext_resource type="Script" uid="uid://ci23nbaya5cdn" path="res://scenes/bullet/bullet.gd" id="1_83itf"]
-[ext_resource type="Script" uid="uid://4p2ovp8ylc4x" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_parabola_move_strategy.gd" id="2_0vdx3"]
 [ext_resource type="Script" uid="uid://cuxtb3h3l7b83" path="res://scenes/bullet/components/hit_box.gd" id="3_0vdx3"]
-
-[sub_resource type="Resource" id="Resource_8g26r"]
-resource_local_to_scene = true
-script = ExtResource("2_0vdx3")
-target_pos = Vector2(1, 1)
-grid_cell = Vector2(16, 16)
-move_time = 1.0
-metadata/_custom_type_script = "uid://4p2ovp8ylc4x"
+[ext_resource type="Resource" uid="uid://dxgsmnwyft2wj" path="res://scenes/bullet/bullet_data/bullet_datas/pentagram.tres" id="3_8g26r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0vdx3"]
 radius = 6.0
@@ -20,11 +12,9 @@ radius = 6.0
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_83itf")
-direction = Vector2(-1, 0)
-move_strategy = SubResource("Resource_8g26r")
-bounce_times = 2
+bullet_data = ExtResource("3_8g26r")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Image" type="Sprite2D" parent="."]
 texture = ExtResource("1_7c8un")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

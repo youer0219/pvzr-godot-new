@@ -1,25 +1,38 @@
 extends CharacterBody2D
 class_name Bullet
 
-@export var direction:Vector2 = Vector2.RIGHT
-@export var move_strategy:BulletMoveStrategy
-@export_range(0,10,1.0) var bounce_times:int = 0
+
+@export var bullet_data:BulletData:set = _set_data
+
+@onready var image: Sprite2D = $Image
 
 var move_strategy_enable:bool = true
 
 func _ready() -> void:
 	if move_strategy_enable:
-		move_strategy.ready(self)
+		bullet_data.move_strategy.ready(self)
+
+func _set_data(new_data:BulletData):
+	bullet_data = new_data
+	
+	if not is_node_ready():
+		await ready
+	
+	image.texture = bullet_data.bullet_texture
+	collision_mask = GlobalSetting.COLLISION_SETTING.get("world") \
+	if bullet_data.can_collide_world else GlobalSetting.COLLISION_SETTING.get("null")
+
 
 func _physics_process(delta: float) -> void:
 	if move_strategy_enable:
-		move_strategy.physics_process(delta,self)
+		bullet_data.move_strategy.physics_process(delta,self)
 	
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		if bounce_times > 0:
-			bounce_times -= 1
+		if bullet_data.bounce_times > 0:
+			bullet_data.bounce_times -= 1
 			move_strategy_enable = false
 			velocity = velocity.bounce(collision.get_normal())
 		else:
+			## TODO:改为由信号驱动死亡并释放粒子
 			queue_free()
