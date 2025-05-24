@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=16 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://ca5sagkxqmyt1" path="res://scenes/entity/entity.tscn" id="9_a0j4q"]
+[ext_resource type="Resource" uid="uid://dynu6bascbsps" path="res://scenes/bullet/bullet_data/bullet_datas/pea.tres" id="12_h3mjc"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 [ext_resource type="PackedScene" uid="uid://b8ewo6gr5nhu2" path="res://scenes/bullet/bullet.tscn" id="13_1priq"]
 
@@ -70,10 +71,11 @@ autostart = true
 [node name="TestBullet" type="Node2D" parent="."]
 
 [node name="Bullet" parent="TestBullet" instance=ExtResource("13_1priq")]
-position = Vector2(567, 237)
+position = Vector2(443, 260)
+bullet_data = ExtResource("12_h3mjc")
 
 [node name="BulletFinder" type="Area2D" parent="TestBullet"]
-position = Vector2(472, 259)
+position = Vector2(611, 263)
 collision_layer = 0
 collision_mask = 8
 

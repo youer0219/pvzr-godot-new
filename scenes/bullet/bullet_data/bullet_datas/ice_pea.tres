@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://cxllx7nku2vsf"]
 
-[ext_resource type="Texture2D" uid="uid://c1cmfhvyex0xh" path="res://assets/sprites/bullets/豌豆.png" id="1_ctlr5"]
+[ext_resource type="Texture2D" uid="uid://che7ujom5bmk2" path="res://assets/sprites/bullets/冰豆.png" id="1_ctlr5"]
 [ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="2_kl2jb"]
 [ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="3_m0811"]
 

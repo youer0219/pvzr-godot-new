@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_svpr3"]
 script = ExtResource("2_adyem")
-speed = 100.0
+speed = 20.0
 metadata/_custom_type_script = "uid://26qwb5w4vd5u"
 
 [resource]

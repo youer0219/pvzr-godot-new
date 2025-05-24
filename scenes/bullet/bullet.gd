@@ -43,3 +43,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			## TODO:改为由信号驱动死亡并释放粒子
 			queue_free()
+
+func get_bullet_name()->String:
+	if bullet_data == null:
+		push_error("子弹数据类为空却要求获取子弹的名称！")
+		return ""
+	return bullet_data.bullet_name

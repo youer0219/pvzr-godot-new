@@ -3,9 +3,10 @@ extends Node2D
 @onready var entity: RigidBody2D = $Entity
 @onready var map: Map = $Map
 
+var bullet_modifiers:Array[BulletModifier]
 
-#func _ready() -> void:
-	#
+func _ready() -> void:
+	bullet_modifiers.append(TorchStumpBulletModifier.new())
 	#await get_tree().create_timer(1.5).timeout
 	#
 	#var damage_data:DamageData = preload("res://data/damage_data/test_damage_data.tres").duplicate()
@@ -25,6 +26,5 @@ const 卷心菜 = preload("res://assets/sprites/bullets/卷心菜.png")
 
 func _on_bullet_finder_body_entered(body: Node2D) -> void:
 	if body is Bullet:
-		print(body.bullet_data.bullet_name)
-		body.bullet_data.bullet_texture = 卷心菜
-		body.bullet_data = body.bullet_data
+		for bullet_modifier in bullet_modifiers:
+			bullet_modifier.modified_bullet(body)
