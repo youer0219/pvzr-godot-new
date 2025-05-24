@@ -2,7 +2,6 @@
 extends CharacterBody2D
 class_name Bullet
 
-
 @export var bullet_data:BulletData:set = _set_data
 
 @onready var image: Sprite2D = $Image
@@ -12,6 +11,8 @@ var move_strategy_enable:bool = true
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	
+	collision_layer = GlobalSetting.COLLISION_SETTING.bullet
 	
 	if move_strategy_enable:
 		bullet_data.move_strategy.ready(self)
@@ -23,8 +24,8 @@ func _set_data(new_data:BulletData):
 		await ready
 	
 	image.texture = bullet_data.bullet_texture
-	collision_mask = GlobalSetting.COLLISION_SETTING.get("world") \
-	if bullet_data.can_collide_world else GlobalSetting.COLLISION_SETTING.get("null")
+	collision_mask = GlobalSetting.COLLISION_SETTING.world \
+	if bullet_data.can_collide_world else GlobalSetting.COLLISION_SETTING.empty
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
