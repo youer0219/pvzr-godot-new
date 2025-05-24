@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://85xhpdi7i37k"]
+
+[ext_resource type="Texture2D" uid="uid://0fw0avkctv6d" path="res://assets/sprites/bullets/火豆.png" id="1_u24tj"]
+[ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="2_knuwu"]
+[ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="3_5q2dd"]
+
+[sub_resource type="Resource" id="Resource_svpr3"]
+script = ExtResource("2_knuwu")
+speed = 100.0
+metadata/_custom_type_script = "uid://26qwb5w4vd5u"
+
+[resource]
+script = ExtResource("3_5q2dd")
+bullet_name = "fire_pea"
+bullet_texture = ExtResource("1_u24tj")
+direction = Vector2(1, 0)
+move_strategy = SubResource("Resource_svpr3")
+can_collide_world = true
+bounce_times = 0
+metadata/_custom_type_script = "uid://crilgagmkjhb6"

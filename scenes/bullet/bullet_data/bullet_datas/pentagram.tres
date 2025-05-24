@@ -11,9 +11,9 @@ metadata/_custom_type_script = "uid://26qwb5w4vd5u"
 
 [resource]
 script = ExtResource("1_w52hc")
-bullet_name = "Pentagram"
+bullet_name = "pentagram"
 bullet_texture = ExtResource("1_mqa6b")
-direction = Vector2(-1, 0)
+direction = Vector2(1, 0)
 move_strategy = SubResource("Resource_svpr3")
 can_collide_world = false
 bounce_times = 0

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://bkulbtq25t3rb"]
+
+[ext_resource type="Texture2D" uid="uid://cs86csr8d2ys" path="res://assets/sprites/bullets/冰瓜.png" id="1_dqnfy"]
+[ext_resource type="Script" uid="uid://4p2ovp8ylc4x" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_parabola_move_strategy.gd" id="2_dtsrx"]
+[ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="3_0tg6s"]
+
+[sub_resource type="Resource" id="Resource_ll4qb"]
+script = ExtResource("2_dtsrx")
+target_pos = Vector2(1, 1)
+grid_cell = Vector2(16, 16)
+move_time = 1.0
+metadata/_custom_type_script = "uid://4p2ovp8ylc4x"
+
+[resource]
+script = ExtResource("3_0tg6s")
+bullet_name = "ice_melon"
+bullet_texture = ExtResource("1_dqnfy")
+direction = Vector2(1, 0)
+move_strategy = SubResource("Resource_ll4qb")
+can_collide_world = true
+bounce_times = 0
+metadata/_custom_type_script = "uid://crilgagmkjhb6"

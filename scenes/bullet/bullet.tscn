@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8ewo6gr5nhu2"]
 
 [ext_resource type="Script" uid="uid://ci23nbaya5cdn" path="res://scenes/bullet/bullet.gd" id="1_83itf"]
-[ext_resource type="Resource" uid="uid://21sofwr66e40" path="res://scenes/bullet/bullet_data/bullet_datas/melon.tres" id="2_0vdx3"]
+[ext_resource type="Resource" uid="uid://85xhpdi7i37k" path="res://scenes/bullet/bullet_data/bullet_datas/fire_pea.tres" id="2_0vdx3"]
 [ext_resource type="Script" uid="uid://cuxtb3h3l7b83" path="res://scenes/bullet/components/hit_box.gd" id="3_0vdx3"]
-[ext_resource type="Texture2D" uid="uid://dratdj8asvarx" path="res://assets/sprites/bullets/西瓜.png" id="3_8g26r"]
+[ext_resource type="Texture2D" uid="uid://0fw0avkctv6d" path="res://assets/sprites/bullets/火豆.png" id="3_8g26r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0vdx3"]
 radius = 6.0
