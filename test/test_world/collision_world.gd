@@ -7,6 +7,7 @@ var bullet_modifiers:Array[BulletModifier]
 
 func _ready() -> void:
 	bullet_modifiers.append(TorchStumpBulletModifier.new())
+	bullet_modifiers.append(FireTailBulletModifier.new())
 	#await get_tree().create_timer(1.5).timeout
 	#
 	#var damage_data:DamageData = preload("res://data/damage_data/test_damage_data.tres").duplicate()
@@ -22,9 +23,6 @@ func _on_timer_timeout() -> void:
 	#var new_path := map.map_path_finder.get_global_path(get_global_mouse_position(),entity.global_position)
 	#PathShowTool.draw_path(self,new_path,Color.AZURE,5.0)
 
-const 卷心菜 = preload("res://assets/sprites/bullets/卷心菜.png")
-
 func _on_bullet_finder_body_entered(body: Node2D) -> void:
 	if body is Bullet:
-		for bullet_modifier in bullet_modifiers:
-			bullet_modifier.modified_bullet(body)
+		BulletModifier.apply_bullet_modifiers(body,bullet_modifiers)

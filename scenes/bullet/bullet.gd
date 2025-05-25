@@ -7,6 +7,7 @@ class_name Bullet
 @onready var image: Sprite2D = $Image
 
 var move_strategy_enable:bool = true
+var has_fire_tail:bool = false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -26,6 +27,7 @@ func _set_data(new_data:BulletData):
 	image.texture = bullet_data.bullet_texture
 	collision_mask = GlobalSetting.COLLISION_SETTING.world \
 	if bullet_data.can_collide_world else GlobalSetting.COLLISION_SETTING.empty
+	BulletModifier.apply_bullet_modifiers(self,bullet_data.bullet_modifiers)
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():

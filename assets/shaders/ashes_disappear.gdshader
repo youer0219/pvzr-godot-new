@@ -1,7 +1,7 @@
 shader_type canvas_item;
 // 颜色替换参数
 uniform bool use_replace_color = false;  // 新增开关
-uniform vec4 replace_color : source_color = vec4(0.0, 0.0, 0.0, 1.0); 
+uniform vec4 replace_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 // 消失效果参数
 uniform float dissolve_amount : hint_range(0.0, 1.0) = 0.0;
 

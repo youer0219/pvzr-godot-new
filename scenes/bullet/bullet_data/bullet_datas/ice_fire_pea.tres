@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=10 format=3 uid="uid://ccnu7cigcvypq"]
+
+[ext_resource type="Script" uid="uid://kj8u8fg4ci3e" path="res://scenes/bullet/bullet_modifier/bullet_modifier.gd" id="1_1y338"]
+[ext_resource type="Script" uid="uid://cr44r8ywrx304" path="res://scenes/bullet/bullet_modifier/bullet_modifiers/fire_tail_bullet_modifier.gd" id="2_4mu5x"]
+[ext_resource type="Script" uid="uid://bh8vif1yhbk85" path="res://scenes/bullet/bullet_modifier/bullet_modifiers/ice_effect_bullet_modifier.gd" id="3_4mu5x"]
+[ext_resource type="Texture2D" uid="uid://0fw0avkctv6d" path="res://assets/sprites/bullets/火豆.png" id="3_bedhk"]
+[ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="4_e7bxf"]
+[ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="5_t68h3"]
+
+[sub_resource type="Resource" id="Resource_de5l1"]
+script = ExtResource("2_4mu5x")
+metadata/_custom_type_script = "uid://cr44r8ywrx304"
+
+[sub_resource type="Resource" id="Resource_bedhk"]
+script = ExtResource("3_4mu5x")
+metadata/_custom_type_script = "uid://bh8vif1yhbk85"
+
+[sub_resource type="Resource" id="Resource_svpr3"]
+script = ExtResource("4_e7bxf")
+speed = 100.0
+metadata/_custom_type_script = "uid://26qwb5w4vd5u"
+
+[resource]
+script = ExtResource("5_t68h3")
+bullet_name = "ice_fire_pea"
+bullet_texture = ExtResource("3_bedhk")
+direction = Vector2(1, 0)
+move_strategy = SubResource("Resource_svpr3")
+can_collide_world = true
+bounce_times = 0
+bullet_modifiers = Array[ExtResource("1_1y338")]([SubResource("Resource_de5l1"), SubResource("Resource_bedhk")])
+metadata/_custom_type_script = "uid://crilgagmkjhb6"

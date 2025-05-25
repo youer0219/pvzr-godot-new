@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://85xhpdi7i37k"]
+[gd_resource type="Resource" script_class="BulletData" load_steps=8 format=3 uid="uid://85xhpdi7i37k"]
 
+[ext_resource type="Script" uid="uid://kj8u8fg4ci3e" path="res://scenes/bullet/bullet_modifier/bullet_modifier.gd" id="1_5q2dd"]
 [ext_resource type="Texture2D" uid="uid://0fw0avkctv6d" path="res://assets/sprites/bullets/火豆.png" id="1_u24tj"]
+[ext_resource type="Script" uid="uid://cr44r8ywrx304" path="res://scenes/bullet/bullet_modifier/bullet_modifiers/fire_tail_bullet_modifier.gd" id="2_2vdx0"]
 [ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="2_knuwu"]
 [ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="3_5q2dd"]
+
+[sub_resource type="Resource" id="Resource_de5l1"]
+script = ExtResource("2_2vdx0")
+metadata/_custom_type_script = "uid://cr44r8ywrx304"
 
 [sub_resource type="Resource" id="Resource_svpr3"]
 script = ExtResource("2_knuwu")
@@ -17,4 +23,5 @@ direction = Vector2(1, 0)
 move_strategy = SubResource("Resource_svpr3")
 can_collide_world = true
 bounce_times = 0
+bullet_modifiers = Array[ExtResource("1_5q2dd")]([SubResource("Resource_de5l1")])
 metadata/_custom_type_script = "uid://crilgagmkjhb6"

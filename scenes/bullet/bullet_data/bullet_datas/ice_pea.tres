@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://cxllx7nku2vsf"]
+[gd_resource type="Resource" script_class="BulletData" load_steps=6 format=3 uid="uid://cxllx7nku2vsf"]
 
 [ext_resource type="Texture2D" uid="uid://che7ujom5bmk2" path="res://assets/sprites/bullets/冰豆.png" id="1_ctlr5"]
+[ext_resource type="Script" uid="uid://kj8u8fg4ci3e" path="res://scenes/bullet/bullet_modifier/bullet_modifier.gd" id="1_kl2jb"]
 [ext_resource type="Script" uid="uid://26qwb5w4vd5u" path="res://scenes/bullet/bullet_strategy/move/moves/bullet_linear_move_strategy.gd" id="2_kl2jb"]
 [ext_resource type="Script" uid="uid://crilgagmkjhb6" path="res://scenes/bullet/bullet_data/bullet_data.gd" id="3_m0811"]
 
@@ -17,4 +18,5 @@ direction = Vector2(1, 0)
 move_strategy = SubResource("Resource_svpr3")
 can_collide_world = true
 bounce_times = 0
+bullet_modifiers = Array[ExtResource("1_kl2jb")]([])
 metadata/_custom_type_script = "uid://crilgagmkjhb6"
