@@ -164,4 +164,5 @@ entity = NodePath("..")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("11_8fgnl")
+active = false
 blackboard_plan = SubResource("BlackboardPlan_8816o")

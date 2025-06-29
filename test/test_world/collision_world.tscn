@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=11 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -8,10 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
-[ext_resource type="PackedScene" uid="uid://ca5sagkxqmyt1" path="res://scenes/entity/entity.tscn" id="9_a0j4q"]
-[ext_resource type="Resource" uid="uid://dynu6bascbsps" path="res://scenes/bullet/bullet_data/bullet_datas/pea.tres" id="12_h3mjc"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
-[ext_resource type="PackedScene" uid="uid://b8ewo6gr5nhu2" path="res://scenes/bullet/bullet.tscn" id="13_1priq"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
 script = ExtResource("6_xsv7b")
@@ -32,12 +29,6 @@ is_night_time = false
 is_boss_level = false
 is_pink_sky = false
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h858w"]
-size = Vector2(203.69, 47.7388)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_nhf0t"]
-radius = 20.0
-
 [node name="CollisionWorld" type="Node2D"]
 script = ExtResource("1_a0j4q")
 metadata/_edit_lock_ = true
@@ -49,18 +40,6 @@ map_data = SubResource("Resource_brqar")
 position = Vector2(578, 271)
 texture = ExtResource("8_8vnb8")
 
-[node name="Entity" parent="." instance=ExtResource("9_a0j4q")]
-position = Vector2(355, 274)
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(184, 345)
-scale = Vector2(1.48093, 1.00374)
-linear_damp_space_override = 1
-linear_damp = 45.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_h858w")
-
 [node name="MoveCamera" parent="." instance=ExtResource("12_lmk3r")]
 position = Vector2(511, 244)
 enable = true
@@ -68,19 +47,4 @@ enable = true
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="TestBullet" type="Node2D" parent="."]
-
-[node name="Bullet" parent="TestBullet" instance=ExtResource("13_1priq")]
-position = Vector2(443, 260)
-bullet_data = ExtResource("12_h3mjc")
-
-[node name="BulletFinder" type="Area2D" parent="TestBullet"]
-position = Vector2(611, 263)
-collision_layer = 0
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBullet/BulletFinder"]
-shape = SubResource("CircleShape2D_nhf0t")
-
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="TestBullet/BulletFinder" to="." method="_on_bullet_finder_body_entered"]
