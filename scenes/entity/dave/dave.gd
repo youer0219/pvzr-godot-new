@@ -8,6 +8,7 @@ enum DAVE_SPRITE_TYPE {COMMON,ACE,ZOOM}
 
 @onready var image: Sprite2D = %Image
 @onready var char_move: CharMove = $CharMove
+@onready var entity_chart: StateChart = %EntityChart
 
 func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 	dave_sprite_type = value
@@ -26,28 +27,25 @@ func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 
 
 func _physics_process(delta: float) -> void:
-	#return
-	if not char_move.is_on_water():
-		char_move.has_on_water = false
-		char_move.is_first_time_on_water = false
-	else:
-		char_move.is_first_time_on_water = not char_move.has_on_water
 	
 	if not is_on_floor():
 		if char_move.is_on_water():
+			entity_chart.send_event("immerse")
 			if char_move.is_above_water_line():
-				char_move.sink_down_in_water(delta)
+				entity_chart.send_event("sink")
 			else:
-				char_move.float_up_in_water(delta)
-				char_move.has_on_water = true
+				entity_chart.send_event("float")
 		else:
-			char_move.fall_down_in_air(delta)
+			entity_chart.send_event("airborne")
+	else:
+		entity_chart.send_event("grounded")
+	
 	
 	if char_move.can_reset_jump_times():
 		char_move.reset_jump_times()
 	
 	var direction := Input.get_axis("move_left", "move_right")
-	char_move.lateral_move(delta,direction)
+	char_move.lateral_move(delta,int(direction))
 	char_move.lateral_jump()
 	
 	if Input.is_action_pressed("move_up") and char_move.can_clamp():
@@ -55,6 +53,33 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("move_up") and char_move.can_jump():
 		char_move.lengthwise_jump(delta)
 	
-	char_move.limit_velocity_in_first_time_jump_water()
-	
 	char_move.move_and_slide()
+
+
+func _on_grounded_state_entered() -> void:
+	print("_on_grounded_state_entered")
+
+
+func _on_immerse_state_entered() -> void:
+	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。
+	char_move.is_first_time_on_water = true
+	char_move.current_jump_times = 0
+	char_move.limit_velocity_in_first_time_jump_water()
+
+func _on_float_state_entered() -> void:
+	## 取消第一次入水标记，重置跳跃次数，允许跳跃和攀爬。
+	char_move.is_first_time_on_water = false
+	char_move.reset_jump_times()
+
+
+func _on_airborne_state_physics_processing(delta: float) -> void:
+	## 在未攀爬/跳跃时，应用重力.TODO:需要实现Input对其的覆盖，或状态判断等
+	char_move.fall_down_in_air(delta)
+
+
+func _on_sink_state_physics_processing(delta: float) -> void:
+	## 一直给予一个下沉速度
+	char_move.sink_down_in_water(delta)
+
+func _on_float_state_physics_processing(delta: float) -> void:
+	char_move.float_up_in_water(delta)

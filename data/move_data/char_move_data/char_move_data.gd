@@ -27,5 +27,8 @@ const MAX_FALL_VELOCITY := 200
 
 @export var water_init_speed:float = 10
 @export var water_down_speed:float = 65
-@export var water_up_speed:float = 30
+@export var water_up_distance:float = 5.0
+var water_up_speed:float = 0.0:
+	get:
+		return sqrt(2 * water_down_speed * water_up_distance)
 @export var water_sink_distance:float = 4

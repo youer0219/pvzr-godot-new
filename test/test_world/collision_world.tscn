@@ -42,13 +42,13 @@ position = Vector2(578, 271)
 texture = ExtResource("8_8vnb8")
 
 [node name="MoveCamera" parent="." instance=ExtResource("12_lmk3r")]
-position = Vector2(511, 244)
+position = Vector2(386, 272)
 enable = true
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
 [node name="Dave" parent="." instance=ExtResource("10_d5kdb")]
-position = Vector2(510, 274)
+position = Vector2(385, 277)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

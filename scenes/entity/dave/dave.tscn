@@ -1,197 +1,16 @@
-[gd_scene load_steps=51 format=3 uid="uid://bm4mj40jvngin"]
+[gd_scene load_steps=9 format=3 uid="uid://bm4mj40jvngin"]
 
 [ext_resource type="Script" uid="uid://dqp5f1li4o8dy" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
 [ext_resource type="PackedScene" uid="uid://cl374yswj54dg" path="res://scenes/move/char_move/char_move.tscn" id="3_dxq6e"]
-[ext_resource type="Script" uid="uid://dwpy45yf4i072" path="res://ai/tasks/check_input.gd" id="4_p0ape"]
-[ext_resource type="Script" uid="uid://dsg75n1wkc8nj" path="res://ai/tasks/char_lateral_move.gd" id="4_y16dw"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_c5x0k"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_adbdf"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_xeryb"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_dessf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 6.0
 height = 29.0
-
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_effl5"]
-var/can_jump/name = &"can_jump"
-var/can_jump/type = 1
-var/can_jump/value = false
-var/can_jump/hint = 0
-var/can_jump/hint_string = ""
-var/can_clamp/name = &"can_clamp"
-var/can_clamp/type = 1
-var/can_clamp/value = false
-var/can_clamp/hint = 0
-var/can_clamp/hint_string = ""
-var/can_active_move/name = &"can_active_move"
-var/can_active_move/type = 1
-var/can_active_move/value = true
-var/can_active_move/hint = 0
-var/can_active_move/hint_string = ""
-
-[sub_resource type="BTFail" id="BTFail_imklv"]
-
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_ppeds"]
-text = "死亡行为：
-- 重力 / 沉没"
-
-[sub_resource type="BTSequence" id="BTSequence_go84y"]
-custom_name = "dead"
-children = [SubResource("BTFail_imklv"), SubResource("BTConsolePrint_ppeds")]
-
-[sub_resource type="BTFail" id="BTFail_p6q2q"]
-
-[sub_resource type="BTSequence" id="BTSequence_e15bm"]
-custom_name = "unearthed"
-children = [SubResource("BTFail_p6q2q")]
-
-[sub_resource type="BTFail" id="BTFail_etjiq"]
-
-[sub_resource type="BTSequence" id="BTSequence_dltlq"]
-custom_name = "balloon"
-children = [SubResource("BTFail_etjiq")]
-
-[sub_resource type="BBNode" id="BBNode_hufpg"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_1hgt6"]
-node = SubResource("BBNode_hufpg")
-method = &"fall_down_in_air"
-args_include_delta = true
-
-[sub_resource type="BTSequence" id="BTSequence_tt6ex"]
-custom_name = "apply gravity"
-children = [SubResource("BTCallMethod_1hgt6")]
-
-[sub_resource type="BBVariant" id="BBVariant_ld66i"]
-type = 1
-saved_value = true
-resource_name = "true"
-
-[sub_resource type="BTCheckVar" id="BTCheckVar_cjaxf"]
-variable = &"can_active_move"
-value = SubResource("BBVariant_ld66i")
-
-[sub_resource type="BBNode" id="BBNode_uda8l"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTAction" id="BTAction_mblts"]
-script = ExtResource("4_y16dw")
-char_move_node = SubResource("BBNode_uda8l")
-method_name = &"lateral_move"
-
-[sub_resource type="BBNode" id="BBNode_bpogw"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_6ubdw"]
-node = SubResource("BBNode_bpogw")
-method = &"lateral_jump"
-
-[sub_resource type="BTSequence" id="BTSequence_if2bs"]
-custom_name = "lateral_move"
-children = [SubResource("BTAction_mblts"), SubResource("BTCallMethod_6ubdw")]
-
-[sub_resource type="BTCondition" id="BTCondition_rqk4m"]
-script = ExtResource("4_p0ape")
-input_name = &"move_up"
-input_type = 1
-
-[sub_resource type="BBNode" id="BBNode_07geg"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_w4c85"]
-node = SubResource("BBNode_07geg")
-method = &"can_clamp"
-result_var = &"can_clamp"
-
-[sub_resource type="BTCheckTrigger" id="BTCheckTrigger_h2naw"]
-variable = &"can_clamp"
-
-[sub_resource type="BBNode" id="BBNode_vsji8"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_c6y60"]
-node = SubResource("BBNode_vsji8")
-method = &"lengthwise_clamb"
-args_include_delta = true
-
-[sub_resource type="BTSequence" id="BTSequence_hla4l"]
-custom_name = "clamp"
-children = [SubResource("BTCondition_rqk4m"), SubResource("BTCallMethod_w4c85"), SubResource("BTCheckTrigger_h2naw"), SubResource("BTCallMethod_c6y60")]
-
-[sub_resource type="BTCondition" id="BTCondition_galdy"]
-script = ExtResource("4_p0ape")
-input_name = &"move_up"
-input_type = 0
-
-[sub_resource type="BBNode" id="BBNode_7v6kw"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_6qaef"]
-node = SubResource("BBNode_7v6kw")
-method = &"can_jump"
-result_var = &"can_jump"
-
-[sub_resource type="BTCheckTrigger" id="BTCheckTrigger_tmx34"]
-variable = &"can_jump"
-
-[sub_resource type="BBNode" id="BBNode_5lwy0"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_xh280"]
-node = SubResource("BBNode_5lwy0")
-method = &"lengthwise_jump"
-args_include_delta = true
-
-[sub_resource type="BTSequence" id="BTSequence_soe41"]
-custom_name = "Jump"
-children = [SubResource("BTCondition_galdy"), SubResource("BTCallMethod_6qaef"), SubResource("BTCheckTrigger_tmx34"), SubResource("BTCallMethod_xh280")]
-
-[sub_resource type="BTSelector" id="BTSelector_igf22"]
-custom_name = "up_move"
-children = [SubResource("BTSequence_hla4l"), SubResource("BTSequence_soe41")]
-
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_sg2bf"]
-children = [SubResource("BTSelector_igf22")]
-
-[sub_resource type="BTSequence" id="BTSequence_g0f4e"]
-custom_name = "Active Move"
-children = [SubResource("BTCheckVar_cjaxf"), SubResource("BTSequence_if2bs"), SubResource("BTAlwaysSucceed_sg2bf")]
-
-[sub_resource type="BTSequence" id="BTSequence_vkqe8"]
-custom_name = "move"
-children = [SubResource("BTSequence_tt6ex"), SubResource("BTSequence_g0f4e")]
-
-[sub_resource type="BTSelector" id="BTSelector_j7tap"]
-children = [SubResource("BTSequence_go84y"), SubResource("BTSequence_e15bm"), SubResource("BTSequence_dltlq"), SubResource("BTSequence_vkqe8")]
-
-[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_u6qt6"]
-children = [SubResource("BTSelector_j7tap")]
-
-[sub_resource type="BBNode" id="BBNode_u1bmu"]
-saved_value = NodePath("CharMove")
-resource_name = "CharMove"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_ej4xv"]
-node = SubResource("BBNode_u1bmu")
-method = &"move_and_slide"
-
-[sub_resource type="BTSequence" id="BTSequence_45gku"]
-children = [SubResource("BTAlwaysSucceed_u6qt6"), SubResource("BTCallMethod_ej4xv")]
-
-[sub_resource type="BTParallel" id="BTParallel_sadgf"]
-children = [SubResource("BTSequence_45gku")]
-
-[sub_resource type="BehaviorTree" id="BehaviorTree_lyxfu"]
-blackboard_plan = SubResource("BlackboardPlan_effl5")
-root_task = SubResource("BTParallel_sadgf")
-
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_ukebv"]
 
 [node name="Dave" type="CharacterBody2D"]
 collision_layer = 0
@@ -211,8 +30,98 @@ shape = SubResource("CapsuleShape2D_4is1f")
 [node name="CharMove" parent="." node_paths=PackedStringArray("char_body") instance=ExtResource("3_dxq6e")]
 char_body = NodePath("..")
 
-[node name="BTPlayer" type="BTPlayer" parent="."]
-behavior_tree = SubResource("BehaviorTree_lyxfu")
-blackboard_plan = SubResource("BlackboardPlan_ukebv")
+[node name="EntityChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_c5x0k")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="PosState" type="Node" parent="EntityChart"]
+script = ExtResource("5_adbdf")
+initial_state = NodePath("Grounded")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Grounded" type="Node" parent="EntityChart/PosState"]
+script = ExtResource("6_xeryb")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Airborne" type="Node" parent="EntityChart/PosState/Grounded"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Airborne")
+event = &"airborne"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Immerse" type="Node" parent="EntityChart/PosState/Grounded"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Immerse")
+event = &"immerse"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Airborne" type="Node" parent="EntityChart/PosState"]
+script = ExtResource("6_xeryb")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Grounded" type="Node" parent="EntityChart/PosState/Airborne"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Grounded")
+event = &"grounded"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Immerse" type="Node" parent="EntityChart/PosState/Airborne"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Immerse")
+event = &"immerse"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Immerse" type="Node" parent="EntityChart/PosState"]
+script = ExtResource("5_adbdf")
+initial_state = NodePath("Sink")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="On Airborne" type="Node" parent="EntityChart/PosState/Immerse"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Airborne")
+event = &"airborne"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Grounded" type="Node" parent="EntityChart/PosState/Immerse"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Grounded")
+event = &"grounded"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Sink" type="Node" parent="EntityChart/PosState/Immerse"]
+script = ExtResource("6_xeryb")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Float" type="Node" parent="EntityChart/PosState/Immerse/Sink"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Float")
+event = &"float"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Float" type="Node" parent="EntityChart/PosState/Immerse"]
+script = ExtResource("6_xeryb")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Sink" type="Node" parent="EntityChart/PosState/Immerse/Float"]
+script = ExtResource("7_dessf")
+to = NodePath("../../Sink")
+event = &"sink"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[connection signal="state_entered" from="EntityChart/PosState/Grounded" to="." method="_on_grounded_state_entered"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_airborne_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_entered"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Sink" to="." method="_on_sink_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/PosState/Immerse/Float" to="." method="_on_float_state_entered"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Float" to="." method="_on_float_state_physics_processing"]
 
 [editable path="CharMove"]

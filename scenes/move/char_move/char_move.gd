@@ -11,8 +11,7 @@ signal tiwce_jump
 @onready var water_check: RayCast2D = %WaterCheck
 @onready var clamp_jump_timer: Timer = %ClampJumpTimer
 
-## 是否已经进入过水中
-var has_on_water:bool
+
 ## 从非水区域到水区域时为true。默认为false。当离开水区域或开始上浮后为false。
 var is_first_time_on_water:bool = false
 ## 当前剩余跳跃次数
