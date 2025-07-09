@@ -21,6 +21,7 @@ var water_line:float
 
 func _ready() -> void:
 	assert(char_body and char_move_data,"没有为char-move配置char-body或char-move-data！")
+	char_move_data.refresh_data()
 	current_jump_times = char_move_data.jump_times
 	var map_scene = get_tree().get_first_node_in_group("map") as Map
 	water_line = map_scene.get_top_water_line()
@@ -36,7 +37,7 @@ func lateral_move(delta:float,lateral_move_direction:int):
 func lateral_jump():
 	if is_on_floor() and !is_on_wall():
 		var lateral_velocity_ratio = abs(char_body.velocity.x) / char_move_data.lateral_speed
-		char_body.velocity.y = -1 * (char_move_data.lateral_move_jump * lateral_velocity_ratio)
+		char_body.velocity.y = -1 * (char_move_data.lateral_move_jump_velocity * lateral_velocity_ratio)
 
 ## 纵向
 
@@ -115,7 +116,7 @@ func can_clamp()->bool:
 ## 能否跳跃
 func can_jump()->bool:
 	return not is_first_time_on_water and (current_jump_times > 0 or char_move_data.is_endless_jump )
- 
+
 ## 能否刷新跳跃次数
 func can_reset_jump_times()->bool:
 	if is_on_floor():
