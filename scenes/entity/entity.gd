@@ -1,9 +1,10 @@
-extends RigidBody2D
+extends CharacterBody2D
 class_name Entity
 
 @onready var entity_component_manager: EntityComponentManager = %EntityComponentManager
 @onready var entity_path_finder: EntityPathFinder = %EntityPathFinder
 @onready var entity_move: EntityMove = %EntityMove
+@onready var entity_state: StateChart = $EntityState
 
 var curr_map:Map:
 	get:
@@ -11,6 +12,8 @@ var curr_map:Map:
 
 func _ready() -> void:
 	entity_component_manager.entity_component_leave_out.connect(_on_entity_component_leave_out)
+
+
 
 func apply_damage(damage_data:DamageData):
 	damage_data.target_pos = global_position ## 补充伤害的上下文

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ca5sagkxqmyt1"]
+[gd_scene load_steps=30 format=3 uid="uid://ca5sagkxqmyt1"]
 
 [ext_resource type="Script" uid="uid://dj06s6eooatxg" path="res://scenes/entity/entity.gd" id="1_1w0ui"]
 [ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="2_uphax"]
@@ -14,6 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://da45g6e1pkfwy" path="res://scenes/move/entity_move/entity_move.tscn" id="11_vimme"]
 [ext_resource type="Script" uid="uid://cfl7mjo6g5aya" path="res://scenes/move/entity_move/entity_move.gd" id="12_yrfi6"]
 [ext_resource type="Script" uid="uid://c8lx6uaj6ftau" path="res://scenes/entity/func/entity_path_finder.gd" id="13_yrfi6"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="15_8tboq"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="16_5e87x"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="17_xwp66"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="18_kkjlh"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="19_iu05x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vimme"]
 friction = 0.0
@@ -125,14 +130,9 @@ entity_component_data = ExtResource("9_flv0i")
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_yrfi6")
 
-[node name="EntityMove" parent="." node_paths=PackedStringArray("entity", "floor_ray01", "floor_ray02", "ladder_ray", "jump_timer") instance=ExtResource("11_vimme")]
+[node name="EntityMove" parent="." instance=ExtResource("11_vimme")]
 unique_name_in_owner = true
 script = ExtResource("12_yrfi6")
-entity = NodePath("..")
-floor_ray01 = NodePath("FloorRayCast2D01")
-floor_ray02 = NodePath("FloorRayCast2D02")
-ladder_ray = NodePath("LadderRayCast2D")
-jump_timer = NodePath("JumpTimer")
 
 [node name="FloorRayCast2D01" type="RayCast2D" parent="EntityMove"]
 position = Vector2(-2, 10)
@@ -166,3 +166,83 @@ entity = NodePath("..")
 behavior_tree = ExtResource("11_8fgnl")
 active = false
 blackboard_plan = SubResource("BlackboardPlan_8816o")
+
+[node name="EntityState" type="Node" parent="."]
+script = ExtResource("15_8tboq")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="ParallelState" type="Node" parent="EntityState"]
+script = ExtResource("16_5e87x")
+metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
+
+[node name="PosState" type="Node" parent="EntityState/ParallelState"]
+script = ExtResource("17_xwp66")
+initial_state = NodePath("Grounded")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Grounded" type="Node" parent="EntityState/ParallelState/PosState"]
+script = ExtResource("18_kkjlh")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Airborne" type="Node" parent="EntityState/ParallelState/PosState/Grounded"]
+script = ExtResource("19_iu05x")
+to = NodePath("../../Airborne")
+event = &"airborne"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Immerse" type="Node" parent="EntityState/ParallelState/PosState/Grounded"]
+script = ExtResource("19_iu05x")
+to = NodePath("../../Immerse")
+event = &"immerse"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Airborne" type="Node" parent="EntityState/ParallelState/PosState"]
+script = ExtResource("18_kkjlh")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Grounded" type="Node" parent="EntityState/ParallelState/PosState/Airborne"]
+script = ExtResource("19_iu05x")
+to = NodePath("../../Grounded")
+event = &"grounded"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Immerse" type="Node" parent="EntityState/ParallelState/PosState/Airborne"]
+script = ExtResource("19_iu05x")
+to = NodePath("../../Immerse")
+event = &"immerse"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="Immerse" type="Node" parent="EntityState/ParallelState/PosState"]
+script = ExtResource("18_kkjlh")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="On Airborne" type="Node" parent="EntityState/ParallelState/PosState/Immerse"]
+script = ExtResource("19_iu05x")
+to = NodePath("../../Airborne")
+event = &"airborne"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Grounded" type="Node" parent="EntityState/ParallelState/PosState/Immerse"]
+script = ExtResource("19_iu05x")
+to = NodePath("../../Grounded")
+event = &"grounded"
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="AttackState" type="Node" parent="EntityState/ParallelState"]
+script = ExtResource("17_xwp66")
+initial_state = NodePath("AtomicState2")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="AtomicState2" type="Node" parent="EntityState/ParallelState/AttackState"]
+script = ExtResource("18_kkjlh")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="AtomicState3" type="Node" parent="EntityState/ParallelState/AttackState"]
+script = ExtResource("18_kkjlh")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"

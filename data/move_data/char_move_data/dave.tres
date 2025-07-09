@@ -4,17 +4,17 @@
 
 [resource]
 script = ExtResource("1_7lswi")
-lateral_speed = 100.0
+lateral_speed = 20.0
 lateral_speed_acceleration = 600.0
 lateral_move_jump = 60.0
-length_down_speed = 320.0
-jump_times = 2
+length_down_speed = 280.0
+jump_times = 1
 jump_lateral_move = 120.0
 is_endless_jump = false
-jump_velocity = 200.0
-clamp_velocity = 80.0
+jump_velocity = 120.0
+clamp_velocity = 50.0
 clamp_gap_time = 0.05
-water_init_speed = 40.0
-water_down_speed = 100.0
-water_up_speed = 50.0
-water_sink_distance = 8.0
+water_init_speed = 10.0
+water_down_speed = 1.0
+water_up_speed = 40.0
+water_sink_distance = 4.0

@@ -26,37 +26,35 @@ func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 
 
 func _physics_process(delta: float) -> void:
-	return
-	## if 是气球模式
-		## 上浮
-	#if not char_move.is_on_water():
-		#char_move.has_on_water = false
-		#char_move.is_first_time_on_water = false
-	#else:
-		#char_move.is_first_time_on_water = not char_move.has_on_water
-	#
-	#if not is_on_floor():
-		#if char_move.is_on_water():
-			#if char_move.is_above_water_line():
-				#char_move.sink_down_in_water(delta)
-			#else:
-				#char_move.float_up_in_water(delta)
-				#char_move.has_on_water = true
-		#else:
-			#char_move.fall_down_in_air(delta)
-	#
-	#if char_move.can_reset_jump_times():
-		#char_move.reset_jump_times()
-	#
-	#var direction := Input.get_axis("move_left", "move_right")
-	#char_move.lateral_move(delta,direction)
-	#char_move.lateral_jump()
-	#
-	#if Input.is_action_pressed("move_up") and char_move.can_clamp():
-		#char_move.lengthwise_clamb(delta)
-	#elif Input.is_action_just_pressed("move_up") and char_move.can_jump():
-		#char_move.lengthwise_jump(delta)
-	#
-	#char_move.limit_velocity_in_first_time_jump_water()
-	#
-	#char_move.move_and_slide()
+	#return
+	if not char_move.is_on_water():
+		char_move.has_on_water = false
+		char_move.is_first_time_on_water = false
+	else:
+		char_move.is_first_time_on_water = not char_move.has_on_water
+	
+	if not is_on_floor():
+		if char_move.is_on_water():
+			if char_move.is_above_water_line():
+				char_move.sink_down_in_water(delta)
+			else:
+				char_move.float_up_in_water(delta)
+				char_move.has_on_water = true
+		else:
+			char_move.fall_down_in_air(delta)
+	
+	if char_move.can_reset_jump_times():
+		char_move.reset_jump_times()
+	
+	var direction := Input.get_axis("move_left", "move_right")
+	char_move.lateral_move(delta,direction)
+	char_move.lateral_jump()
+	
+	if Input.is_action_pressed("move_up") and char_move.can_clamp():
+		char_move.lengthwise_clamb(delta)
+	elif Input.is_action_just_pressed("move_up") and char_move.can_jump():
+		char_move.lengthwise_jump(delta)
+	
+	char_move.limit_velocity_in_first_time_jump_water()
+	
+	char_move.move_and_slide()
