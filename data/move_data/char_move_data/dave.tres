@@ -6,9 +6,10 @@
 script = ExtResource("1_7lswi")
 lateral_speed = 20.0
 lateral_speed_acceleration = 600.0
-lateral_move_jump = 60.0
+lateral_move_jump_distance = 4.0
+lateral_move_jump_velocity = 60.0
 length_down_speed = 280.0
-jump_times = 1
+jump_times = 2
 jump_lateral_move = 120.0
 is_endless_jump = false
 jump_distance = 13.0

@@ -1,8 +1,7 @@
 class_name CharMove
 extends Node2D
 
-## 表示第二段跳跃
-signal tiwce_jump
+signal twice_jump
 
 @export var char_body:CharacterBody2D
 @export var char_move_data:CharMoveData
@@ -53,10 +52,8 @@ func lengthwise_jump(_delta:float):
 
 	if char_move_data.jump_times - current_jump_times >= 1 \
 	and char_move_data.jump_times > 1:
-		# char_body.velocity.x += char_move_data.jump_lateral_move ## 二段跳时有一段横移。但目前缺少方向，
-		# TODO: 二段跳时的横移。可能的实现方法采取回调。发射信号，由高层获取必要的数据，再调用char-move。
-		# 也可能会分解到行为树中（特别是僵尸戴夫的无限跳跃似乎没有横移功能）
-		tiwce_jump.emit()
+		char_body.velocity.x += char_move_data.jump_lateral_move * char_body.image_dir
+		twice_jump.emit()
 	current_jump_times -= 1
 
 func reset_jump_times():

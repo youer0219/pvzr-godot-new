@@ -117,9 +117,9 @@ event = &"sink"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[connection signal="state_entered" from="EntityChart/PosState/Grounded" to="." method="_on_grounded_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_entered"]
+[connection signal="state_exited" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_exited"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Sink" to="." method="_on_sink_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse/Float" to="." method="_on_float_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Float" to="." method="_on_float_state_physics_processing"]

@@ -10,6 +10,10 @@ enum DAVE_SPRITE_TYPE {COMMON,ACE,ZOOM}
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
 
+var image_dir:int:
+	get:
+		return -1 if image.flip_h else 1
+
 func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 	dave_sprite_type = value
 	
@@ -25,6 +29,13 @@ func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 		DAVE_SPRITE_TYPE.ZOOM:
 			image.region_rect = Rect2(10,0,16,32)
 
+func _ready() -> void:
+	char_move.twice_jump.connect(
+		func():
+			var tween:Tween = create_tween()
+			tween.tween_property(image,"rotation_degrees",360 * image_dir,0.25)
+			tween.tween_callback(image.set_rotation.bind(0))
+	)
 
 func _physics_process(delta: float) -> void:
 	
@@ -54,17 +65,24 @@ func _physics_process(delta: float) -> void:
 		char_move.lengthwise_jump(delta)
 	
 	char_move.move_and_slide()
-
-
-func _on_grounded_state_entered() -> void:
-	print("_on_grounded_state_entered")
-
+	
+	if velocity.x > 0:
+		image.flip_h = false
+	elif velocity.x < 0:
+		image.flip_h = true
+	
+	var rotation_degress = 15 * (velocity.x / char_move.char_move_data.lateral_speed)
+	image.rotation_degrees = move_toward(image.rotation_degrees,rotation_degress,delta*200)
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。
 	char_move.is_first_time_on_water = true
 	char_move.current_jump_times = 0
 	char_move.limit_velocity_in_first_time_jump_water()
+
+func _on_immerse_state_exited() -> void:
+	## 无论如何，取消第一次入水标记。
+	char_move.is_first_time_on_water = false
 
 func _on_float_state_entered() -> void:
 	## 取消第一次入水标记，重置跳跃次数，允许跳跃和攀爬。
