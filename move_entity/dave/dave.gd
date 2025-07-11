@@ -9,7 +9,7 @@ enum DAVE_SPRITE_TYPE {COMMON,ACE,ZOOM}
 @onready var image: Sprite2D = %Image
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
-@onready var visual_control: RemoteTransform2D = $VisualControl
+@onready var visual_control: VisualControl = $VisualControl
 
 var move_dir:int:
 	get:
@@ -22,7 +22,7 @@ func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 		await ready
 	
 	match dave_sprite_type:
-		## TODO:这样的实现可能着色器会有一些问题，要对齐UV和区域？
+		## TODO:未来改为单独的图片，不再拼接到一起
 		DAVE_SPRITE_TYPE.COMMON:
 			image.region_rect = Rect2(74,0,16,32)
 		DAVE_SPRITE_TYPE.ACE:
@@ -31,15 +31,9 @@ func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 			image.region_rect = Rect2(10,0,16,32)
 
 func _ready() -> void:
-	char_move.twice_jump.connect(
-		func():
-			var tween:Tween = create_tween()
-			tween.tween_property(visual_control,"rotation_degrees",360 * move_dir,0.25)
-			tween.tween_callback(visual_control.set_rotation.bind(0))
-	)
+	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 
 func _physics_process(delta: float) -> void:
-	
 	if not is_on_floor():
 		if char_move.is_on_water():
 			entity_chart.send_event("immerse")
@@ -59,13 +53,7 @@ func _physics_process(delta: float) -> void:
 	char_move.lateral_move(delta,int(direction))
 	char_move.lateral_jump()
 	
-	if velocity.x > 0:
-		visual_control.scale.x = 1
-	elif velocity.x < 0:
-		visual_control.scale.x = -1
-	
-	var rotation_degress = 15 * (velocity.x / char_move.char_move_data.lateral_speed)
-	visual_control.rotation_degrees = move_toward(visual_control.rotation_degrees,rotation_degress,delta*200)
+	visual_control._on_char_physics_process(delta,self)
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。

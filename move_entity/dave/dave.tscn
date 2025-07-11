@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://bm4mj40jvngin"]
+[gd_scene load_steps=18 format=3 uid="uid://bm4mj40jvngin"]
 
 [ext_resource type="Script" uid="uid://dqp5f1li4o8dy" path="res://move_entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
 [ext_resource type="PackedScene" uid="uid://cl374yswj54dg" path="res://scenes/move/char_move/char_move.tscn" id="3_dxq6e"]
+[ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://move_entity/modules/visual_control.gd" id="3_vi8l2"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_c5x0k"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_adbdf"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_xeryb"]
@@ -58,6 +59,7 @@ region_rect = Rect2(74, 0, 16, 32)
 [node name="VisualControl" type="RemoteTransform2D" parent="."]
 position = Vector2(0, -8)
 remote_path = NodePath("../Image")
+script = ExtResource("3_vi8l2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
