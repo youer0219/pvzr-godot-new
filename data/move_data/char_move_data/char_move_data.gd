@@ -6,7 +6,8 @@ extends Resource
 const MAX_FALL_VELOCITY := 200
 
 ## 横向移动最大速度
-@export var lateral_speed:float = 120
+@export var lateral_speed:float = 30
+@export_range(0.0,1.0,0.1) var lateral_speed_fator:float = 1.0
 ## 横向移动加速度
 @export var lateral_speed_acceleration:float = 600
 ## 横向移动小跳
@@ -19,19 +20,19 @@ const MAX_FALL_VELOCITY := 200
 
 ## 可跳跃次数
 @export_range(1,2,1) var jump_times:int = 1
-@export var jump_lateral_move:float = 120
+@export var jump_lateral_move:float = 150
 @export var is_endless_jump:bool = false
 
 ## 跳跃速度
 var jump_velocity:float = 120
-@export var jump_distance:float = 13
+@export var jump_distance:float = 27
 ## 攀爬速度
-@export var clamp_velocity:float = 50
+@export var clamp_velocity:float = 65
 @export var clamp_gap_time:float = 0.05
 
 @export var water_init_speed:float = 10
-@export var water_down_speed:float = 20
-@export var water_up_distance:float = 5.0
+@export var water_down_speed:float = 100
+@export var water_up_distance:float = 6.0
 var water_up_speed:float = 0.0
 @export var water_sink_distance:float = 4
 

@@ -68,14 +68,16 @@ func _physics_process(delta: float) -> void:
 	image.rotation_degrees = move_toward(image.rotation_degrees,rotation_degress,delta*200)
 
 func _on_immerse_state_entered() -> void:
-	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。
+	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。
 	char_move.is_first_time_on_water = true
 	char_move.current_jump_times = 0
 	char_move.limit_velocity_in_first_time_jump_water()
+	char_move.char_move_data.lateral_speed_fator = 0.8
 
 func _on_immerse_state_exited() -> void:
-	## 无论如何，取消第一次入水标记。
+	## 无论如何，取消第一次入水标记。停止限制横向移动速度。
 	char_move.is_first_time_on_water = false
+	char_move.char_move_data.lateral_speed_fator = 1.0
 
 func _on_float_state_entered() -> void:
 	## 取消第一次入水标记，重置跳跃次数，允许跳跃和攀爬。

@@ -30,7 +30,7 @@ func _ready() -> void:
 ## 横向
 
 func lateral_move(delta:float,lateral_move_direction:int):
-	char_body.velocity.x = move_toward(char_body.velocity.x,lateral_move_direction * char_move_data.lateral_speed, char_move_data.lateral_speed_acceleration*delta)
+	char_body.velocity.x = move_toward(char_body.velocity.x,lateral_move_direction * char_move_data.lateral_speed, char_move_data.lateral_speed_acceleration*delta) * char_move_data.lateral_speed_fator
 
 
 func lateral_jump():
