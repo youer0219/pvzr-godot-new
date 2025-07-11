@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm4mj40jvngin"]
+[gd_scene load_steps=17 format=3 uid="uid://bm4mj40jvngin"]
 
 [ext_resource type="Script" uid="uid://dqp5f1li4o8dy" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
@@ -7,10 +7,42 @@
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_adbdf"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_xeryb"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_dessf"]
+[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_xeryb"]
+[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_dessf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 6.0
 height = 29.0
+
+[sub_resource type="Resource" id="Resource_t2c38"]
+script = ExtResource("7_xeryb")
+state = NodePath("../Grounded")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_ishph"]
+script = ExtResource("8_dessf")
+guard = SubResource("Resource_t2c38")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
+[sub_resource type="Resource" id="Resource_y55gg"]
+script = ExtResource("7_xeryb")
+state = NodePath("../Airborne")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_e0oqm"]
+script = ExtResource("8_dessf")
+guard = SubResource("Resource_y55gg")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
+[sub_resource type="Resource" id="Resource_nt8hk"]
+script = ExtResource("7_xeryb")
+state = NodePath("../Immerse")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_ccurm"]
+script = ExtResource("8_dessf")
+guard = SubResource("Resource_nt8hk")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [node name="Dave" type="CharacterBody2D"]
 collision_layer = 0
@@ -40,60 +72,41 @@ script = ExtResource("5_adbdf")
 initial_state = NodePath("Grounded")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
+[node name="On Grounded" type="Node" parent="EntityChart/PosState"]
+script = ExtResource("7_dessf")
+to = NodePath("../Grounded")
+event = &"grounded"
+guard = SubResource("Resource_ishph")
+delay_in_seconds = "0.0"
+
+[node name="On Airborne" type="Node" parent="EntityChart/PosState"]
+script = ExtResource("7_dessf")
+to = NodePath("../Airborne")
+event = &"airborne"
+guard = SubResource("Resource_e0oqm")
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
+[node name="On Immerse" type="Node" parent="EntityChart/PosState"]
+script = ExtResource("7_dessf")
+to = NodePath("../Immerse")
+event = &"immerse"
+guard = SubResource("Resource_ccurm")
+delay_in_seconds = "0.0"
+metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
+
 [node name="Grounded" type="Node" parent="EntityChart/PosState"]
 script = ExtResource("6_xeryb")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="On Airborne" type="Node" parent="EntityChart/PosState/Grounded"]
-script = ExtResource("7_dessf")
-to = NodePath("../../Airborne")
-event = &"airborne"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="On Immerse" type="Node" parent="EntityChart/PosState/Grounded"]
-script = ExtResource("7_dessf")
-to = NodePath("../../Immerse")
-event = &"immerse"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="Airborne" type="Node" parent="EntityChart/PosState"]
 script = ExtResource("6_xeryb")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="On Grounded" type="Node" parent="EntityChart/PosState/Airborne"]
-script = ExtResource("7_dessf")
-to = NodePath("../../Grounded")
-event = &"grounded"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="On Immerse" type="Node" parent="EntityChart/PosState/Airborne"]
-script = ExtResource("7_dessf")
-to = NodePath("../../Immerse")
-event = &"immerse"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
 [node name="Immerse" type="Node" parent="EntityChart/PosState"]
 script = ExtResource("5_adbdf")
 initial_state = NodePath("Water Surface")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
-
-[node name="On Airborne" type="Node" parent="EntityChart/PosState/Immerse"]
-script = ExtResource("7_dessf")
-to = NodePath("../../Airborne")
-event = &"airborne"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
-
-[node name="On Grounded" type="Node" parent="EntityChart/PosState/Immerse"]
-script = ExtResource("7_dessf")
-to = NodePath("../../Grounded")
-event = &"grounded"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="Water Surface" type="Node" parent="EntityChart/PosState/Immerse"]
 script = ExtResource("6_xeryb")
