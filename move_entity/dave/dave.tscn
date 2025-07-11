@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://bm4mj40jvngin"]
 
-[ext_resource type="Script" uid="uid://dqp5f1li4o8dy" path="res://scenes/entity/dave/dave.gd" id="1_7ld8x"]
+[ext_resource type="Script" uid="uid://dqp5f1li4o8dy" path="res://move_entity/dave/dave.gd" id="1_7ld8x"]
 [ext_resource type="Texture2D" uid="uid://wapbt204bboj" path="res://assets/sprites/entity/dave/dave.png" id="1_cjbh4"]
 [ext_resource type="PackedScene" uid="uid://cl374yswj54dg" path="res://scenes/move/char_move/char_move.tscn" id="3_dxq6e"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_c5x0k"]
@@ -136,8 +136,8 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 [connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_move_up"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_move_up"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse/Underwater" to="." method="_on_float_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
 
