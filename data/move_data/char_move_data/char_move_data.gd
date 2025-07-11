@@ -6,7 +6,7 @@ extends Resource
 const MAX_FALL_VELOCITY := 200
 
 ## 横向移动最大速度
-@export var lateral_speed:float = 100
+@export var lateral_speed:float = 120
 ## 横向移动加速度
 @export var lateral_speed_acceleration:float = 600
 ## 横向移动小跳

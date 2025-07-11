@@ -43,9 +43,9 @@ func _physics_process(delta: float) -> void:
 		if char_move.is_on_water():
 			entity_chart.send_event("immerse")
 			if char_move.is_above_water_line():
-				entity_chart.send_event("sink")
+				entity_chart.send_event("water surface")
 			else:
-				entity_chart.send_event("float")
+				entity_chart.send_event("underwater")
 		else:
 			entity_chart.send_event("airborne")
 	else:
@@ -58,13 +58,6 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	char_move.lateral_move(delta,int(direction))
 	char_move.lateral_jump()
-	
-	if Input.is_action_pressed("move_up") and char_move.can_clamp():
-		char_move.lengthwise_clamb(delta)
-	elif Input.is_action_just_pressed("move_up") and char_move.can_jump():
-		char_move.lengthwise_jump(delta)
-	
-	char_move.move_and_slide()
 	
 	if velocity.x > 0:
 		image.flip_h = false
@@ -89,15 +82,18 @@ func _on_float_state_entered() -> void:
 	char_move.is_first_time_on_water = false
 	char_move.reset_jump_times()
 
-
 func _on_airborne_state_physics_processing(delta: float) -> void:
-	## 在未攀爬/跳跃时，应用重力.TODO:需要实现Input对其的覆盖，或状态判断等
+	## 在未攀爬/跳跃时，应用重力
 	char_move.fall_down_in_air(delta)
 
-
-func _on_sink_state_physics_processing(delta: float) -> void:
-	## 一直给予一个下沉速度
+func _on_water_surface_state_physics_processing(delta: float) -> void:
 	char_move.sink_down_in_water(delta)
 
-func _on_float_state_physics_processing(delta: float) -> void:
+func _on_underwater_state_physics_processing(delta: float) -> void:
 	char_move.float_up_in_water(delta)
+
+func _on_move_up(delta:float)->void:
+	if Input.is_action_pressed("move_up") and char_move.can_clamp():
+		char_move.lengthwise_clamb(delta)
+	elif Input.is_action_just_pressed("move_up") and char_move.can_jump():
+		char_move.lengthwise_jump(delta)

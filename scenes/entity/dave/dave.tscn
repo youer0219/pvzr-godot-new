@@ -78,7 +78,7 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="Immerse" type="Node" parent="EntityChart/PosState"]
 script = ExtResource("5_adbdf")
-initial_state = NodePath("Sink")
+initial_state = NodePath("Water Surface")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [node name="On Airborne" type="Node" parent="EntityChart/PosState/Immerse"]
@@ -95,33 +95,37 @@ event = &"grounded"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Sink" type="Node" parent="EntityChart/PosState/Immerse"]
+[node name="Water Surface" type="Node" parent="EntityChart/PosState/Immerse"]
 script = ExtResource("6_xeryb")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="On Float" type="Node" parent="EntityChart/PosState/Immerse/Sink"]
+[node name="On Underwater" type="Node" parent="EntityChart/PosState/Immerse/Water Surface"]
 script = ExtResource("7_dessf")
-to = NodePath("../../Float")
-event = &"float"
+to = NodePath("../../Underwater")
+event = &"underwater"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Float" type="Node" parent="EntityChart/PosState/Immerse"]
+[node name="Underwater" type="Node" parent="EntityChart/PosState/Immerse"]
 script = ExtResource("6_xeryb")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="On Sink" type="Node" parent="EntityChart/PosState/Immerse/Float"]
+[node name="On Water Surface" type="Node" parent="EntityChart/PosState/Immerse/Underwater"]
 script = ExtResource("7_dessf")
-to = NodePath("../../Sink")
-event = &"sink"
+to = NodePath("../../Water Surface")
+event = &"water surface"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
+[connection signal="state_physics_processing" from="EntityChart/PosState" to="." method="move_and_slide" flags=3 unbinds=1]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Grounded" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_move_up"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Sink" to="." method="_on_sink_state_physics_processing"]
-[connection signal="state_entered" from="EntityChart/PosState/Immerse/Float" to="." method="_on_float_state_entered"]
-[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Float" to="." method="_on_float_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/PosState/Immerse/Underwater" to="." method="_on_float_state_entered"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
 
 [editable path="CharMove"]
