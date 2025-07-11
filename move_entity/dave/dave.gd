@@ -9,10 +9,11 @@ enum DAVE_SPRITE_TYPE {COMMON,ACE,ZOOM}
 @onready var image: Sprite2D = %Image
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
+@onready var visual_control: RemoteTransform2D = $VisualControl
 
-var image_dir:int:
+var move_dir:int:
 	get:
-		return -1 if image.flip_h else 1
+		return -1 if visual_control.scale.x < 0 else 1
 
 func _set_dave_sprite_type(value:DAVE_SPRITE_TYPE):
 	dave_sprite_type = value
@@ -33,8 +34,8 @@ func _ready() -> void:
 	char_move.twice_jump.connect(
 		func():
 			var tween:Tween = create_tween()
-			tween.tween_property(image,"rotation_degrees",360 * image_dir,0.25)
-			tween.tween_callback(image.set_rotation.bind(0))
+			tween.tween_property(visual_control,"rotation_degrees",360 * move_dir,0.25)
+			tween.tween_callback(visual_control.set_rotation.bind(0))
 	)
 
 func _physics_process(delta: float) -> void:
@@ -51,7 +52,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		entity_chart.send_event("grounded")
 	
-	
 	if char_move.can_reset_jump_times():
 		char_move.reset_jump_times()
 	
@@ -60,12 +60,12 @@ func _physics_process(delta: float) -> void:
 	char_move.lateral_jump()
 	
 	if velocity.x > 0:
-		image.flip_h = false
+		visual_control.scale.x = 1
 	elif velocity.x < 0:
-		image.flip_h = true
+		visual_control.scale.x = -1
 	
 	var rotation_degress = 15 * (velocity.x / char_move.char_move_data.lateral_speed)
-	image.rotation_degrees = move_toward(image.rotation_degrees,rotation_degress,delta*200)
+	visual_control.rotation_degrees = move_toward(visual_control.rotation_degrees,rotation_degress,delta*200)
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。

@@ -52,7 +52,7 @@ func lengthwise_jump(_delta:float):
 
 	if char_move_data.jump_times - current_jump_times >= 1 \
 	and char_move_data.jump_times > 1:
-		char_body.velocity.x += char_move_data.jump_lateral_move * char_body.image_dir
+		char_body.velocity.x += char_move_data.jump_lateral_move * char_body.move_dir
 		twice_jump.emit()
 	current_jump_times -= 1
 

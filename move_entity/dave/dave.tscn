@@ -55,6 +55,10 @@ texture = ExtResource("1_cjbh4")
 region_enabled = true
 region_rect = Rect2(74, 0, 16, 32)
 
+[node name="VisualControl" type="RemoteTransform2D" parent="."]
+position = Vector2(0, -8)
+remote_path = NodePath("../Image")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_4is1f")
