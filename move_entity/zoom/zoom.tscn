@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci0rsdebt11t8"]
+
+[ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_6lave"]
+[ext_resource type="Script" uid="uid://c1vr18amu2ega" path="res://move_entity/zoom/zoom.gd" id="2_2lb3e"]
+
+[node name="Zoom" instance=ExtResource("1_6lave")]
+script = ExtResource("2_2lb3e")
+
+[editable path="CharMove"]
