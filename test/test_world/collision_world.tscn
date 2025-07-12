@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
-[ext_resource type="PackedScene" uid="uid://bm4mj40jvngin" path="res://move_entity/dave/dave.tscn" id="10_d5kdb"]
+[ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://move_entity/dave/crazy_dave.tscn" id="10_d5kdb"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
@@ -48,7 +48,7 @@ enable = true
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="Dave" parent="." instance=ExtResource("10_d5kdb")]
-position = Vector2(385, 277)
+[node name="CrazyDave" parent="." instance=ExtResource("10_d5kdb")]
+position = Vector2(375, 263)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

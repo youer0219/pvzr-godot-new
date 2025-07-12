@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wapbt204bboj"
-path="res://.godot/imported/dave.png-807b669a82e746e328ad4fa20071f2e6.ctex"
+uid="uid://b32qe801an4fw"
+path="res://.godot/imported/MightyDave.png-3480589b24016ccef00fdce3aa7fa7b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entity/dave/dave.png"
-dest_files=["res://.godot/imported/dave.png-807b669a82e746e328ad4fa20071f2e6.ctex"]
+source_file="res://assets/sprites/entity/dave/MightyDave.png"
+dest_files=["res://.godot/imported/MightyDave.png-3480589b24016ccef00fdce3aa7fa7b0.ctex"]
 
 [params]
 

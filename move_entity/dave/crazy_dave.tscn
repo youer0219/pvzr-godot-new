@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb8iedn0xg7ud"]
+
+[ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_petol"]
+[ext_resource type="Script" uid="uid://ckm5ps8k0fklf" path="res://move_entity/dave/crazy_dave.gd" id="2_ksr7e"]
+[ext_resource type="Texture2D" uid="uid://cuy0epwk4i14k" path="res://assets/sprites/entity/dave/CrazyDave.png" id="3_gghe0"]
+
+[node name="CrazyDave" instance=ExtResource("1_petol")]
+script = ExtResource("2_ksr7e")
+
+[node name="Image" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+texture = ExtResource("3_gghe0")
+
+[node name="VisualControl" parent="." index="1"]
+position = Vector2(0, -8)
+remote_path = NodePath("../Image")
+
+[editable path="CharMove"]
