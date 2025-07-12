@@ -5,9 +5,7 @@ class_name MoveEntity
 @onready var entity_chart: StateChart = %EntityChart
 @onready var visual_control: VisualControl = $VisualControl
 
-var move_dir:int:
-	get:
-		return -1 if visual_control.scale.x < 0 else 1
+var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
@@ -66,3 +64,9 @@ func _on_move_up(_delta:float)->void:
 ## 横向移动处理。每物理帧执行。
 func _on_lateral_move(_delta:float)->void:
 	pass
+
+func get_entity_dir()->int:
+	return -1 if visual_control.scale.x < 0 else 1
+
+func set_entity_dir(value:int)->void:
+	visual_control.scale.x = value
