@@ -15,5 +15,7 @@ func _on_char_physics_process(delta:float,char_body:CharacterBody2D)->void:
 		scale.x = -1
 	
 	## TODO:目前需要访问char-body的char-move拿数据，这不太好，未来可以尝试在char-body中存数据
-	var rotation_degress = 15 * (char_body.velocity.x / char_body.char_move.char_move_data.lateral_speed)
+	
+	var rotation_degress = 15 * (char_body.velocity.x / char_body.char_move.char_move_data.lateral_speed) \
+	if not char_body.is_on_wall() else 0
 	rotation_degrees = move_toward(rotation_degrees,rotation_degress,delta*200)
