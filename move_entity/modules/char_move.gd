@@ -25,22 +25,14 @@ func _ready() -> void:
 	var map_scene = get_tree().get_first_node_in_group("map") as Map
 	water_line = map_scene.get_top_water_line()
 
-## TODO: 实现移动相关的行动
-
-## 横向
-
+#region 移动方法
 func lateral_move(delta:float,lateral_move_direction:int):
 	char_body.velocity.x = move_toward(char_body.velocity.x,lateral_move_direction * char_move_data.lateral_speed, char_move_data.lateral_speed_acceleration*delta) * char_move_data.lateral_speed_fator
-
 
 func lateral_jump():
 	if is_on_floor() and !is_on_wall():
 		var lateral_velocity_ratio = abs(char_body.velocity.x) / char_move_data.lateral_speed
 		char_body.velocity.y = -1 * (char_move_data.lateral_move_jump_velocity * lateral_velocity_ratio)
-
-## 纵向
-
-## 突发式
 
 func lengthwise_clamb(_delta:float):
 	if clamp_jump_timer.time_left == 0:
@@ -49,7 +41,6 @@ func lengthwise_clamb(_delta:float):
 
 func lengthwise_jump(_delta:float):
 	char_body.velocity.y = -1 * char_move_data.jump_velocity
-
 	if char_move_data.jump_times - current_jump_times >= 1 \
 	and char_move_data.jump_times > 1:
 		char_body.velocity.x += char_move_data.jump_lateral_move * char_body.entity_dir
@@ -63,12 +54,8 @@ func limit_velocity_in_first_time_jump_water():
 	if is_first_time_on_water:
 		char_body.velocity.y = min(char_body.velocity.y , char_move_data.water_init_speed)
 
-## 常态式
 
-func rise_up_in_air(_delta:float):
-	pass
-
-## 空中常态重力。存在最大值。
+## 空中常态重力。下落速度存在最大值。
 func fall_down_in_air(delta:float):
 	char_body.velocity.y = min(char_body.velocity.y + char_move_data.length_down_speed * delta ,\
 	char_move_data.MAX_FALL_VELOCITY)
@@ -82,8 +69,7 @@ func sink_down_in_water(delta:float):
 	char_body.velocity.y = min(char_body.velocity.y + char_move_data.water_down_speed * delta ,\
 	char_move_data.MAX_FALL_VELOCITY)
 
-func move_and_slide():
-	char_body.move_and_slide()
+#endregion
 
 #region 状态判断
 
@@ -120,9 +106,6 @@ func can_reset_jump_times()->bool:
 		return true
 	
 	if is_on_ladder() and !is_on_water():
-		return true
-	
-	if not is_above_water_line():
 		return true
 	
 	return false

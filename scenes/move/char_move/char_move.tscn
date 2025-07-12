@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cl374yswj54dg"]
 
-[ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://scenes/move/char_move/char_move.gd" id="1_37f5c"]
+[ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://move_entity/modules/char_move.gd" id="1_37f5c"]
 [ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="2_8im6v"]
 
 [node name="CharMove" type="Node2D"]

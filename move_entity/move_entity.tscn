@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2nh0s3s4s4oj"]
+[gd_scene load_steps=18 format=3 uid="uid://c2nh0s3s4s4oj"]
 
 [ext_resource type="Script" uid="uid://ltthsv3n1f0h" path="res://move_entity/move_entity.gd" id="1_weokr"]
 [ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://move_entity/modules/visual_control.gd" id="2_weokr"]
-[ext_resource type="PackedScene" uid="uid://cl374yswj54dg" path="res://scenes/move/char_move/char_move.tscn" id="3_236aa"]
+[ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://move_entity/modules/char_move.gd" id="3_weokr"]
+[ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="4_236aa"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_wd01o"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_165ap"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_i1bqo"]
@@ -55,8 +56,34 @@ script = ExtResource("2_weokr")
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_4is1f")
 
-[node name="CharMove" parent="." node_paths=PackedStringArray("char_body") instance=ExtResource("3_236aa")]
+[node name="CharMove" type="Node2D" parent="." node_paths=PackedStringArray("char_body")]
+script = ExtResource("3_weokr")
 char_body = NodePath("..")
+char_move_data = ExtResource("4_236aa")
+
+[node name="MoveCheckCast" type="Node2D" parent="CharMove"]
+
+[node name="LadderCheck" type="RayCast2D" parent="CharMove/MoveCheckCast"]
+unique_name_in_owner = true
+exclude_parent = false
+target_position = Vector2(0, 10)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="WaterCheck" type="RayCast2D" parent="CharMove/MoveCheckCast"]
+unique_name_in_owner = true
+exclude_parent = false
+target_position = Vector2(0, 12)
+collision_mask = 4
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="ClampJumpTimer" type="Timer" parent="CharMove"]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+one_shot = true
 
 [node name="EntityChart" type="Node" parent="."]
 unique_name_in_owner = true
@@ -128,13 +155,11 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [connection signal="state_physics_processing" from="EntityChart/PosState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Grounded" to="." method="_on_move_up"]
-[connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_move_up"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_airborne_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Airborne" to="." method="_on_move_up"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/PosState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_move_up"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Water Surface" to="." method="_on_move_up"]
 [connection signal="state_entered" from="EntityChart/PosState/Immerse/Underwater" to="." method="_on_float_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/PosState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
-
-[editable path="CharMove"]

@@ -5,5 +5,3 @@
 
 [node name="Zoom" instance=ExtResource("1_6lave")]
 script = ExtResource("2_2lb3e")
-
-[editable path="CharMove"]
