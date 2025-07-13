@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_0hu0o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
-radius = 6.0
+radius = 5.0
 height = 29.0
 
 [sub_resource type="Resource" id="Resource_t2c38"]
@@ -90,19 +90,24 @@ unique_name_in_owner = true
 script = ExtResource("4_wd01o")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
-[node name="CommonState" type="Node" parent="EntityChart"]
+[node name="PassiveState" type="Node" parent="EntityChart"]
+script = ExtResource("5_165ap")
+initial_state = NodePath("BalloonState")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="CommonState" type="Node" parent="EntityChart/PassiveState"]
 script = ExtResource("5_165ap")
 initial_state = NodePath("Grounded")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
-[node name="On Grounded" type="Node" parent="EntityChart/CommonState"]
+[node name="On Grounded" type="Node" parent="EntityChart/PassiveState/CommonState"]
 script = ExtResource("6_i1bqo")
 to = NodePath("../Grounded")
 event = &"grounded"
 guard = SubResource("Resource_ishph")
 delay_in_seconds = "0.0"
 
-[node name="On Airborne" type="Node" parent="EntityChart/CommonState"]
+[node name="On Airborne" type="Node" parent="EntityChart/PassiveState/CommonState"]
 script = ExtResource("6_i1bqo")
 to = NodePath("../Airborne")
 event = &"airborne"
@@ -110,7 +115,7 @@ guard = SubResource("Resource_e0oqm")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="On Immerse" type="Node" parent="EntityChart/CommonState"]
+[node name="On Immerse" type="Node" parent="EntityChart/PassiveState/CommonState"]
 script = ExtResource("6_i1bqo")
 to = NodePath("../Immerse")
 event = &"immerse"
@@ -118,49 +123,56 @@ guard = SubResource("Resource_ccurm")
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Grounded" type="Node" parent="EntityChart/CommonState"]
+[node name="Grounded" type="Node" parent="EntityChart/PassiveState/CommonState"]
 script = ExtResource("9_0hu0o")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="Airborne" type="Node" parent="EntityChart/CommonState"]
+[node name="Airborne" type="Node" parent="EntityChart/PassiveState/CommonState"]
 script = ExtResource("9_0hu0o")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="Immerse" type="Node" parent="EntityChart/CommonState"]
+[node name="Immerse" type="Node" parent="EntityChart/PassiveState/CommonState"]
 script = ExtResource("5_165ap")
 initial_state = NodePath("Water Surface")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
-[node name="Water Surface" type="Node" parent="EntityChart/CommonState/Immerse"]
+[node name="Water Surface" type="Node" parent="EntityChart/PassiveState/CommonState/Immerse"]
 script = ExtResource("9_0hu0o")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="On Underwater" type="Node" parent="EntityChart/CommonState/Immerse/Water Surface"]
+[node name="On Underwater" type="Node" parent="EntityChart/PassiveState/CommonState/Immerse/Water Surface"]
 script = ExtResource("6_i1bqo")
 to = NodePath("../../Underwater")
 event = &"underwater"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="Underwater" type="Node" parent="EntityChart/CommonState/Immerse"]
+[node name="Underwater" type="Node" parent="EntityChart/PassiveState/CommonState/Immerse"]
 script = ExtResource("9_0hu0o")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="On Water Surface" type="Node" parent="EntityChart/CommonState/Immerse/Underwater"]
+[node name="On Water Surface" type="Node" parent="EntityChart/PassiveState/CommonState/Immerse/Underwater"]
 script = ExtResource("6_i1bqo")
 to = NodePath("../../Water Surface")
 event = &"water surface"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[connection signal="state_physics_processing" from="EntityChart/CommonState" to="." method="_on_common_state_state_physics_processing"]
-[connection signal="state_physics_processing" from="EntityChart/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
-[connection signal="state_physics_processing" from="EntityChart/CommonState/Grounded" to="." method="_on_move_up"]
-[connection signal="state_physics_processing" from="EntityChart/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
-[connection signal="state_physics_processing" from="EntityChart/CommonState/Airborne" to="." method="_on_move_up"]
-[connection signal="state_entered" from="EntityChart/CommonState/Immerse" to="." method="_on_immerse_state_entered"]
-[connection signal="state_exited" from="EntityChart/CommonState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
-[connection signal="state_physics_processing" from="EntityChart/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]
-[connection signal="state_entered" from="EntityChart/CommonState/Immerse/Underwater" to="." method="_on_float_state_entered"]
-[connection signal="state_physics_processing" from="EntityChart/CommonState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
+[node name="BalloonState" type="Node" parent="EntityChart/PassiveState"]
+script = ExtResource("9_0hu0o")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Grounded" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Airborne" to="." method="_on_move_up"]
+[connection signal="state_entered" from="EntityChart/PassiveState/CommonState/Immerse" to="." method="_on_immerse_state_entered"]
+[connection signal="state_exited" from="EntityChart/PassiveState/CommonState/Immerse" to="." method="_on_immerse_state_exited"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]
+[connection signal="state_entered" from="EntityChart/PassiveState/CommonState/Immerse/Underwater" to="." method="_on_float_state_entered"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/PassiveState/BalloonState" to="." method="_on_balloon_state_state_entered"]
+[connection signal="state_exited" from="EntityChart/PassiveState/BalloonState" to="." method="_on_balloon_state_state_exited"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/BalloonState" to="." method="_on_balloon_state_state_physics_processing"]
