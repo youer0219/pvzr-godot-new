@@ -10,7 +10,10 @@ var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	pass
+
+func _on_common_state_state_physics_processing(delta: float) -> void:
 	if not is_on_floor():
 		if char_move.is_on_water():
 			entity_chart.send_event("immerse")
@@ -24,11 +27,12 @@ func _physics_process(delta: float) -> void:
 		entity_chart.send_event("grounded")
 	
 	if char_move.can_reset_jump_times():
-		char_move.reset_jump_times()
+			char_move.reset_jump_times()
 	
 	_on_lateral_move(delta)
 	
 	visual_control._on_char_physics_process(delta,self)
+
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。
