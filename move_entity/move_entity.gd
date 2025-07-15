@@ -77,10 +77,11 @@ func set_entity_dir(value:int)->void:
 	visual_control.scale.x = value
 
 func _on_balloon_state_state_entered() -> void:
-	## image向前偏移90度；TODO:未来使用tween实现偏转。
-	## 碰撞体也要偏转；TODO:目前碰撞体有些大，不支持从一格高度直接上移，可能需要更加细节的设计
-	visual_control.rotation_degrees = 90 * entity_dir
-	collision_shape_2d.rotation_degrees = 90
+	## image向前偏移90度、碰撞体高度降低
+	var tween := create_tween()
+	tween.tween_callback(visual_control.set_rotation_degrees.bind(0))
+	tween.tween_property(visual_control,"rotation_degrees",90 * entity_dir,0.5)
+	collision_shape_2d.shape.height *= 0.5
 
 func _on_balloon_state_state_physics_processing(delta: float) -> void:
 	## 速度向上；支持横移
@@ -94,5 +95,6 @@ func _on_balloon_state_state_physics_processing(delta: float) -> void:
 
 func _on_balloon_state_state_exited() -> void:
 	## 清除进入的效果
-	visual_control.rotation_degrees = 0
-	collision_shape_2d.rotation_degrees = 0
+	var tween := create_tween()
+	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
+	collision_shape_2d.shape.height *= 2.0
