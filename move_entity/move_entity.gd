@@ -34,7 +34,6 @@ func _on_common_state_state_physics_processing(delta: float) -> void:
 	
 	visual_control._on_char_physics_process(delta,self)
 
-
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。
 	char_move.is_first_time_on_water = true
@@ -92,7 +91,9 @@ func _on_balloon_state_state_physics_processing(delta: float) -> void:
 		velocity.y = sqrt(2 * 10 * up_speed) ## TODO:奇怪的公式
 	_on_lateral_move(delta)
 	move_and_slide()
-	## TODO:判断是否应该离开出土状态。如有性能问题可以多帧一次。
+	## 判断是否应该离开气球状态
+	if is_on_ceiling():
+		entity_chart.send_event("common")
 
 func _on_balloon_state_state_exited() -> void:
 	## 清除进入的效果
@@ -116,3 +117,6 @@ func _on_emerge_ground_state_state_physics_processing(delta: float) -> void:
 	
 	if not char_move.is_in_ground():
 		entity_chart.send_event("common")
+
+## TODO:是否应该每帧都判断要不要进入出土状态呢？目前搁置这一问题。但未来肯定是要有一个解决方案的。
+## TODO:气球离开时碰撞体会立即改变，可能需要触发出土状态
