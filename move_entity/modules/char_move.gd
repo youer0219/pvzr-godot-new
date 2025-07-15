@@ -9,6 +9,7 @@ signal twice_jump
 @onready var ladder_check: RayCast2D = %LadderCheck
 @onready var water_check: RayCast2D = %WaterCheck
 @onready var clamp_jump_timer: Timer = %ClampJumpTimer
+@onready var in_ground_check: RayCast2D = %InGroundCheck
 
 
 ## 从非水区域到水区域时为true。默认为false。当离开水区域或开始上浮后为false。
@@ -86,6 +87,9 @@ func is_on_ladder()->bool:
 func is_on_water()->bool:
 	return water_check.is_colliding()
 
+func is_in_ground()->bool:
+	return in_ground_check.is_colliding()
+
 ## 能否攀爬。
 ## 检测到梯子 + （位于地板上 / 不是第一次进入水中）
 func can_clamp()->bool:
@@ -116,3 +120,9 @@ func is_above_water_line()->bool:
 	return char_body.global_position.y < water_line + char_move_data.water_sink_distance
 
 #endregion
+
+func disable_in_ground_check()->void:
+	in_ground_check.enabled = false
+
+func enable_in_ground_check()->void:
+	in_ground_check.enabled = true

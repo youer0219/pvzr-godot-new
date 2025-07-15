@@ -92,9 +92,27 @@ func _on_balloon_state_state_physics_processing(delta: float) -> void:
 		velocity.y = sqrt(2 * 10 * up_speed) ## TODO:奇怪的公式
 	_on_lateral_move(delta)
 	move_and_slide()
+	## TODO:判断是否应该离开出土状态。如有性能问题可以多帧一次。
 
 func _on_balloon_state_state_exited() -> void:
 	## 清除进入的效果
 	var tween := create_tween()
 	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
 	collision_shape_2d.shape.height *= 2.0
+
+func _on_emerge_ground_state_state_entered() -> void:
+	## 禁止角色碰撞，启动是否在地面内的碰撞检测
+	collision_shape_2d.disabled = true
+	char_move.enable_in_ground_check()
+
+func _on_emerge_ground_state_state_exited() -> void:
+	collision_shape_2d.disabled = false
+	char_move.disable_in_ground_check()
+
+func _on_emerge_ground_state_state_physics_processing(delta: float) -> void:
+	## 角度为0。位置向上移动。实时判断能否退出出土状态。TODO:发射粒子。
+	visual_control.rotation_degrees = 0
+	position += Vector2(0.0,-30.0) * delta
+	
+	if not char_move.is_in_ground():
+		entity_chart.send_event("common")

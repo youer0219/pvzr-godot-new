@@ -49,6 +49,6 @@ enable = true
 autostart = true
 
 [node name="CrazyDave" parent="." instance=ExtResource("10_d5kdb")]
-position = Vector2(375, 263)
+position = Vector2(385, 325)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

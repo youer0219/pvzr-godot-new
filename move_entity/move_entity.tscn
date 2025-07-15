@@ -69,6 +69,14 @@ target_position = Vector2(0, 10)
 collision_mask = 2
 hit_from_inside = true
 
+[node name="InGroundCheck" type="RayCast2D" parent="CharMove/MoveCheckCast"]
+unique_name_in_owner = true
+position = Vector2(0, -23)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, 32)
+hit_from_inside = true
+
 [node name="WaterCheck" type="RayCast2D" parent="CharMove/MoveCheckCast"]
 unique_name_in_owner = true
 exclude_parent = false
@@ -91,7 +99,7 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="PassiveState" type="Node" parent="EntityChart"]
 script = ExtResource("5_165ap")
-initial_state = NodePath("BalloonState")
+initial_state = NodePath("EmergeGroundState")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [node name="CommonState" type="Node" parent="EntityChart/PassiveState"]
@@ -161,6 +169,15 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 script = ExtResource("9_0hu0o")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
+[node name="EmergeGroundState" type="Node" parent="EntityChart/PassiveState"]
+script = ExtResource("9_0hu0o")
+
+[node name="Transition" type="Node" parent="EntityChart/PassiveState/EmergeGroundState"]
+script = ExtResource("6_i1bqo")
+to = NodePath("../../CommonState")
+event = &"common"
+delay_in_seconds = "0.0"
+
 [connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/PassiveState/CommonState/Grounded" to="." method="_on_move_up"]
@@ -175,3 +192,6 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 [connection signal="state_entered" from="EntityChart/PassiveState/BalloonState" to="." method="_on_balloon_state_state_entered"]
 [connection signal="state_exited" from="EntityChart/PassiveState/BalloonState" to="." method="_on_balloon_state_state_exited"]
 [connection signal="state_physics_processing" from="EntityChart/PassiveState/BalloonState" to="." method="_on_balloon_state_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/PassiveState/EmergeGroundState" to="." method="_on_emerge_ground_state_state_entered"]
+[connection signal="state_exited" from="EntityChart/PassiveState/EmergeGroundState" to="." method="_on_emerge_ground_state_state_exited"]
+[connection signal="state_physics_processing" from="EntityChart/PassiveState/EmergeGroundState" to="." method="_on_emerge_ground_state_state_physics_processing"]
