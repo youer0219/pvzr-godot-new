@@ -104,6 +104,8 @@ func _on_move_up(delta:float)->void:
 func _on_lateral_move(delta:float)->void:
 	char_move.lateral_move(delta,lateral_move_direction)
 	char_move.lateral_jump()
+	
+	lateral_move_direction = 0
 
 func get_entity_dir()->int:
 	return -1 if visual_control.scale.x < 0 else 1
