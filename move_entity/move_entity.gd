@@ -18,26 +18,48 @@ var is_just_move_up:bool = false
 var is_move_up:bool = false
 var lateral_move_direction:int = 0 ## 0表示不动
 
+## 状态标记位
+var _was_on_grounded:bool
+var _was_on_air:bool
+var _was_on_immerse:bool
+var _was_on_water_surface:bool
+
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 	in_ground_check_shape.shape = collision_shape_2d.shape
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
-	## TODO:改进状态转换处理，不再发送多余信号
 	if not is_on_floor():
+		_was_on_grounded = false
 		if char_move.is_on_water():
-			entity_chart.send_event("immerse")
+			_was_on_air = false
+			if not _was_on_immerse:
+				_was_on_immerse = true
+				entity_chart.send_event("immerse")
 			if char_move.is_above_water_line():
-				entity_chart.send_event("water surface")
+				if not _was_on_water_surface:
+					_was_on_water_surface = true
+					entity_chart.send_event("water surface")
 			else:
-				entity_chart.send_event("underwater")
+				if _was_on_water_surface:
+					_was_on_water_surface = false
+					entity_chart.send_event("underwater")
 		else:
-			entity_chart.send_event("airborne")
+			_was_on_immerse = false
+			_was_on_water_surface = false
+			if not _was_on_air:
+				_was_on_air = true
+				entity_chart.send_event("airborne")
 	else:
-		entity_chart.send_event("grounded")
+		_was_on_immerse = false
+		_was_on_air = false
+		_was_on_water_surface = false
+		if not _was_on_grounded:
+			_was_on_grounded = true
+			entity_chart.send_event("grounded")
 	
 	if char_move.can_reset_jump_times():
-			char_move.reset_jump_times()
+		char_move.reset_jump_times()
 	
 	_on_lateral_move(delta)
 
