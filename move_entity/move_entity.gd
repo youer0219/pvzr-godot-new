@@ -124,9 +124,6 @@ func _on_balloon_state_state_physics_processing(delta: float) -> void:
 		velocity.y = sqrt(2 * 10 * up_speed) ## TODO:奇怪的公式
 	_on_lateral_move(delta)
 	move_and_slide()
-	## 判断是否应该离开气球状态
-	if is_on_ceiling():
-		entity_chart.send_event("common")
 
 func _on_balloon_state_state_exited() -> void:
 	## 清除进入的效果
