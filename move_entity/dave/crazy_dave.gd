@@ -33,11 +33,11 @@ func _on_bolloon_hurt_state_state_entered() -> void:
 func _on_bolloon_hurt_state_state_exited() -> void:
 	entity_chart.send_event("common")
 
-func _on_hurt_state_state_entered() -> void:
+func _on_common_hurt_state_state_entered() -> void:
 	## 倒地；碰撞体调整；
 	entity_chart.send_event("lay")
 
-func _on_hurt_state_state_exited() -> void:
+func _on_common_hurt_state_state_exited() -> void:
 	## 回正；碰撞体恢复；
 	entity_chart.send_event("stand")
 

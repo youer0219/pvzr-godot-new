@@ -147,7 +147,6 @@ func _on_stand_state_state_physics_processing(delta: float) -> void:
 
 func _on_lay_state_state_entered() -> void:
 	var tween := create_tween()
-	tween.tween_callback(visual_control.set_rotation_degrees.bind(0))
 	tween.tween_property(visual_control,"rotation_degrees",90 * entity_dir,0.5)
 	collision_shape_2d.shape.height *= 0.5
 
