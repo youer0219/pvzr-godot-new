@@ -8,11 +8,12 @@ class_name MoveEntity
 
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 
+var is_just_move_up:bool = false
+var is_move_up:bool = false
+var lateral_move_direction:int = 0 ## 0表示不动
+
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
-
-func _physics_process(_delta: float) -> void:
-	pass
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
 	if not is_on_floor():
@@ -62,12 +63,19 @@ func _on_underwater_state_physics_processing(delta: float) -> void:
 	char_move.float_up_in_water(delta)
 
 ## 纵向移动处理。仅在地面、空中和水面上时允许触发。
-func _on_move_up(_delta:float)->void:
-	pass
+func _on_move_up(delta:float)->void:
+	if is_move_up and char_move.can_clamp():
+		char_move.lengthwise_clamb(delta)
+	elif is_just_move_up and char_move.can_jump():
+		char_move.lengthwise_jump(delta)
+	
+	is_just_move_up = false
+	is_move_up = false
 
 ## 横向移动处理。每物理帧执行。
-func _on_lateral_move(_delta:float)->void:
-	pass
+func _on_lateral_move(delta:float)->void:
+	char_move.lateral_move(delta,lateral_move_direction)
+	char_move.lateral_jump()
 
 func get_entity_dir()->int:
 	return -1 if visual_control.scale.x < 0 else 1
@@ -120,3 +128,4 @@ func _on_emerge_ground_state_state_physics_processing(delta: float) -> void:
 
 ## TODO:是否应该每帧都判断要不要进入出土状态呢？目前搁置这一问题。但未来肯定是要有一个解决方案的。
 ## TODO:气球离开时碰撞体会立即改变，可能需要触发出土状态
+## “生成状态”问题：带气球的实体的生成有些不同。但可能不好设计，改为直接写死。

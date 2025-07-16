@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci0rsdebt11t8"]
+[gd_scene load_steps=4 format=3 uid="uid://ci0rsdebt11t8"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_6lave"]
 [ext_resource type="Script" uid="uid://c1vr18amu2ega" path="res://move_entity/zoom/zoom.gd" id="2_2lb3e"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_5vt4w"]
 
 [node name="Zoom" instance=ExtResource("1_6lave")]
 script = ExtResource("2_2lb3e")
+
+[node name="ActionState" parent="EntityChart/ParallelState" index="1"]
+initial_state = NodePath("AttackState")
+
+[node name="ChaseState" type="Node" parent="EntityChart/ParallelState/ActionState" index="0"]
+script = ExtResource("3_5vt4w")
+
+[node name="NoActionState" type="Node" parent="EntityChart/ParallelState/ActionState" index="1"]
+script = ExtResource("3_5vt4w")
+
+[node name="AttackState" type="Node" parent="EntityChart/ParallelState/ActionState" index="2"]
+script = ExtResource("3_5vt4w")
