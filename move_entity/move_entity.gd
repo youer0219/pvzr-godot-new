@@ -10,6 +10,7 @@ class_name MoveEntity
 @onready var entity_chart: StateChart = %EntityChart
 @onready var visual_control: VisualControl = $VisualControl
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var in_ground_check_shape: CollisionShape2D = %InGroundCheckShape
 
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 
@@ -19,6 +20,7 @@ var lateral_move_direction:int = 0 ## 0表示不动
 
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
+	in_ground_check_shape.shape = collision_shape_2d.shape
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
 	## TODO:改进状态转换处理，不再发送多余信号
@@ -109,22 +111,17 @@ func _on_balloon_state_state_exited() -> void:
 	entity_chart.send_event("stand")
 
 func _on_emerge_ground_state_state_entered() -> void:
-	## 禁止角色碰撞，启动是否在地面内的碰撞检测
-	collision_shape_2d.disabled = true
-	char_move.enable_in_ground_check()
+	## 禁止角色碰撞
+	collision_shape_2d.set_deferred("disabled",true)
 
 func _on_emerge_ground_state_state_exited() -> void:
-	collision_shape_2d.disabled = false
-	char_move.disable_in_ground_check()
+	collision_shape_2d.set_deferred("disabled",false)
 
 func _on_emerge_ground_state_state_physics_processing(delta: float) -> void:
-	## 角度为0。位置向上移动。实时判断能否退出出土状态。TODO:发射粒子。
+	## 角度为0。位置向上移动。TODO:发射粒子。
 	visual_control.rotation_degrees = 0
 	position += Vector2(0.0,-30.0) * delta
 	velocity = Vector2.ZERO ## 避免图像偏转
-	
-	if not char_move.is_in_ground():
-		entity_chart.send_event("common")
 
 func _on_stand_state_state_physics_processing(delta: float) -> void:
 	visual_control._on_char_physics_process(delta,self)
@@ -139,3 +136,9 @@ func _on_lay_state_state_exited() -> void:
 	var tween := create_tween()
 	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
 	collision_shape_2d.shape.height *= 2.0
+
+func _on_in_ground_check_area_body_entered(_body: Node2D) -> void:
+	entity_chart.send_event("emerge_ground")
+
+func _on_in_ground_check_area_body_exited(_body: Node2D) -> void:
+	entity_chart.call_deferred("send_event","common")

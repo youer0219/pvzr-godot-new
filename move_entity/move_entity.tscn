@@ -103,6 +103,14 @@ script = ExtResource("2_weokr")
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_4is1f")
 
+[node name="InGroundCheckArea" type="Area2D" parent="CollisionShape2D"]
+collision_layer = 0
+
+[node name="InGroundCheckShape" type="CollisionShape2D" parent="CollisionShape2D/InGroundCheckArea"]
+unique_name_in_owner = true
+one_way_collision_margin = 0.0
+debug_color = Color(0.41685, 0.600694, 0.204816, 0.42)
+
 [node name="CharMove" type="Node2D" parent="." node_paths=PackedStringArray("char_body")]
 script = ExtResource("3_weokr")
 char_body = NodePath("..")
@@ -115,14 +123,6 @@ unique_name_in_owner = true
 exclude_parent = false
 target_position = Vector2(0, 10)
 collision_mask = 2
-hit_from_inside = true
-
-[node name="InGroundCheck" type="RayCast2D" parent="CharMove/MoveCheckCast"]
-unique_name_in_owner = true
-position = Vector2(0, -22)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, 30)
 hit_from_inside = true
 
 [node name="WaterCheck" type="RayCast2D" parent="CharMove/MoveCheckCast"]
@@ -271,6 +271,8 @@ to = NodePath("../../StandState")
 event = &"stand"
 delay_in_seconds = "0.0"
 
+[connection signal="body_entered" from="CollisionShape2D/InGroundCheckArea" to="." method="_on_in_ground_check_area_body_entered"]
+[connection signal="body_exited" from="CollisionShape2D/InGroundCheckArea" to="." method="_on_in_ground_check_area_body_exited"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Grounded" to="." method="_on_move_up"]
