@@ -1,10 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb8iedn0xg7ud"]
+[gd_scene load_steps=14 format=3 uid="uid://cb8iedn0xg7ud"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_petol"]
 [ext_resource type="Script" uid="uid://ckm5ps8k0fklf" path="res://move_entity/dave/crazy_dave.gd" id="2_ksr7e"]
 [ext_resource type="Texture2D" uid="uid://cuy0epwk4i14k" path="res://assets/sprites/entity/dave/CrazyDave.png" id="3_gghe0"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_jsdgl"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_qcj8d"]
+[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="5_dfjv0"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_io0n7"]
+[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="6_gyjtu"]
+
+[sub_resource type="Resource" id="Resource_bsjep"]
+script = ExtResource("5_dfjv0")
+state = NodePath("../HurtState")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_j3nxb"]
+script = ExtResource("6_gyjtu")
+guard = SubResource("Resource_bsjep")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
+[sub_resource type="Resource" id="Resource_jsdgl"]
+script = ExtResource("5_dfjv0")
+state = NodePath("../CommonMoveState")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_dfjv0"]
+script = ExtResource("6_gyjtu")
+guard = SubResource("Resource_jsdgl")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
+
+[sub_resource type="Resource" id="Resource_gyjtu"]
+script = ExtResource("5_dfjv0")
+state = NodePath("../CommonHurtState")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [node name="CrazyDave" instance=ExtResource("1_petol")]
 script = ExtResource("2_ksr7e")
@@ -17,22 +45,47 @@ texture = ExtResource("3_gghe0")
 position = Vector2(0, -8)
 remote_path = NodePath("../Image")
 
-[node name="ActionState" parent="EntityChart/ParallelState" index="1"]
-initial_state = NodePath("MoveActionState")
+[node name="ActionState" parent="EntityChart/ParallelState" index="0"]
+initial_state = NodePath("CommonMoveState")
 
-[node name="MoveActionState" type="Node" parent="EntityChart/ParallelState/ActionState" index="0"]
+[node name="On Hurt" type="Node" parent="EntityChart/ParallelState/ActionState" index="0"]
+script = ExtResource("4_jsdgl")
+to = NodePath("../HurtState")
+event = &"hurt"
+guard = SubResource("Resource_j3nxb")
+delay_in_seconds = "0.0"
+
+[node name="On Common Move" type="Node" parent="EntityChart/ParallelState/ActionState" index="1"]
+script = ExtResource("4_jsdgl")
+to = NodePath("../CommonMoveState")
+event = &"common_move"
+guard = SubResource("Resource_dfjv0")
+delay_in_seconds = "0.0"
+
+[node name="CommonMoveState" type="Node" parent="EntityChart/ParallelState/ActionState" index="2"]
 script = ExtResource("4_qcj8d")
 
-[node name="HurtState" type="Node" parent="EntityChart/ParallelState/ActionState" index="1"]
+[node name="HurtState" type="Node" parent="EntityChart/ParallelState/ActionState" index="3"]
 script = ExtResource("5_io0n7")
 initial_state = NodePath("CommonHurtState")
 
-[node name="CommonHurtState" type="Node" parent="EntityChart/ParallelState/ActionState/HurtState" index="0"]
+[node name="On Half HP" type="Node" parent="EntityChart/ParallelState/ActionState/HurtState" index="0"]
+script = ExtResource("4_jsdgl")
+to = NodePath("../BolloonHurtState")
+event = &"half_hp"
+guard = SubResource("Resource_gyjtu")
+delay_in_seconds = "0.0"
+
+[node name="CommonHurtState" type="Node" parent="EntityChart/ParallelState/ActionState/HurtState" index="1"]
 script = ExtResource("4_qcj8d")
 
-[node name="BolloonHurtState" type="Node" parent="EntityChart/ParallelState/ActionState/HurtState" index="1"]
+[node name="BolloonHurtState" type="Node" parent="EntityChart/ParallelState/ActionState/HurtState" index="2"]
 script = ExtResource("4_qcj8d")
 
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/MoveActionState" to="." method="_lateral_input_handle" unbinds=1]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/MoveActionState" to="." method="_lengthwise_input_handle" unbinds=1]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/CommonMoveState" to="." method="_lateral_input_handle" unbinds=1]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/CommonMoveState" to="." method="_lengthwise_input_handle" unbinds=1]
+[connection signal="state_entered" from="EntityChart/ParallelState/ActionState/HurtState" to="." method="_on_hurt_state_state_entered"]
+[connection signal="state_exited" from="EntityChart/ParallelState/ActionState/HurtState" to="." method="_on_hurt_state_state_exited"]
+[connection signal="state_entered" from="EntityChart/ParallelState/ActionState/HurtState/BolloonHurtState" to="." method="_on_bolloon_hurt_state_state_entered"]
+[connection signal="state_exited" from="EntityChart/ParallelState/ActionState/HurtState/BolloonHurtState" to="." method="_on_bolloon_hurt_state_state_exited"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/HurtState/BolloonHurtState" to="." method="_lateral_input_handle" unbinds=1]
