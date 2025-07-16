@@ -2,8 +2,20 @@ extends MoveEntity
 class_name CrazyDave
 
 ## TODO:要重写气球相关方法，因为戴夫可能不会在触碰天花板后立即退出该模式
-## 而是在退出hurt模式后一并退出气球模式。同时倒地等功能是否重合呢？
+## 而是在退出hurt模式后一并退出气球模式。同时倒地等功能是否单独一个状态？
 
+func _ready() -> void:
+	super()
+	## 等待5s，模拟受伤
+	await get_tree().create_timer(5.0).timeout
+	entity_chart.send_event("hurt")
+	## 等待5s，模拟受伤且一半血以下
+	await get_tree().create_timer(5.0).timeout
+	entity_chart.send_event("hurt")
+	entity_chart.send_event("half_hp")
+	## 等待5s，模拟退出受伤状态
+	await get_tree().create_timer(5.0).timeout
+	$"EntityChart/ParallelState/ActionState/On Common Move".take()
 
 func _lengthwise_input_handle():
 	if Input.is_action_just_pressed("move_up"):
@@ -23,11 +35,11 @@ func _on_bolloon_hurt_state_state_exited() -> void:
 
 func _on_hurt_state_state_entered() -> void:
 	## 倒地；碰撞体调整；
-	pass # Replace with function body.
+	entity_chart.send_event("lay")
 
 func _on_hurt_state_state_exited() -> void:
 	## 回正；碰撞体恢复；
-	pass # Replace with function body.
+	entity_chart.send_event("stand")
 
 func _on_hurt():
 	## 尝试状态转换 TODO:（可以判断是否无敌）；粒子效果；判断是否半血以触发气球模式

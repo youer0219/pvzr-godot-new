@@ -1,6 +1,11 @@
 extends CharacterBody2D
 class_name MoveEntity
 
+
+## TODO:是否应该每帧都判断要不要进入出土状态呢？目前搁置这一问题。但未来肯定是要有一个解决方案的。
+## TODO:气球离开时碰撞体会立即改变，可能需要触发出土状态
+## “生成状态”问题：带气球的实体的生成有些不同。但可能不好设计，改为直接写死。
+
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
 @onready var visual_control: VisualControl = $VisualControl
@@ -16,6 +21,7 @@ func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
+	## TODO:改进状态转换处理，不再发送多余信号
 	if not is_on_floor():
 		if char_move.is_on_water():
 			entity_chart.send_event("immerse")
@@ -32,8 +38,6 @@ func _on_common_state_state_physics_processing(delta: float) -> void:
 			char_move.reset_jump_times()
 	
 	_on_lateral_move(delta)
-	
-	visual_control._on_char_physics_process(delta,self)
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。
@@ -85,10 +89,7 @@ func set_entity_dir(value:int)->void:
 
 func _on_balloon_state_state_entered() -> void:
 	## image向前偏移90度、碰撞体高度降低
-	var tween := create_tween()
-	tween.tween_callback(visual_control.set_rotation_degrees.bind(0))
-	tween.tween_property(visual_control,"rotation_degrees",90 * entity_dir,0.5)
-	collision_shape_2d.shape.height *= 0.5
+	entity_chart.send_event("lay")
 
 func _on_balloon_state_state_physics_processing(delta: float) -> void:
 	## 速度向上；支持横移
@@ -105,9 +106,7 @@ func _on_balloon_state_state_physics_processing(delta: float) -> void:
 
 func _on_balloon_state_state_exited() -> void:
 	## 清除进入的效果
-	var tween := create_tween()
-	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
-	collision_shape_2d.shape.height *= 2.0
+	entity_chart.send_event("stand")
 
 func _on_emerge_ground_state_state_entered() -> void:
 	## 禁止角色碰撞，启动是否在地面内的碰撞检测
@@ -122,10 +121,21 @@ func _on_emerge_ground_state_state_physics_processing(delta: float) -> void:
 	## 角度为0。位置向上移动。实时判断能否退出出土状态。TODO:发射粒子。
 	visual_control.rotation_degrees = 0
 	position += Vector2(0.0,-30.0) * delta
+	velocity = Vector2.ZERO ## 避免图像偏转
 	
 	if not char_move.is_in_ground():
 		entity_chart.send_event("common")
 
-## TODO:是否应该每帧都判断要不要进入出土状态呢？目前搁置这一问题。但未来肯定是要有一个解决方案的。
-## TODO:气球离开时碰撞体会立即改变，可能需要触发出土状态
-## “生成状态”问题：带气球的实体的生成有些不同。但可能不好设计，改为直接写死。
+func _on_stand_state_state_physics_processing(delta: float) -> void:
+	visual_control._on_char_physics_process(delta,self)
+
+func _on_lay_state_state_entered() -> void:
+	var tween := create_tween()
+	tween.tween_callback(visual_control.set_rotation_degrees.bind(0))
+	tween.tween_property(visual_control,"rotation_degrees",90 * entity_dir,0.5)
+	collision_shape_2d.shape.height *= 0.5
+
+func _on_lay_state_state_exited() -> void:
+	var tween := create_tween()
+	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
+	collision_shape_2d.shape.height *= 2.0

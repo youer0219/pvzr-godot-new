@@ -249,15 +249,37 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 [node name="EmergeGroundState" type="Node" parent="EntityChart/ParallelState/MoveState"]
 script = ExtResource("9_0hu0o")
 
+[node name="BodyState" type="Node" parent="EntityChart/ParallelState"]
+script = ExtResource("5_165ap")
+initial_state = NodePath("StandState")
+
+[node name="StandState" type="Node" parent="EntityChart/ParallelState/BodyState"]
+script = ExtResource("9_0hu0o")
+
+[node name="On Lay" type="Node" parent="EntityChart/ParallelState/BodyState/StandState"]
+script = ExtResource("6_i1bqo")
+to = NodePath("../../LayState")
+event = &"lay"
+delay_in_seconds = "0.0"
+
+[node name="LayState" type="Node" parent="EntityChart/ParallelState/BodyState"]
+script = ExtResource("9_0hu0o")
+
+[node name="On Stand" type="Node" parent="EntityChart/ParallelState/BodyState/LayState"]
+script = ExtResource("6_i1bqo")
+to = NodePath("../../StandState")
+event = &"stand"
+delay_in_seconds = "0.0"
+
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Grounded" to="." method="_on_move_up"]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Underwater" to="." method="_on_float_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/BalloonState" to="." method="_on_balloon_state_state_entered"]
@@ -266,3 +288,6 @@ script = ExtResource("9_0hu0o")
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/EmergeGroundState" to="." method="_on_emerge_ground_state_state_entered"]
 [connection signal="state_exited" from="EntityChart/ParallelState/MoveState/EmergeGroundState" to="." method="_on_emerge_ground_state_state_exited"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/EmergeGroundState" to="." method="_on_emerge_ground_state_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/BodyState/StandState" to="." method="_on_stand_state_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/ParallelState/BodyState/LayState" to="." method="_on_lay_state_state_entered"]
+[connection signal="state_exited" from="EntityChart/ParallelState/BodyState/LayState" to="." method="_on_lay_state_state_exited"]
