@@ -4,6 +4,7 @@ class_name CrazyDave
 ## TODO:要重写气球相关方法，因为戴夫可能不会在触碰天花板后立即退出该模式
 ## 而是在退出hurt模式后一并退出气球模式。同时倒地等功能是否重合呢？
 
+
 func _lengthwise_input_handle():
 	if Input.is_action_just_pressed("move_up"):
 		is_just_move_up = true

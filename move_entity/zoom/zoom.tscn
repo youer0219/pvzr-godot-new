@@ -7,7 +7,7 @@
 [node name="Zoom" instance=ExtResource("1_6lave")]
 script = ExtResource("2_2lb3e")
 
-[node name="ActionState" parent="EntityChart/ParallelState" index="1"]
+[node name="ActionState" parent="EntityChart/ParallelState" index="0"]
 initial_state = NodePath("AttackState")
 
 [node name="ChaseState" type="Node" parent="EntityChart/ParallelState/ActionState" index="0"]

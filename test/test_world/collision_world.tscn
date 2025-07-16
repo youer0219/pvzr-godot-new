@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://move_entity/dave/crazy_dave.tscn" id="10_d5kdb"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
 [sub_resource type="Resource" id="Resource_brqar"]
@@ -30,6 +31,9 @@ is_night_time = false
 is_boss_level = false
 is_pink_sky = false
 
+[sub_resource type="Theme" id="Theme_nhf0t"]
+default_font_size = 10
+
 [node name="CollisionWorld" type="Node2D"]
 script = ExtResource("1_a0j4q")
 metadata/_edit_lock_ = true
@@ -50,5 +54,28 @@ autostart = true
 
 [node name="CrazyDave" parent="." instance=ExtResource("10_d5kdb")]
 position = Vector2(385, 325)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="UIControl" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StateChartDebugger" parent="UILayer/UIControl" instance=ExtResource("11_nhf0t")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 200.0
+offset_bottom = 300.0
+grow_horizontal = 1
+grow_vertical = 1
+theme = SubResource("Theme_nhf0t")
+initial_node_to_watch = NodePath("../../../CrazyDave")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
