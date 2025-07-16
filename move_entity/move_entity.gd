@@ -154,11 +154,13 @@ func _on_lay_state_state_entered() -> void:
 	var tween := create_tween()
 	tween.tween_property(visual_control,"rotation_degrees",90 * entity_dir,0.5)
 	collision_shape_2d.shape.height *= 0.5
+	char_move.char_move_data.water_sink_distance *= 2.0
 
 func _on_lay_state_state_exited() -> void:
 	var tween := create_tween()
 	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
 	collision_shape_2d.shape.height *= 2.0
+	char_move.char_move_data.water_sink_distance *= 0.5
 
 func _on_in_ground_check_area_body_entered(_body: Node2D) -> void:
 	entity_chart.send_event("emerge_ground")
