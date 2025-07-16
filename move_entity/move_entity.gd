@@ -1,10 +1,7 @@
 extends CharacterBody2D
 class_name MoveEntity
 
-
-## TODO:是否应该每帧都判断要不要进入出土状态呢？目前搁置这一问题。但未来肯定是要有一个解决方案的。
-## TODO:气球离开时碰撞体会立即改变，可能需要触发出土状态
-## “生成状态”问题：带气球的实体的生成有些不同。但可能不好设计，改为直接写死。
+## TODO:“生成状态”问题：带气球的实体的生成有些不同。但似乎不好设计，可能直接写死。
 
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
@@ -51,8 +48,8 @@ func _on_common_state_state_physics_processing(delta: float) -> void:
 				_was_on_air = true
 				entity_chart.send_event("airborne")
 	else:
-		_was_on_immerse = false
 		_was_on_air = false
+		_was_on_immerse = false
 		_was_on_water_surface = false
 		if not _was_on_grounded:
 			_was_on_grounded = true
@@ -62,6 +59,12 @@ func _on_common_state_state_physics_processing(delta: float) -> void:
 		char_move.reset_jump_times()
 	
 	_on_lateral_move(delta)
+
+func _on_common_state_state_entered() -> void:
+	_was_on_grounded = false
+	_was_on_air = false
+	_was_on_immerse = false
+	_was_on_water_surface = false
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。

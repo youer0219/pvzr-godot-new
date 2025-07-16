@@ -273,6 +273,7 @@ delay_in_seconds = "0.0"
 
 [connection signal="body_entered" from="CollisionShape2D/InGroundCheckArea" to="." method="_on_in_ground_check_area_body_entered"]
 [connection signal="body_exited" from="CollisionShape2D/InGroundCheckArea" to="." method="_on_in_ground_check_area_body_exited"]
+[connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="_on_common_state_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Grounded" to="." method="_on_move_up"]

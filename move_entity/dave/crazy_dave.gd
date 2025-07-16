@@ -14,7 +14,7 @@ func _ready() -> void:
 	entity_chart.send_event("hurt")
 	entity_chart.send_event("half_hp")
 	## 等待10s，模拟退出受伤状态
-	await get_tree().create_timer(10.0).timeout
+	await get_tree().create_timer(5.0).timeout
 	$"EntityChart/ParallelState/ActionState/On Common Move".take()
 
 func _lengthwise_input_handle():
