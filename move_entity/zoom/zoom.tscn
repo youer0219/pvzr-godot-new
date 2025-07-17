@@ -35,6 +35,3 @@ script = ExtResource("3_5vt4w")
 
 [node name="AttackState" type="Node" parent="EntityChart/ParallelState/ActionState" index="2"]
 script = ExtResource("3_5vt4w")
-
-[node name="MoveState" parent="EntityChart/ParallelState" index="1"]
-initial_state = NodePath("CommonState")

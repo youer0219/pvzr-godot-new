@@ -19,4 +19,4 @@ clamp_gap_time = 0.05
 water_init_speed = 10.0
 water_down_speed = 100.0
 water_up_distance = 6.0
-water_sink_distance = 4.0
+water_sink_distance = -2.0

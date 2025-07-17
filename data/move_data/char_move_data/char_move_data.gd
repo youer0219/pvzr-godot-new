@@ -34,7 +34,7 @@ var jump_velocity:float = 120
 @export var water_down_speed:float = 100
 @export var water_up_distance:float = 6.0
 var water_up_speed:float = 0.0
-@export var water_sink_distance:float = 4
+@export var water_sink_distance:float = -2
 
 ## WARNING:需要在ready和改变数据时手动调用该函数重新计算速度等值
 ## 一般只需要在ready时调用一次

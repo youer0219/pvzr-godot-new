@@ -38,11 +38,9 @@ metadata/_custom_type_script = "uid://bambbrd2wupx0"
 script = ExtResource("2_ksr7e")
 
 [node name="Image" type="Sprite2D" parent="." index="0"]
-position = Vector2(0, -8)
 texture = ExtResource("3_gghe0")
 
 [node name="VisualControl" parent="." index="1"]
-position = Vector2(0, -8)
 remote_path = NodePath("../Image")
 
 [node name="ActionState" parent="EntityChart/ParallelState" index="0"]
