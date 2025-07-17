@@ -154,7 +154,7 @@ script = ExtResource("5_165ap")
 
 [node name="MoveState" type="Node" parent="EntityChart/ParallelState"]
 script = ExtResource("5_165ap")
-initial_state = NodePath("EmergeGroundState")
+initial_state = NodePath("CommonState")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [node name="On Common" type="Node" parent="EntityChart/ParallelState/MoveState"]

@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name MoveEntity
 
-## TODO:“生成状态”问题：带气球的实体的生成有些不同。但似乎不好设计，可能直接写死。
-
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
 @onready var visual_control: VisualControl = $VisualControl
@@ -162,6 +160,7 @@ func _on_lay_state_state_exited() -> void:
 	collision_shape_2d.shape.height *= 4.0
 	char_move.char_move_data.water_sink_distance *= 0.5
 
+## TODO: 这里通过记录body数量来判断是否进入/退出会更精确
 func _on_in_ground_check_area_body_entered(_body: Node2D) -> void:
 	entity_chart.send_event("emerge_ground")
 
