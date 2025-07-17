@@ -17,7 +17,6 @@ enum MapGenerationType {
 
 ## TODO：$MapBorderCollisions 应该会阻挡僵尸和戴夫等实体，不应该与子弹等碰撞。目前设置layer为world无法满足后者。
 ## 但还没有实现子弹碰撞相关的设置，所以暂时这样写。
-## TODO:在地图最上面没有针对实体的碰撞，但有一个会弹回气球状态的僵尸的碰撞体。目前无思路。
 
 func _ready() -> void:
 	front_map.front_map_generate_finished.connect(map_path_finder.update_points)
