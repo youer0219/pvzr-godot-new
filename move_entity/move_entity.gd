@@ -94,8 +94,9 @@ func set_entity_dir(value:int)->void:
 	visual_control.scale.x = value
 
 func _on_balloon_state_state_entered() -> void:
-	## image向前偏移90度、碰撞体高度降低
+	## 进入倒地状态；向上初速度
 	entity_chart.send_event("lay")
+	velocity.y = -40
 
 func _on_balloon_state_state_physics_processing(delta: float) -> void:
 	## 速度向上；支持横移
@@ -108,7 +109,7 @@ func _on_balloon_state_state_physics_processing(delta: float) -> void:
 	move_and_slide()
 
 func _on_balloon_state_state_exited() -> void:
-	## 清除进入的效果
+	## 回到站立状态
 	entity_chart.send_event("stand")
 
 func _on_emerge_ground_state_state_entered() -> void:
