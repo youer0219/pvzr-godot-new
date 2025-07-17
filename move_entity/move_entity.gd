@@ -7,17 +7,17 @@ class_name MoveEntity
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var in_ground_check_shape: CollisionShape2D = %InGroundCheckShape
 
+@onready var grounded: AtomicState = %Grounded
+@onready var airborne: AtomicState = %Airborne
+@onready var immerse: CompoundState = %Immerse
+@onready var water_surface: AtomicState = %"Water Surface"
+@onready var underwater: AtomicState = %Underwater
+
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 
 var is_just_move_up:bool = false
 var is_move_up:bool = false
 var lateral_move_direction:int = 0 ## 0表示不动
-
-## 状态标记位
-var _was_on_grounded:bool
-var _was_on_air:bool
-var _was_on_immerse:bool
-var _was_on_water_surface:bool
 
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
@@ -25,44 +25,23 @@ func _ready() -> void:
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
 	if not is_on_floor():
-		_was_on_grounded = false
 		if char_move.is_on_water():
-			_was_on_air = false
-			if not _was_on_immerse:
-				_was_on_immerse = true
+			if not immerse.active:
 				entity_chart.send_event("immerse")
 			if char_move.is_above_water_line():
-				if not _was_on_water_surface:
-					_was_on_water_surface = true
+				if not water_surface.active:
 					entity_chart.send_event("water surface")
-			else:
-				if _was_on_water_surface:
-					_was_on_water_surface = false
-					entity_chart.send_event("underwater")
-		else:
-			_was_on_immerse = false
-			_was_on_water_surface = false
-			if not _was_on_air:
-				_was_on_air = true
-				entity_chart.send_event("airborne")
-	else:
-		_was_on_air = false
-		_was_on_immerse = false
-		_was_on_water_surface = false
-		if not _was_on_grounded:
-			_was_on_grounded = true
-			entity_chart.send_event("grounded")
+			elif not underwater.active:
+				entity_chart.send_event("underwater")
+		elif not airborne.active:
+			entity_chart.send_event("airborne")
+	elif not grounded.active:
+		entity_chart.send_event("grounded")
 	
 	if char_move.can_reset_jump_times():
 		char_move.reset_jump_times()
 	
 	_on_lateral_move(delta)
-
-func _on_common_state_state_entered() -> void:
-	_was_on_grounded = false
-	_was_on_air = false
-	_was_on_immerse = false
-	_was_on_water_surface = false
 
 func _on_immerse_state_entered() -> void:
 	## 启动第一次入水标记，清空跳跃次数，禁止攀爬和跳跃。限制入水初速度。限制横向移动速度。
@@ -152,13 +131,13 @@ func _on_lay_state_state_entered() -> void:
 	var tween := create_tween()
 	tween.tween_property(visual_control,"rotation_degrees",90 * entity_dir,0.5)
 	collision_shape_2d.shape.height *= 0.25
-	char_move.char_move_data.water_sink_distance *= 2.0
+	char_move.char_move_data.water_sink_distance -= 2
 
 func _on_lay_state_state_exited() -> void:
 	var tween := create_tween()
 	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
 	collision_shape_2d.shape.height *= 4.0
-	char_move.char_move_data.water_sink_distance *= 0.5
+	char_move.char_move_data.water_sink_distance += 2
 
 ## TODO: 这里通过记录body数量来判断是否进入/退出会更精确
 func _on_in_ground_check_area_body_entered(_body: Node2D) -> void:
