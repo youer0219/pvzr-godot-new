@@ -1,18 +1,6 @@
 extends MoveEntity
 class_name CrazyDave
 
-func _ready() -> void:
-	super()
-	### 等待5s，模拟受伤
-	#await get_tree().create_timer(5.0).timeout
-	#entity_chart.send_event("hurt")
-	### 等待5s，模拟受伤且一半血以下
-	#await get_tree().create_timer(5.0).timeout
-	#entity_chart.send_event("hurt")
-	#entity_chart.send_event("half_hp")
-	### 等待10s，模拟退出受伤状态
-	#await get_tree().create_timer(5.0).timeout
-	#$"EntityChart/ParallelState/ActionState/On Common Move".take()
 
 func _lengthwise_input_handle():
 	if Input.is_action_just_pressed("move_up"):
