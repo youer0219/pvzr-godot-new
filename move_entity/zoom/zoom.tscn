@@ -1,16 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ci0rsdebt11t8"]
+[gd_scene load_steps=10 format=3 uid="uid://ci0rsdebt11t8"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_6lave"]
 [ext_resource type="Script" uid="uid://c1vr18amu2ega" path="res://move_entity/zoom/zoom.gd" id="2_2lb3e"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_5vt4w"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="3_i4jnt"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_3bidv"]
+[ext_resource type="Script" uid="uid://ckr8suf2xebuw" path="res://move_entity/func/body_check_area.gd" id="4_sf7wo"]
 [ext_resource type="Script" uid="uid://c8lx6uaj6ftau" path="res://move_entity/func/entity_path_finder.gd" id="5_21fq8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4jnt"]
 radius = 5.0
 height = 26.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3bidv"]
+radius = 8.0
+height = 22.0
+
 [node name="Zoom" instance=ExtResource("1_6lave")]
+collision_layer = 32
 script = ExtResource("2_2lb3e")
 
 [node name="Visuals" type="Node2D" parent="." index="0"]
@@ -25,21 +32,59 @@ remote_path = NodePath("../Visuals")
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_i4jnt")
 
+[node name="AttackCheckArea" type="Area2D" parent="." index="3"]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("4_sf7wo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCheckArea" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_3bidv")
+
 [node name="ActionState" parent="EntityChart/ParallelState" index="0"]
 initial_state = NodePath("ChaseState")
 
-[node name="ChaseState" type="Node" parent="EntityChart/ParallelState/ActionState" index="0"]
+[node name="On Attack" type="Node" parent="EntityChart/ParallelState/ActionState" index="0"]
+script = ExtResource("4_3bidv")
+to = NodePath("../AttackState")
+event = &"attack"
+delay_in_seconds = "0.0"
+
+[node name="On Chase" type="Node" parent="EntityChart/ParallelState/ActionState" index="1"]
+script = ExtResource("4_3bidv")
+to = NodePath("../ChaseState")
+event = &"chase"
+delay_in_seconds = "0.0"
+
+[node name="On NoAction" type="Node" parent="EntityChart/ParallelState/ActionState" index="2"]
+script = ExtResource("4_3bidv")
+to = NodePath("../NoActionState")
+event = &"no_action"
+delay_in_seconds = "0.0"
+
+[node name="ChaseState" type="Node" parent="EntityChart/ParallelState/ActionState" index="3"]
 script = ExtResource("3_5vt4w")
 
-[node name="NoActionState" type="Node" parent="EntityChart/ParallelState/ActionState" index="1"]
+[node name="AttackState" type="Node" parent="EntityChart/ParallelState/ActionState" index="4"]
 script = ExtResource("3_5vt4w")
 
-[node name="AttackState" type="Node" parent="EntityChart/ParallelState/ActionState" index="2"]
+[node name="NoActionState" type="Node" parent="EntityChart/ParallelState/ActionState" index="5"]
 script = ExtResource("3_5vt4w")
 
-[node name="EntityPathFinder" type="Node" parent="." index="5" node_paths=PackedStringArray("entity")]
+[node name="EntityPathFinder" type="Node" parent="." index="6" node_paths=PackedStringArray("entity")]
 script = ExtResource("5_21fq8")
 entity = NodePath("..")
 metadata/_custom_type_script = "uid://c8lx6uaj6ftau"
 
+[node name="AttackTimer" type="Timer" parent="." index="7"]
+process_callback = 0
+one_shot = true
+
+[connection signal="body_entered" from="AttackCheckArea" to="AttackCheckArea" method="_on_body_entered"]
+[connection signal="body_exited" from="AttackCheckArea" to="AttackCheckArea" method="_on_body_exited"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/ChaseState" to="." method="_on_chase_state_state_physics_processing"]
+[connection signal="state_entered" from="EntityChart/ParallelState/ActionState/AttackState" to="." method="_on_attack_state_state_entered"]
+[connection signal="state_exited" from="EntityChart/ParallelState/ActionState/AttackState" to="." method="_on_attack_state_state_exited"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/AttackState" to="." method="_on_attack_state_state_physics_processing"]

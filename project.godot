@@ -84,6 +84,8 @@ move_up={
 2d_physics/layer_2="Ladder"
 2d_physics/layer_3="Water"
 2d_physics/layer_4="Bullet"
+2d_physics/layer_5="Dave"
+2d_physics/layer_6="Zoom"
 
 [physics]
 
