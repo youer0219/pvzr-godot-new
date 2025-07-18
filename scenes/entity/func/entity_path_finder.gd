@@ -14,15 +14,12 @@ var curr_map_path_finder:MapPathFinder:
 
 ## 获取MAP路径
 ## 需要：对象全局位置
-func get_map_path_to_global_pos(global_pos:Vector2)->Array[Vector2i]:
-	var map_path:Array[Vector2i] = []
+func get_map_path_to_global_pos(global_pos:Vector2)->Array[Vector2]:
+	var map_path:Array[Vector2] = []
 	if curr_map_path_finder == null:
 		return map_path
 	
-	var entity_cell := global_pos_to_map_cell(entity.global_position)
-	var global_pos_cell := global_pos_to_map_cell(global_pos)
-	
-	map_path = curr_map_path_finder.get_id_path(entity_cell,global_pos_cell,true)
+	map_path = curr_map_path_finder.get_global_path(entity.global_position,global_pos,true)
 	
 	return map_path
 
@@ -35,22 +32,22 @@ func global_pos_to_map_cell(global_pos:Vector2)->Vector2i:
 
 ## 路径处理逻辑  根据路径获取最新的行动方向
 ## 如果存在不同僵尸不同方法，可以采取策略模式（目前应该可以兼容）
-func get_entity_direction(map_path:Array[Vector2i])->Vector2:
+func get_entity_direction(map_path:Array[Vector2])->Vector2:
 	var direction:Vector2 = Vector2.ZERO
 	
 	if map_path.size() <= 1:
 		return direction
 	
 	if map_path.size() == 2:
-		direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
+		direction = map_path[1] - entity.global_position
 	elif map_path.size() >= 3:
 		if is_entity_sink_water():
-			direction.x = map_cell_to_global_pos(map_path[2]).x - entity.global_position.x
+			direction.x = map_path[2].x - entity.global_position.x
 		else:
-			direction = map_cell_to_global_pos(map_path[1]) - entity.global_position
+			direction = map_path[1] - entity.global_position
 			if direction.y > 0:
 				## TODO:需要处理左下右时徘徊的问题
-				direction.x = map_cell_to_global_pos(map_path[2]).x - entity.global_position.x
+				direction.x = map_path[2].x - entity.global_position.x
 	#if map_path.size() == 2:
 		#direction = map_path[1] - map_path[0]
 	#elif map_path.size() >= 3:
@@ -73,10 +70,10 @@ func is_entity_sink_water()->bool:
 	else:
 		return false
 
-func map_cell_to_global_pos(cell:Vector2i)->Vector2:
-	if curr_map_path_finder == null:
-		return MapPathFinder.VECTOR2I_NULL
-	else:
-		return curr_map_path_finder.map_cell_to_global_pos(cell)
+#func map_cell_to_global_pos(cell:Vector2i)->Vector2:
+	#if curr_map_path_finder == null:
+		#return MapPathFinder.VECTOR2I_NULL
+	#else:
+		#return curr_map_path_finder.map_cell_to_global_pos(cell)
 
 ## 判断是否需要更新路径（占位）

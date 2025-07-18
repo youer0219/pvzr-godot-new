@@ -68,9 +68,9 @@ func update_one_cell(cell:Vector2i):
 	else:
 		astar.set_point_weight_scale(cell,AIR_POINT_WEIGHT)
 
-func get_global_path(global_from:Vector2,global_to:Vector2)->Array[Vector2]:
+func get_global_path(global_from:Vector2,global_to:Vector2,debug:bool = false)->Array[Vector2]:
 	var global_path:Array[Vector2] = []
-	var path_array := get_id_path(global_pos_to_map_cell(global_from),global_pos_to_map_cell(global_to))
+	var path_array := get_id_path(global_pos_to_map_cell(global_from),global_pos_to_map_cell(global_to),debug)
 	for path in path_array:
 		global_path.append(map_cell_to_global_pos(path))
 	return global_path

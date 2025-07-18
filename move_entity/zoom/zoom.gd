@@ -20,10 +20,11 @@ func _on_chase_state_state_physics_processing(_delta: float) -> void:
 		push_error("target == null")
 		return
 	
-	var map_path:Array[Vector2i] = entity_path_finder.get_map_path_to_global_pos(target.global_position)
+	var map_path:Array[Vector2] = entity_path_finder.get_map_path_to_global_pos(target.global_position)
 	
-	print("map_path: ",map_path)
+	## TODO: 目前的核心任务是正确的路径，之后研究怎么根据路径移动
 	
+	## 横向移动
 	if abs(target.global_position.x - global_position.x) > MOVEMENT_THRESHOLD:
 		lateral_move_direction = signi(target.global_position.x - global_position.x)
 		last_lateral_move_direction = lateral_move_direction
