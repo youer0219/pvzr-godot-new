@@ -6,7 +6,7 @@ const MAP_PATH_DEFAULT_VAR :Array[Vector2i] = []
 const DIRECTION_BLACKGROUND_KEY := "DIRECTION"
 const DIRECTION_DEFAULT_VAR := Vector2.ZERO
 
-@export var entity:Entity
+@export var entity:MoveEntity
 
 var curr_map_path_finder:MapPathFinder:
 	get:
@@ -22,7 +22,7 @@ func get_map_path_to_global_pos(global_pos:Vector2)->Array[Vector2i]:
 	var entity_cell := global_pos_to_map_cell(entity.global_position)
 	var global_pos_cell := global_pos_to_map_cell(global_pos)
 	
-	map_path = curr_map_path_finder.get_id_path(entity_cell,global_pos_cell)
+	map_path = curr_map_path_finder.get_id_path(entity_cell,global_pos_cell,true)
 	
 	return map_path
 

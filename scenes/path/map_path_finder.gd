@@ -75,7 +75,7 @@ func get_global_path(global_from:Vector2,global_to:Vector2)->Array[Vector2]:
 		global_path.append(map_cell_to_global_pos(path))
 	return global_path
 
-func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
+func get_id_path(from:Vector2i,to:Vector2i,debug:bool = false)->Array[Vector2i]:
 	# 检查缓存
 	if cache_enabled:
 		var cached_path = get_cached_path(from, to)
@@ -105,8 +105,9 @@ func get_id_path(from:Vector2i,to:Vector2i)->Array[Vector2i]:
 	path.append(to)
 	
 	var filtered_path = filter_path(path)
-	var global_filtered_path = PathShowTool.change_tilemaplayer_cells_to_global_cells(filtered_path,map)
-	PathShowTool.draw_path(self,global_filtered_path,Color.ALICE_BLUE,5)
+	if debug:
+		var global_filtered_path = PathShowTool.change_tilemaplayer_cells_to_global_cells(filtered_path,map)
+		PathShowTool.draw_path(self,global_filtered_path,Color.ALICE_BLUE,5)
 	# 更新缓存
 	if cache_enabled:
 		update_cache(from, to, filtered_path)

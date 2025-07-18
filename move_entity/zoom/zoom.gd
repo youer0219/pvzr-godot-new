@@ -8,6 +8,7 @@ const MOVEMENT_THRESHOLD := 8
 
 var target:Node2D ## 考虑单独一个节点或模块来获取target，并使用静态变量避免重复获取
 
+
 func _ready() -> void:
 	super()
 	target = get_tree().get_first_node_in_group("dave")
@@ -18,6 +19,10 @@ func _on_chase_state_state_physics_processing(_delta: float) -> void:
 	if target == null:
 		push_error("target == null")
 		return
+	
+	var map_path:Array[Vector2i] = entity_path_finder.get_map_path_to_global_pos(target.global_position)
+	
+	print("map_path: ",map_path)
 	
 	if abs(target.global_position.x - global_position.x) > MOVEMENT_THRESHOLD:
 		lateral_move_direction = signi(target.global_position.x - global_position.x)
