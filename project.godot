@@ -37,8 +37,8 @@ enabled=PackedStringArray("res://addons/gaea/plugin.cfg", "res://addons/godot_st
 [global_group]
 
 map=""
-test_target="测试寻路"
 enemy=""
+dave=""
 
 [input]
 

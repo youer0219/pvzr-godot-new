@@ -34,7 +34,7 @@ script = ExtResource("5_dfjv0")
 state = NodePath("../CommonHurtState")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
-[node name="CrazyDave" instance=ExtResource("1_petol")]
+[node name="CrazyDave" groups=["dave"] instance=ExtResource("1_petol")]
 script = ExtResource("2_ksr7e")
 
 [node name="Image" type="Sprite2D" parent="." index="0"]

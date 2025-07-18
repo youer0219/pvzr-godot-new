@@ -1,3 +1,3 @@
 [gd_scene format=3 uid="uid://ct7ra1e7r7tfy"]
 
-[node name="TestTargetNode" type="Node2D" groups=["test_target"]]
+[node name="TestTargetNode" type="Node2D"]

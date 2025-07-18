@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ci0rsdebt11t8"]
+[gd_scene load_steps=7 format=3 uid="uid://ci0rsdebt11t8"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_6lave"]
 [ext_resource type="Script" uid="uid://c1vr18amu2ega" path="res://move_entity/zoom/zoom.gd" id="2_2lb3e"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_5vt4w"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="3_i4jnt"]
+[ext_resource type="Script" uid="uid://c8lx6uaj6ftau" path="res://scenes/entity/func/entity_path_finder.gd" id="5_21fq8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4jnt"]
 radius = 5.0
@@ -35,3 +36,9 @@ script = ExtResource("3_5vt4w")
 
 [node name="AttackState" type="Node" parent="EntityChart/ParallelState/ActionState" index="2"]
 script = ExtResource("3_5vt4w")
+
+[node name="EntityPathFinder" type="Node" parent="." index="5"]
+script = ExtResource("5_21fq8")
+metadata/_custom_type_script = "uid://c8lx6uaj6ftau"
+
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/ChaseState" to="." method="_on_chase_state_state_physics_processing"]
