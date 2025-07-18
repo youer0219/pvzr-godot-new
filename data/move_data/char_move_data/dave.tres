@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_7lswi")
-lateral_speed = 30.0
+lateral_speed = 40.0
 lateral_speed_fator = 1.0
 lateral_speed_acceleration = 600.0
 lateral_move_jump_distance = 4.0

@@ -98,7 +98,7 @@ func get_id_path(from:Vector2i,to:Vector2i,debug:bool = false)->Array[Vector2i]:
 	
 	var path:Array[Vector2i] = []
 	
-	path.append(from)
+	#path.append(from) ## 起始点默认为平台点而非真实点
 	## 允许搜索一条不可达路径，用于冰车完全封闭路径时，但要求目标位于有效位置
 	var allow_partial_path:bool = not astar.is_point_solid(platfrom_to)
 	path.append_array(astar.get_id_path(platfrom_from,platfrom_to,allow_partial_path))

@@ -13,6 +13,9 @@ class_name MoveEntity
 @onready var water_surface: AtomicState = %"Water Surface"
 @onready var underwater: AtomicState = %Underwater
 
+## 偏差值 用于改进AI的纵向移动 或许会重构image位置，使之无用
+@export var entity_pos_deviation:float = 6
+
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 
 var is_just_move_up:bool = false

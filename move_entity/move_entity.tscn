@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ltthsv3n1f0h" path="res://move_entity/move_entity.gd" id="1_weokr"]
 [ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://move_entity/components/visual_control.gd" id="2_weokr"]
 [ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://move_entity/components/char_move.gd" id="3_weokr"]
-[ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="4_236aa"]
+[ext_resource type="Resource" uid="uid://214skes3g7xs" path="res://data/move_data/char_move_data/zoom.tres" id="4_165ap"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_wd01o"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_165ap"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="6_165ap"]
@@ -114,7 +114,7 @@ debug_color = Color(0.41685, 0.600694, 0.204816, 0.42)
 [node name="CharMove" type="Node2D" parent="." node_paths=PackedStringArray("char_body")]
 script = ExtResource("3_weokr")
 char_body = NodePath("..")
-char_move_data = ExtResource("4_236aa")
+char_move_data = ExtResource("4_165ap")
 
 [node name="MoveCheckCast" type="Node2D" parent="CharMove"]
 
@@ -281,8 +281,8 @@ delay_in_seconds = "0.0"
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Grounded" to="." method="_on_move_up"]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_exited"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]

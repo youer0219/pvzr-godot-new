@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CharMoveData" load_steps=2 format=3 uid="uid://214skes3g7xs"]
+
+[ext_resource type="Script" uid="uid://82oqheoo0pvc" path="res://data/move_data/char_move_data/char_move_data.gd" id="1_r128f"]
+
+[resource]
+script = ExtResource("1_r128f")
+lateral_speed = 20.0
+lateral_speed_fator = 1.0
+lateral_speed_acceleration = 600.0
+lateral_move_jump_distance = 3.0
+lateral_move_jump_velocity = 60.0
+length_down_speed = 280.0
+jump_times = 1
+jump_lateral_move = 150.0
+is_endless_jump = false
+jump_distance = 20.0
+clamp_velocity = 60.0
+clamp_gap_time = 0.3
+water_init_speed = 10.0
+water_down_speed = 100.0
+water_up_distance = 6.0
+water_sink_distance = -2.0
