@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=3 uid="uid://c2nh0s3s4s4oj"]
 
 [ext_resource type="Script" uid="uid://ltthsv3n1f0h" path="res://move_entity/move_entity.gd" id="1_weokr"]
-[ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://move_entity/modules/visual_control.gd" id="2_weokr"]
-[ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://move_entity/modules/char_move.gd" id="3_weokr"]
+[ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://move_entity/components/visual_control.gd" id="2_weokr"]
+[ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://move_entity/components/char_move.gd" id="3_weokr"]
 [ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="4_236aa"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_wd01o"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_165ap"]
