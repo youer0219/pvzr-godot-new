@@ -1,6 +1,7 @@
 extends RemoteTransform2D
 class_name VisualControl
 
+@export var move_with_rotation:bool = false
 
 func _on_char_move_twice_jump()->void:
 	var tween:Tween = create_tween()
@@ -15,7 +16,9 @@ func _on_char_physics_process(delta:float,char_body:CharacterBody2D)->void:
 		scale.x = -1
 	
 	## TODO:目前需要访问char-body的char-move拿数据，这不太好，未来可以尝试在char-body中存数据
-	
-	var rotation_degress = 15 * (char_body.velocity.x / char_body.char_move.char_move_data.lateral_speed) \
-	if not char_body.is_on_wall() else 0
-	rotation_degrees = move_toward(rotation_degrees,rotation_degress,delta*200)
+	if move_with_rotation:
+		var rotation_degress = 15 * (char_body.velocity.x / char_body.char_move.char_move_data.lateral_speed) \
+		if not char_body.is_on_wall() else 0
+		rotation_degrees = move_toward(rotation_degrees,rotation_degress,delta*200)
+	elif rotation_degrees != 0:
+		rotation_degrees = move_toward(rotation_degrees,0,delta*200)
