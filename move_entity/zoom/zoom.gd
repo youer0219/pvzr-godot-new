@@ -12,6 +12,7 @@ const MOVEMENT_THRESHOLD := 8
 var target:Node2D ## 考虑单独一个节点或模块来获取target，并使用静态变量避免重复获取
 var last_lateral_move_direction:int = 0
 var curr_path:Array[Vector2]
+var path_update_time_sum:float = 0.0
 
 func _ready() -> void:
 	super()
@@ -21,15 +22,15 @@ func _ready() -> void:
 func attack():
 	print(name," attack")
 
-func _on_chase_state_state_physics_processing(_delta: float) -> void:
+func _on_chase_state_state_physics_processing(delta: float) -> void:
 	if target == null:
 		push_error("target == null")
 		return
 	
-	## TODO:直接多帧更新一次，有时僵尸移动会左右摇摆，可能需要一个“到达机制”
-	## 如有合适的“到达机制”，可以每0.1s才更新一次路径
-	if get_tree().get_frame() % 2 == 0:
+	path_update_time_sum += delta
+	if path_update_time_sum >= 0.2:
 		curr_path = entity_path_finder.get_map_path_to_global_pos(target.global_position)
+		path_update_time_sum = 0.0
 	
 	if curr_path.size() >= 2:
 		## 横向移动
@@ -43,6 +44,10 @@ func _on_chase_state_state_physics_processing(_delta: float) -> void:
 		if curr_path[1].y - global_position.y < 0 + entity_pos_deviation:
 			is_just_move_up = true
 			is_move_up = true
+		elif curr_path.size() >= 3:
+			if (global_position.x < curr_path[1].x and global_position.x > curr_path[2].x) \
+			or (global_position.x > curr_path[1].x and global_position.x < curr_path[2].x):
+				curr_path.pop_front()
 	
 	if not attack_check_area.bodys.is_empty():
 		entity_chart.send_event("attack")
