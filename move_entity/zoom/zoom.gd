@@ -5,6 +5,7 @@ class_name Zoom
 
 @onready var entity_path_finder: EntityPathFinder = $EntityPathFinder
 @onready var attack_timer: Timer = $AttackTimer
+## 碰撞体积应该位于地面左右，可以检测移动实体（倒地和站立）和植物
 @onready var attack_check_area: BodyCheckArea = $AttackCheckArea
 
 const MOVEMENT_THRESHOLD := 8
@@ -28,7 +29,7 @@ func _on_chase_state_state_physics_processing(delta: float) -> void:
 		return
 	
 	path_update_time_sum += delta
-	if path_update_time_sum >= 0.2:
+	if path_update_time_sum >= 1.0:
 		curr_path = entity_path_finder.get_map_path_to_global_pos(target.global_position)
 		path_update_time_sum = 0.0
 	

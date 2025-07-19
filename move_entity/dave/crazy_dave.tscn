@@ -45,6 +45,9 @@ texture = ExtResource("3_gghe0")
 [node name="VisualControl" parent="." index="1"]
 remote_path = NodePath("../Image")
 
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 2)
+
 [node name="CharMove" parent="." index="3"]
 char_move_data = ExtResource("4_dfjv0")
 

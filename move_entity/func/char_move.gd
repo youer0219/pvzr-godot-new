@@ -31,8 +31,7 @@ func lateral_move(delta:float,lateral_move_direction:int):
 func lateral_jump():
 	if is_on_floor() and !is_on_wall():
 		var lateral_velocity_ratio = abs(char_body.velocity.x) / char_move_data.lateral_speed
-		if lateral_velocity_ratio > 0.3:
-			char_body.velocity.y = -1 * (char_move_data.lateral_move_jump_velocity * lateral_velocity_ratio)
+		char_body.velocity.y = -1 * (char_move_data.lateral_move_jump_velocity * lateral_velocity_ratio)
 
 func lengthwise_clamb(_delta:float):
 	if clamp_jump_timer.time_left == 0:
