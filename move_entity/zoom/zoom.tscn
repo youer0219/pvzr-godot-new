@@ -1,12 +1,75 @@
-[gd_scene load_steps=10 format=3 uid="uid://ci0rsdebt11t8"]
+[gd_scene load_steps=25 format=3 uid="uid://ci0rsdebt11t8"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_6lave"]
 [ext_resource type="Script" uid="uid://c1vr18amu2ega" path="res://move_entity/zoom/zoom.gd" id="2_2lb3e"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_5vt4w"]
-[ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="3_i4jnt"]
+[ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://scenes/entity/entity_component/entity_component_manager/entity_component_manager.tscn" id="3_55wmi"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_3bidv"]
+[ext_resource type="Resource" uid="uid://morvfvefddx" path="res://data/entity_data/entity.tres" id="4_rxvuq"]
 [ext_resource type="Script" uid="uid://ckr8suf2xebuw" path="res://move_entity/func/body_check_area.gd" id="4_sf7wo"]
 [ext_resource type="Script" uid="uid://c8lx6uaj6ftau" path="res://move_entity/func/entity_path_finder.gd" id="5_21fq8"]
+[ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://scenes/entity/entity_component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="5_231mg"]
+[ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="6_fw1q2"]
+[ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://scenes/entity/entity_component/entity_component.tscn" id="7_nj8qa"]
+[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="8_bn53m"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/body_data.tres" id="9_nb1lt"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="10_6glru"]
+[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/ladder_data.tres" id="11_n84w6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8arlc"]
+resource_local_to_scene = true
+shader = ExtResource("6_fw1q2")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tsxjq"]
+resource_local_to_scene = true
+shader = ExtResource("8_bn53m")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4afi0"]
+resource_local_to_scene = true
+shader = ExtResource("8_bn53m")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a0rpq"]
+resource_local_to_scene = true
+shader = ExtResource("6_fw1q2")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8olf"]
+resource_local_to_scene = true
+shader = ExtResource("8_bn53m")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3n37"]
+resource_local_to_scene = true
+shader = ExtResource("6_fw1q2")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2cj2"]
+resource_local_to_scene = true
+shader = ExtResource("8_bn53m")
+shader_parameter/use_replace_color = false
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4jnt"]
 radius = 5.0
@@ -21,8 +84,38 @@ script = ExtResource("2_2lb3e")
 
 [node name="Visuals" type="Node2D" parent="." index="0"]
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals" index="0"]
-texture = ExtResource("3_i4jnt")
+[node name="EntityComponentManager" parent="Visuals" index="0" node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component", "main_body_component") instance=ExtResource("3_55wmi")]
+unique_name_in_owner = true
+entity_data = ExtResource("4_rxvuq")
+main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
+accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
+accessory_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
+main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
+metadata/_edit_lock_ = true
+
+[node name="MainBodyEntityComponentCanvasGroup" parent="Visuals/EntityComponentManager" index="0" instance=ExtResource("5_231mg")]
+material = SubResource("ShaderMaterial_8arlc")
+
+[node name="EntityComponent" parent="Visuals/EntityComponentManager/MainBodyEntityComponentCanvasGroup" index="0" instance=ExtResource("7_nj8qa")]
+material = SubResource("ShaderMaterial_tsxjq")
+
+[node name="EntityComponent2" parent="Visuals/EntityComponentManager/MainBodyEntityComponentCanvasGroup" index="1" instance=ExtResource("7_nj8qa")]
+material = SubResource("ShaderMaterial_4afi0")
+entity_component_data = ExtResource("9_nb1lt")
+
+[node name="AccessoryOneEntityComponentCanvasGroup2" parent="Visuals/EntityComponentManager" index="1" instance=ExtResource("5_231mg")]
+material = SubResource("ShaderMaterial_a0rpq")
+
+[node name="EntityComponent3" parent="Visuals/EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" index="0" instance=ExtResource("7_nj8qa")]
+material = SubResource("ShaderMaterial_y8olf")
+entity_component_data = ExtResource("10_6glru")
+
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="Visuals/EntityComponentManager" index="2" instance=ExtResource("5_231mg")]
+material = SubResource("ShaderMaterial_a3n37")
+
+[node name="EntityComponent4" parent="Visuals/EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" index="0" instance=ExtResource("7_nj8qa")]
+material = SubResource("ShaderMaterial_n2cj2")
+entity_component_data = ExtResource("11_n84w6")
 
 [node name="VisualControl" parent="." index="1"]
 remote_path = NodePath("../Visuals")
