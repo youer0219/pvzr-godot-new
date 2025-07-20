@@ -13,6 +13,12 @@ const ENTITY_COMPONENT = preload("res://scenes/entity/entity_component/entity_co
 @export var accessory_two_entity_component:EntityComponentCanvasGroup
 @export var main_body_component:EntityComponent
 
+var last_global_position:Vector2
+
+func _physics_process(_delta: float) -> void:
+	accessory_one_entity_component.global_position = last_global_position
+	accessory_two_entity_component.global_position = last_global_position
+	last_global_position = global_position
 
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
