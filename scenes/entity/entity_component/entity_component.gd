@@ -3,7 +3,8 @@ class_name EntityComponent
 extends RigidBody2D
 
 enum EntityComponentType {
-	MAIN_BODY,        ## 本体
+	HEAD,             ## 头
+	BODY,             ## 身体
 	ACCESSORY_TIER_1, ## I类饰品
 	ACCESSORY_TIER_2, ## II类饰品
 }
@@ -38,3 +39,6 @@ func leave_out() -> void:
 
 func get_entity_component_type()->EntityComponentType:
 	return entity_component_data.component_type
+
+func _on_component_dead(_damage_data:DamageData):
+	pass

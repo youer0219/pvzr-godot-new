@@ -84,22 +84,21 @@ script = ExtResource("2_2lb3e")
 
 [node name="Visuals" type="Node2D" parent="." index="0"]
 
-[node name="EntityComponentManager" parent="Visuals" index="0" node_paths=PackedStringArray("main_body_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component", "main_body_component") instance=ExtResource("3_55wmi")]
+[node name="EntityComponentManager" parent="Visuals" index="0" node_paths=PackedStringArray("substance_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component") instance=ExtResource("3_55wmi")]
 unique_name_in_owner = true
 entity_data = ExtResource("4_rxvuq")
-main_body_canvas_group = NodePath("MainBodyEntityComponentCanvasGroup")
+substance_canvas_group = NodePath("SubstanceComponentCanvasGroup")
 accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
 accessory_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
-main_body_component = NodePath("MainBodyEntityComponentCanvasGroup/EntityComponent")
 metadata/_edit_lock_ = true
 
-[node name="MainBodyEntityComponentCanvasGroup" parent="Visuals/EntityComponentManager" index="0" instance=ExtResource("5_231mg")]
+[node name="SubstanceComponentCanvasGroup" parent="Visuals/EntityComponentManager" index="0" instance=ExtResource("5_231mg")]
 material = SubResource("ShaderMaterial_8arlc")
 
-[node name="EntityComponent" parent="Visuals/EntityComponentManager/MainBodyEntityComponentCanvasGroup" index="0" instance=ExtResource("7_nj8qa")]
+[node name="EntityComponent" parent="Visuals/EntityComponentManager/SubstanceComponentCanvasGroup" index="0" instance=ExtResource("7_nj8qa")]
 material = SubResource("ShaderMaterial_tsxjq")
 
-[node name="EntityComponent2" parent="Visuals/EntityComponentManager/MainBodyEntityComponentCanvasGroup" index="1" instance=ExtResource("7_nj8qa")]
+[node name="EntityComponent2" parent="Visuals/EntityComponentManager/SubstanceComponentCanvasGroup" index="1" instance=ExtResource("7_nj8qa")]
 material = SubResource("ShaderMaterial_4afi0")
 entity_component_data = ExtResource("9_nb1lt")
 

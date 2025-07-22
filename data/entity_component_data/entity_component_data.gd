@@ -8,7 +8,7 @@ extends Resource
 @export var has_hp:bool = true
 @export var is_main_body:bool = false
 @export var component_texture: Texture2D:set = _set_component_texture
-@export var component_type: EntityComponent.EntityComponentType = EntityComponent.EntityComponentType.MAIN_BODY
+@export var component_type: EntityComponent.EntityComponentType = EntityComponent.EntityComponentType.BODY
 
 @export_group("策略配置")
 @export var component_dead_strategy: ComponentActionStrategy
@@ -22,6 +22,6 @@ func _set_component_texture(value:Texture2D):
 
 
 func _validate_property(property:Dictionary):
-	if component_type == EntityComponent.EntityComponentType.MAIN_BODY:
+	if component_type == EntityComponent.EntityComponentType.BODY:
 		if property.name == "component_dead_strategy":
 			property.usage = PROPERTY_USAGE_NONE
