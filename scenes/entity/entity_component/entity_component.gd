@@ -9,9 +9,6 @@ enum EntityComponentType {
 }
 
 signal entity_component_leave_out(entity_component: EntityComponent)
-signal entity_component_damaged(entity_component: EntityComponent)
-#signal entity_component_half_hp(entity_component: EntityComponent)
-
 signal entity_dead(damage_data: DamageData)
 
 @onready var entity_collision_shape: CollisionShape2D = $EntityCollisionShape
@@ -44,26 +41,6 @@ func _set_phy_enable(value: bool) -> void:
 	
 	freeze = not phy_enable
 	entity_collision_shape.set_deferred("disabled", not phy_enable)
-
-func apply_damage(damage_data: DamageData):
-	if entity_component_data.has_hp:
-		if damage_data.damage >= curr_hp:
-			if curr_hp > 0:
-				damage_data.damage -= curr_hp
-				curr_hp = 0
-			if entity_component_data.component_type == EntityComponentType.MAIN_BODY:
-				## 本体类组件没有组件死亡策略，依靠上层触发实体死亡函数决定死亡策略
-				entity_dead.emit(damage_data)
-			else:
-				component_dead(damage_data)
-		else:
-			#var has_up_half_hp: bool = curr_hp > entity_component_data.init_hp / 2.0
-			## 这里不作限制。因为考虑到治疗类型的伤害，虽然更应该单独处理。
-			curr_hp -= damage_data.damage
-			#if has_up_half_hp and curr_hp < entity_component_data.init_hp / 2.0:
-				#entity_component_half_hp.emit(self)
-			damage_data.damage = 0
-			entity_component_damaged.emit(self)
 
 
 func component_dead(damage_data: DamageData) -> void:

@@ -21,25 +21,10 @@ func _physics_process(_delta: float) -> void:
 	last_global_position = global_position
 
 ## 应用伤害的方法
-func apply_damage(damage_data:DamageData):
+func apply_damage(_damage_data:DamageData):
 	## 因为资源传递的是引用，所以不需要返回一个资源回来了
-	
-	## 目前似乎只有正面伤害稳定触发二类防具。但报纸和其他伤害的机制有待明确。
-	if damage_data.damage_type == DamageData.DamageType.FRONTAL_DAMAGE:
-		for entity_component in get_accessory_two_entity_components():
-			entity_component.apply_damage(damage_data)
-			if damage_data.damage <= 0: ## 这里设计为可以等于0，这样可以阻断为0的伤害，不要闪烁
-				return
-	
-	for entity_component in get_accessory_one_entity_components():
-		entity_component.apply_damage(damage_data)
-		if damage_data.damage < 0: ## 不等于0，这样为0时依然可以传递伤害，触发闪烁
-			return
-	
-	if main_body_component != null:
-		main_body_component.apply_damage(damage_data)
-	else:
-		_on_entity_dead(damage_data)
+	pass
+
 
 func add_entity_components(entity_component_datas:Array[EntityComponentData]):
 	for entity_component_data:EntityComponentData in entity_component_datas:
@@ -50,7 +35,7 @@ func add_entity_component(entity_component_data:EntityComponentData):
 	new_entity_component.entity_component_data = entity_component_data
 	
 	new_entity_component.entity_component_leave_out.connect(_on_entity_component_leave_out)
-	new_entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
+	#new_entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
 	
 	match entity_component_data.component_type:
 		EntityComponent.EntityComponentType.MAIN_BODY:
@@ -107,7 +92,6 @@ func _on_entity_component_damaged(entity_component: EntityComponent):
 func _on_entity_component_leave_out(entity_component:EntityComponent):
 	entity_component_leave_out.emit(entity_component)
 
-## 处理实体半血信号的方法(暂时没有好的实现思路，不管)
 
 #endregion
 

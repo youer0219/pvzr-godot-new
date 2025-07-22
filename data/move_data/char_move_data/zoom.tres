@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_r128f")
-lateral_speed = 20.0
+lateral_speed = 15.0
 lateral_speed_fator = 1.0
 lateral_speed_acceleration = 600.0
 lateral_move_jump_distance = 3.0
