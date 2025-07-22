@@ -34,15 +34,11 @@ func add_entity_component(entity_component_data:EntityComponentData):
 	var new_entity_component = ENTITY_COMPONENT.instantiate() as EntityComponent
 	new_entity_component.entity_component_data = entity_component_data
 	
-	new_entity_component.entity_component_leave_out.connect(_on_entity_component_leave_out)
-	#new_entity_component.entity_component_damaged.connect(_on_entity_component_damaged)
-	
 	match entity_component_data.component_type:
 		EntityComponent.EntityComponentType.MAIN_BODY:
 			## TODO:目前依赖数据中的指定，配置起来还是不安全。暂时这样吧。
 			if entity_component_data.is_main_body:
 				main_body_component = new_entity_component
-				main_body_component.entity_dead.connect(_on_entity_dead)
 			main_body_canvas_group.add_child(new_entity_component)
 		EntityComponent.EntityComponentType.ACCESSORY_TIER_1:
 			accessory_one_entity_component.add_child(new_entity_component)
@@ -74,7 +70,7 @@ func _on_entity_dead(damage_data:DamageData):
 	
 	get_all_components().all(
 		func(entity_component:EntityComponent):
-			entity_component.on_entity_dead(damage_data)
+			#entity_component._on_entity_dead(damage_data)
 			return true
 	)
 	

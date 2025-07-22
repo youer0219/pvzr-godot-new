@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7vym8rxb3eqd"]
+[gd_scene load_steps=4 format=3 uid="uid://b7vym8rxb3eqd"]
 
 [ext_resource type="Script" uid="uid://be3wfitvju6px" path="res://move_entity/zoom/zoom_component/zoom_component.gd" id="1_ukbiq"]
 [ext_resource type="Texture2D" uid="uid://bd2fwmbegdfqm" path="res://assets/sprites/entity_component/heads/梯子僵尸-首.png" id="2_5v5iw"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v5iw"]
+size = Vector2(10, 4)
+
 [node name="ZoomComponent" type="RigidBody2D"]
+lock_rotation = true
+freeze = true
 script = ExtResource("1_ukbiq")
 
 [node name="Image" type="Sprite2D" parent="."]
 texture = ExtResource("2_5v5iw")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(5, -11)
+shape = SubResource("RectangleShape2D_5v5iw")
+disabled = true
