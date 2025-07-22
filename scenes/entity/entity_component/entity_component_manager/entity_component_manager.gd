@@ -21,7 +21,7 @@ func _physics_process(_delta: float) -> void:
 	last_global_position = global_position
 
 ## 应用伤害的方法
-func apply_damage(_damage_data:DamageData):
+func apply_damage(damage_data:DamageData):
 	## 因为资源传递的是引用，所以不需要返回一个资源回来了
 	pass
 
