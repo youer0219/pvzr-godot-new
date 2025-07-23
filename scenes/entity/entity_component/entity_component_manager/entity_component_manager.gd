@@ -47,15 +47,12 @@ func apply_damage(damage_data:DamageData):
 	else:
 		_on_entity_dead(damage_data)
 
-
 func _component_damage_apply(damage_data:DamageData,component:EntityComponent):
 	var hp := component.curr_hp
 	component.curr_hp -= damage_data.damage
 	damage_data.damage -= hp
-	damage_data.context
 	if component.curr_hp <= 0:
 		damage_data.context["dead_components"].append(component)
-		component._on_component_dead(damage_data)
 	else:
 		damage_data.context["damaged_components"].append(component)
 
@@ -100,11 +97,9 @@ func _on_entity_dead(damage_data:DamageData):
 	## 分为灰烬类和非灰烬类不同处理
 	## 目前只关心非灰烬类
 	
-	get_all_components().all(
-		func(entity_component:EntityComponent):
-			entity_component._on_entity_common_dead(damage_data)
-			return true
-	)
+	## TODO:目前是调用所有的组件的eead回调，但这是否必要需要研究
+	for component in get_all_components():
+		component._on_entity_common_dead(damage_data)
 	
 	entity_dead.emit(damage_data)
 
