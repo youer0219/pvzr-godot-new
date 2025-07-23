@@ -41,4 +41,7 @@ func get_entity_component_type()->EntityComponentType:
 	return entity_component_data.component_type
 
 func _on_component_dead(_damage_data:DamageData):
-	pass
+	print(name + " ,_on_component_dead(_damage_data:DamageData):")
+
+func _on_entity_common_dead(_damage_data:DamageData):
+	print(name + " ,_on_entity_common_dead(_damage_data:DamageData):")

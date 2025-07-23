@@ -21,7 +21,8 @@ enum DamageType {
 var from_pos:Vector2
 ## 伤害承受者位置
 var target_pos:Vector2
-
+## 上下文字典，避免过多变量
+var context := {}
 
 func get_throw_direction()->int:
 	if from_pos.x > target_pos.x:

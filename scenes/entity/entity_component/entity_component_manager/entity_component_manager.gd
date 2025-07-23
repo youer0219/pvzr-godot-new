@@ -21,39 +21,43 @@ func _physics_process(_delta: float) -> void:
 
 ## 应用伤害的方法
 func apply_damage(damage_data:DamageData):
-	## 因为资源传递的是引用，所以不需要返回一个资源回来了
+	damage_data.context["dead_components"] = []
+	damage_data.context["damaged_components"] = []
 	
 	## 先不考虑忽视防具的情况，计算顺序是：二类、一类和本体(本体可能划分为头和身体)
 	## 计算中，如果伤害归0，中止伤害应用；如果防具血量归0，触发移除防具方法(_on_component_dead)
 	## 存在中断伤害效果，可以由防具自身设计(_on_damage)
 	for component in get_accessory_two_entity_components():
-		_component_damage_apply(damage_data,component)
 		if damage_data.damage <= 0:
-			## 中止伤害应用；处理最终结果
-			pass
+			break
+		_component_damage_apply(damage_data,component)
 	
 	for component in get_accessory_one_entity_components():
-		_component_damage_apply(damage_data,component)
 		if damage_data.damage <= 0:
-			## 中止伤害应用；处理最终结果
-			pass
+			break
+		_component_damage_apply(damage_data,component)
 	
 	var head_component := get_head_entity_component()
 	if head_component != null:
 		_component_damage_apply(damage_data,head_component)
+		if head_component.curr_hp <= 0:
+			_on_entity_dead(damage_data)
+		else:
+			_on_entity_damaged(damage_data)
 	else:
 		_on_entity_dead(damage_data)
-	
-	## 灰烬伤害未杀死的，就正常抛出防具；杀死的就特殊处理
-	## TODO:所以未来需要将其改为最后统一处理，会更方便一些
 
 
 func _component_damage_apply(damage_data:DamageData,component:EntityComponent):
 	var hp := component.curr_hp
 	component.curr_hp -= damage_data.damage
 	damage_data.damage -= hp
+	damage_data.context
 	if component.curr_hp <= 0:
+		damage_data.context["dead_components"].append(component)
 		component._on_component_dead(damage_data)
+	else:
+		damage_data.context["damaged_components"].append(component)
 
 func add_entity_components(entity_component_datas:Array[EntityComponentData]):
 	for entity_component_data:EntityComponentData in entity_component_datas:
@@ -93,13 +97,33 @@ func _set_entity_data(value:EntityData):
 ## 根据造成死亡的伤害类型调用组件的各个方法
 
 func _on_entity_dead(damage_data:DamageData):
+	## 分为灰烬类和非灰烬类不同处理
+	## 目前只关心非灰烬类
+	
 	get_all_components().all(
-		func(_entity_component:EntityComponent):
-			#entity_component._on_entity_dead(damage_data)
+		func(entity_component:EntityComponent):
+			entity_component._on_entity_common_dead(damage_data)
 			return true
 	)
 	
 	entity_dead.emit(damage_data)
+
+func _on_entity_damaged(damage_data:DamageData):
+	## 二类  一类和本体
+	var dead_components = damage_data.context["dead_components"]
+	for component:EntityComponent in dead_components:
+		## TODO:缺少主动移除组件
+		component._on_component_dead(damage_data)
+	
+	var damaged_components = damage_data.context["damaged_components"] as Array
+	if damaged_components.any(
+		func(component:EntityComponent):
+			return component.entity_component_data.component_type == EntityComponent.EntityComponentType.ACCESSORY_TIER_2
+	):
+		accessory_two_entity_component.blink()
+	else:
+		accessory_one_entity_component.blink()
+		substance_canvas_group.blink()
 
 ## 处理实体组件受伤信号的方法
 func _on_entity_component_damaged(entity_component: EntityComponent):
