@@ -1,7 +1,6 @@
 extends Node2D
 class_name ZoomComponentManager
 
-signal entity_component_leave_out(entity_component:ZoomComponent)
 signal entity_dead(damage_data:DamageData)
 
 const ENTITY_COMPONENT = preload("uid://d27ql2svxqnsf")
@@ -56,23 +55,25 @@ func _component_damage_apply(damage_data:DamageData,component:ZoomComponent):
 	else:
 		damage_data.context["damaged_components"].append(component)
 
-func add_entity_components(entity_component_datas:Array[ZoomComponentData]):
-	for entity_component_data:ZoomComponentData in entity_component_datas:
-		add_entity_component(entity_component_data)
+func add_entity_components(zoom_component_datas:Array[ZoomComponentData]):
+	for zoom_component_data:ZoomComponentData in zoom_component_datas:
+		add_entity_component(zoom_component_data)
 
-func add_entity_component(entity_component_data:ZoomComponentData):
-	var new_entity_component = ENTITY_COMPONENT.instantiate() as ZoomComponent
-	new_entity_component.entity_component_data = entity_component_data
+func add_entity_component(zoom_component_data:ZoomComponentData):
+	var new_zoom_component = ENTITY_COMPONENT.instantiate() as ZoomComponent
+	new_zoom_component.zoom_component_data = zoom_component_data
 	
-	match entity_component_data.component_type:
+	match zoom_component_data.component_type:
 		ZoomComponent.EntityComponentType.HEAD:
-			substance_canvas_group.add_child(new_entity_component)
+			substance_canvas_group.add_child(new_zoom_component)
 		ZoomComponent.EntityComponentType.BODY:
-			substance_canvas_group.add_child(new_entity_component)
+			substance_canvas_group.add_child(new_zoom_component)
 		ZoomComponent.EntityComponentType.ACCESSORY_TIER_1:
-			accessory_one_entity_component.add_child(new_entity_component)
+			accessory_one_entity_component.add_child(new_zoom_component)
 		ZoomComponent.EntityComponentType.ACCESSORY_TIER_2:
-			accessory_two_entity_component.add_child(new_entity_component)
+			accessory_two_entity_component.add_child(new_zoom_component)
+	
+	new_zoom_component._on_add_zoom_component(self,new_zoom_component)
 
 func clear_entity_components():
 	substance_canvas_group.clear_entity_components()
@@ -99,7 +100,7 @@ func _on_entity_dead(damage_data:DamageData):
 	
 	## TODO:目前是调用所有的组件的eead回调，但这是否必要需要研究
 	for component in get_all_components():
-		component._on_entity_common_dead(damage_data)
+		component._on_zoom_common_dead(damage_data)
 	
 	entity_dead.emit(damage_data)
 
@@ -112,25 +113,12 @@ func _on_entity_damaged(damage_data:DamageData):
 	var damaged_components = damage_data.context["damaged_components"] as Array
 	if damaged_components.any(
 		func(component:ZoomComponent):
-			return component.entity_component_data.component_type == ZoomComponent.EntityComponentType.ACCESSORY_TIER_2
+			return component.get_zoom_component_type() == ZoomComponent.EntityComponentType.ACCESSORY_TIER_2
 	):
 		accessory_two_entity_component.blink()
 	else:
 		accessory_one_entity_component.blink()
 		substance_canvas_group.blink()
-
-## 处理实体组件受伤信号的方法
-func _on_entity_component_damaged(entity_component: ZoomComponent):
-	if entity_component.get_entity_component_type() == ZoomComponent.EntityComponentType.ACCESSORY_TIER_2:
-		accessory_two_entity_component.blink()
-	else:
-		substance_canvas_group.blink()
-		accessory_one_entity_component.blink()
-
-## 处理实体脱离信号的方法
-func _on_entity_component_leave_out(entity_component:ZoomComponent):
-	entity_component_leave_out.emit(entity_component)
-
 
 #endregion
 
@@ -138,9 +126,8 @@ func _on_entity_component_leave_out(entity_component:ZoomComponent):
 
 func get_head_entity_component()->ZoomComponent:
 	for component in get_substance_entity_components():
-		if component.entity_component_data.component_type == ZoomComponent.EntityComponentType.HEAD:
+		if component.get_zoom_component_type() == ZoomComponent.EntityComponentType.HEAD:
 			return component
-	
 	return null
 
 func get_substance_entity_components()->Array[ZoomComponent]:

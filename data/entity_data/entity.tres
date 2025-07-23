@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://morvfvefddx"]
 
-[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="1_6jjh6"]
-[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/head_data.tres" id="2_ecgdq"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="1_ecgdq"]
+[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/head_data.tres" id="2_gnr5s"]
 [ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="2_ujfef"]
-[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/body_data.tres" id="3_gnr5s"]
-[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/ladder_data.tres" id="4_6adqx"]
-[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/iron_helmet_data.tres" id="5_kbaty"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/body_data.tres" id="3_6adqx"]
+[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/ladder_data.tres" id="4_kbaty"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/iron_helmet_data.tres" id="5_4jtp0"]
 
 [resource]
 script = ExtResource("2_ujfef")
 name = "Entity"
-entity_component_datas = Array[ExtResource("1_6jjh6")]([ExtResource("2_ecgdq"), ExtResource("3_gnr5s"), ExtResource("4_6adqx"), ExtResource("5_kbaty")])
+entity_component_datas = Array[ExtResource("1_ecgdq")]([ExtResource("2_gnr5s"), ExtResource("3_6adqx"), ExtResource("4_kbaty"), ExtResource("5_4jtp0")])
 metadata/_custom_type_script = "uid://bbh0dd5ccohht"

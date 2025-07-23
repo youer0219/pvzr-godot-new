@@ -21,13 +21,13 @@ func _set_component_texture(value:Texture2D):
 	emit_changed()
 
 ## 添加组件时效果
-func _on_add_zoom_component():
+func _on_add_zoom_component(_manager:ZoomComponentManager,_component:ZoomComponent):
 	pass
 
-### 移除组件时效果
-#func _on_remove_zoom_component():
-	#pass
-
+## 移除组件时效果  
+## TODO:暂时不知道如何应用比较好，目前打算用来清除add的信号连接，但在哪调用没有头绪
+func _on_remove_zoom_component(_manager:ZoomComponentManager,_component:ZoomComponent):
+	pass
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData,component:ZoomComponent,):

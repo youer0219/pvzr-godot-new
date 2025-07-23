@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://d27ql2svxqnsf"]
+[gd_scene load_steps=7 format=3 uid="uid://d27ql2svxqnsf"]
 
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="1_8b512"]
 [ext_resource type="Script" uid="uid://i87m07eulceq" path="res://move_entity/zoom/zoom_component/zoom_component.gd" id="2_wy0qc"]
-[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/head_data.tres" id="3_b1rke"]
 [ext_resource type="Texture2D" uid="uid://bd2fwmbegdfqm" path="res://assets/sprites/entity_component/heads/梯子僵尸-首.png" id="4_s6wei"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yiqpc"]
@@ -26,7 +25,6 @@ physics_material_override = SubResource("PhysicsMaterial_q3sbo")
 lock_rotation = true
 freeze = true
 script = ExtResource("2_wy0qc")
-entity_component_data = ExtResource("3_b1rke")
 
 [node name="Image" type="Sprite2D" parent="."]
 texture_filter = 1
