@@ -12,14 +12,14 @@ enum EntityComponentType {
 @onready var image: Sprite2D = $Image
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 
-@export var entity_component_data: EntityComponentData:set = _set_entity_component_data
+@export var entity_component_data: ZoomComponentData:set = _set_entity_component_data
 
 var is_in_body := true
 var is_ash:bool = false
 var curr_hp: float = 0.0
 var phy_enable: bool = false:set = _set_phy_enable
 
-func _set_entity_component_data(value: EntityComponentData) -> void:
+func _set_entity_component_data(value: ZoomComponentData) -> void:
 	entity_component_data = value
 	
 	if not is_node_ready():

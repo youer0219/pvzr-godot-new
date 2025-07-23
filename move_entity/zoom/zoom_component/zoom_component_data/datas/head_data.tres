@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://b2tk4v7426e3x"]
 
 [ext_resource type="Resource" uid="uid://bty0yxvydfqhg" path="res://data/strategy/component_action_strategy/actions/ash_head.tres" id="1_8sbid"]
-[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_rjke3"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="1_rjke3"]
 [ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="2_0qhu3"]
 [ext_resource type="Texture2D" uid="uid://bd2fwmbegdfqm" path="res://assets/sprites/entity_component/heads/梯子僵尸-首.png" id="3_qh4iy"]
 

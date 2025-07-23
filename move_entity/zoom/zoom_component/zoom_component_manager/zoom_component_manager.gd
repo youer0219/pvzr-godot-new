@@ -56,11 +56,11 @@ func _component_damage_apply(damage_data:DamageData,component:ZoomComponent):
 	else:
 		damage_data.context["damaged_components"].append(component)
 
-func add_entity_components(entity_component_datas:Array[EntityComponentData]):
-	for entity_component_data:EntityComponentData in entity_component_datas:
+func add_entity_components(entity_component_datas:Array[ZoomComponentData]):
+	for entity_component_data:ZoomComponentData in entity_component_datas:
 		add_entity_component(entity_component_data)
 
-func add_entity_component(entity_component_data:EntityComponentData):
+func add_entity_component(entity_component_data:ZoomComponentData):
 	var new_entity_component = ENTITY_COMPONENT.instantiate() as ZoomComponent
 	new_entity_component.entity_component_data = entity_component_data
 	

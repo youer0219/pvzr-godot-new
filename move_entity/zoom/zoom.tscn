@@ -12,9 +12,9 @@
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="6_fw1q2"]
 [ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://move_entity/zoom/zoom_component/zoom_component.tscn" id="7_nj8qa"]
 [ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="8_bn53m"]
-[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/body_data.tres" id="9_nb1lt"]
-[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/iron_helmet_data.tres" id="10_6glru"]
-[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/ladder_data.tres" id="11_n84w6"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/body_data.tres" id="9_nb1lt"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/iron_helmet_data.tres" id="10_6glru"]
+[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://move_entity/zoom/zoom_component/zoom_component_data/datas/ladder_data.tres" id="11_n84w6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8arlc"]
 resource_local_to_scene = true

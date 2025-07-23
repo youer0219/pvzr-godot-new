@@ -5,7 +5,7 @@ extends Resource
 @export var name:String
 
 
-@export var entity_component_datas:Array[EntityComponentData]
+@export var entity_component_datas:Array[ZoomComponentData]
 
 
 

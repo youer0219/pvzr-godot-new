@@ -1,6 +1,6 @@
-# EntityComponentData.gd (组件数据资源)
+# ZoomComponentData.gd (组件数据资源)
 @tool
-class_name EntityComponentData
+class_name ZoomComponentData
 extends Resource
 
 @export_group("基础设置")
