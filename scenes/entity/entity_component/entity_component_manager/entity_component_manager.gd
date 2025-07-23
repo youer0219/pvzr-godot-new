@@ -107,7 +107,6 @@ func _on_entity_damaged(damage_data:DamageData):
 	## 二类  一类和本体
 	var dead_components = damage_data.context["dead_components"]
 	for component:EntityComponent in dead_components:
-		## TODO:缺少主动移除组件
 		component._on_component_dead(damage_data)
 	
 	var damaged_components = damage_data.context["damaged_components"] as Array

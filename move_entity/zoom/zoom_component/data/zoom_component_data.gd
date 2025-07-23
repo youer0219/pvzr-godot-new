@@ -15,7 +15,3 @@ func _on_remove_zoom_component():
 ## 自然死亡效果
 func _on_common_dead():
 	pass
-
-## 灰烬死亡效果
-func _on_ash_dead():
-	pass

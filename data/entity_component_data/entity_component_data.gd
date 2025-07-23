@@ -20,6 +20,19 @@ func _set_component_texture(value:Texture2D):
 	component_texture = value
 	emit_changed()
 
+## 添加组件时效果
+func _on_add_zoom_component():
+	pass
+
+### 移除组件时效果
+#func _on_remove_zoom_component():
+	#pass
+
+
+## 单独组件死亡结果
+func _on_component_dead(damage_data:DamageData,component:EntityComponent,):
+	ZoomComponentActions.throw_component(damage_data,component,Vector2(80,-200))
+
 
 func _validate_property(property:Dictionary):
 	if component_type == EntityComponent.EntityComponentType.BODY:
