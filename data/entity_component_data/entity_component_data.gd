@@ -8,7 +8,7 @@ extends Resource
 @export var has_hp:bool = true
 @export var is_main_body:bool = false
 @export var component_texture: Texture2D:set = _set_component_texture
-@export var component_type: EntityComponent.EntityComponentType = EntityComponent.EntityComponentType.BODY
+@export var component_type: ZoomComponent.EntityComponentType = ZoomComponent.EntityComponentType.BODY
 
 @export_group("策略配置")
 @export var component_dead_strategy: ComponentActionStrategy
@@ -30,11 +30,11 @@ func _on_add_zoom_component():
 
 
 ## 单独组件死亡结果
-func _on_component_dead(damage_data:DamageData,component:EntityComponent,):
+func _on_component_dead(damage_data:DamageData,component:ZoomComponent,):
 	ZoomComponentActions.throw_component(damage_data,component,Vector2(80,-200))
 
 
 func _validate_property(property:Dictionary):
-	if component_type == EntityComponent.EntityComponentType.BODY:
+	if component_type == ZoomComponent.EntityComponentType.BODY:
 		if property.name == "component_dead_strategy":
 			property.usage = PROPERTY_USAGE_NONE

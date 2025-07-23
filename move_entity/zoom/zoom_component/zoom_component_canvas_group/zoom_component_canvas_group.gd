@@ -1,4 +1,4 @@
-class_name EntityComponentCanvasGroup
+class_name ZoomComponentCanvasGroup
 extends CanvasGroup
 
 ## 冰冻效果： 6565ff 魅惑效果： ff25ff 
@@ -10,9 +10,9 @@ const BLOOD_COLOR  := Color(1,0,0,1)
 
 
 ## 提供所有的entity-component数组。如果混入意外值会报错。
-func get_entity_components()->Array[EntityComponent]:
+func get_entity_components()->Array[ZoomComponent]:
 	## 第三个参数写内置类名，不写class-name声明的类名
-	return Array(get_children(),TYPE_OBJECT,"RigidBody2D",EntityComponent)
+	return Array(get_children(),TYPE_OBJECT,"RigidBody2D",ZoomComponent)
 
 ## 清除所有组件
 func clear_entity_components():
