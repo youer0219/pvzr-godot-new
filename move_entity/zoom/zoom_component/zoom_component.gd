@@ -15,7 +15,6 @@ enum EntityComponentType {
 @export var zoom_component_data: ZoomComponentData:set = _set_zoom_component_data
 
 var is_in_body := true
-var is_ash:bool = false
 var curr_hp: float = 0.0
 var phy_enable: bool = false:set = _set_phy_enable
 
