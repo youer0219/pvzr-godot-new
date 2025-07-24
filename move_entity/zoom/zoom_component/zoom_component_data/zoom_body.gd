@@ -1,0 +1,2 @@
+extends ZoomComponentData
+class_name ZoomBody
