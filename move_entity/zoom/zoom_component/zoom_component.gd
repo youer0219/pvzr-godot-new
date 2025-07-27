@@ -37,14 +37,12 @@ func get_zoom_component_type()->EntityComponentType:
 	return zoom_component_data.component_type
 
 ## 添加组件时效果
-func _on_add_zoom_component(manager:ZoomComponentManager,component:ZoomComponent):
+func _on_add_zoom_component(_manager:ZoomComponentManager,_component:ZoomComponent):
 	print(name + "_on_add_zoom_component(manager:ZoomComponentManager,component:ZoomComponent)")
-	zoom_component_data._on_add_zoom_component(manager,component)
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData):
-	print(name + " ,_on_component_dead(_damage_data:DamageData):")
-	zoom_component_data._on_component_dead(damage_data,self)
+	ZoomComponentData.apply_component_action(damage_data,self,zoom_component_data.common_dead_action)
 
-func _on_zoom_common_dead(_damage_data:DamageData):
-	print(name + " ,_on_entity_common_dead(_damage_data:DamageData):")
+func _on_zoom_common_dead(damage_data:DamageData):
+	ZoomComponentData.apply_component_action(damage_data,self,zoom_component_data.component_dead_action)

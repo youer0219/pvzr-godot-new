@@ -1,6 +1,7 @@
 extends RefCounted
 class_name ZoomComponentActions
 
+enum ACTIONS {NO_ACTION,THROW}
 
 static func throw_component(damage_data:DamageData,component:ZoomComponent,force:Vector2 = Vector2(80,-200)):
 	component.is_in_body = false

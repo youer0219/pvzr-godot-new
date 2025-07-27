@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=4 format=3 uid="uid://c66sonuyp0ois"]
+[gd_resource type="Resource" script_class="ZoomComponentData" load_steps=3 format=3 uid="uid://c66sonuyp0ois"]
 
-[ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="2_o072t"]
 [ext_resource type="Texture2D" uid="uid://bwljxukxmrgjh" path="res://assets/sprites/entity_component/helmet/铁桶.png" id="3_fflej"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="4_x4nig"]
 
@@ -11,6 +10,6 @@ has_hp = true
 is_main_body = false
 component_texture = ExtResource("3_fflej")
 component_type = 2
-common_dead_strategy = ExtResource("2_o072t")
-ash_dead_strategy = ExtResource("2_o072t")
+component_dead_action = 1
+common_dead_action = 1
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"

@@ -1,7 +1,5 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://cpgufvcq8rnpx"]
+[gd_resource type="Resource" script_class="ZoomComponentData" load_steps=3 format=3 uid="uid://cpgufvcq8rnpx"]
 
-[ext_resource type="Resource" uid="uid://cdq02gpheypos" path="res://data/strategy/component_action_strategy/actions/free.tres" id="1_1uyy8"]
-[ext_resource type="Resource" uid="uid://bfpbprn4v6hpm" path="res://data/strategy/component_action_strategy/actions/no_action.tres" id="2_1dfqq"]
 [ext_resource type="Texture2D" uid="uid://jhx4px7kxcnv" path="res://assets/sprites/entity_component/hammer/锤子1.png" id="3_aqftr"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="4_s23o4"]
 
@@ -12,6 +10,6 @@ has_hp = false
 is_main_body = false
 component_texture = ExtResource("3_aqftr")
 component_type = 0
-common_dead_strategy = ExtResource("2_1dfqq")
-ash_dead_strategy = ExtResource("1_1uyy8")
+component_dead_action = 0
+common_dead_action = 0
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"

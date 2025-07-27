@@ -1,8 +1,5 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=6 format=3 uid="uid://cbutpl66hig36"]
+[gd_resource type="Resource" script_class="ZoomComponentData" load_steps=3 format=3 uid="uid://cbutpl66hig36"]
 
-[ext_resource type="Resource" uid="uid://biem3n7dv1e14" path="res://data/strategy/component_action_strategy/actions/throw.tres" id="1_qqf1d"]
-[ext_resource type="Resource" uid="uid://cdq02gpheypos" path="res://data/strategy/component_action_strategy/actions/free.tres" id="1_sfxfw"]
-[ext_resource type="Resource" uid="uid://bfpbprn4v6hpm" path="res://data/strategy/component_action_strategy/actions/no_action.tres" id="2_m81uj"]
 [ext_resource type="Texture2D" uid="uid://bm2ndprb17spi" path="res://assets/sprites/entity_component/accessory_two/梯子.png" id="3_3niix"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="3_sfxfw"]
 
@@ -13,7 +10,6 @@ has_hp = true
 is_main_body = false
 component_texture = ExtResource("3_3niix")
 component_type = 3
-component_dead_strategy = ExtResource("1_qqf1d")
-common_dead_strategy = ExtResource("2_m81uj")
-ash_dead_strategy = ExtResource("1_sfxfw")
+component_dead_action = 1
+common_dead_action = 1
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"
