@@ -5,8 +5,6 @@ extends Resource
 
 @export_group("基础设置")
 @export var init_hp: float = 5.0
-@export var has_hp:bool = true
-@export var is_main_body:bool = false
 @export var component_texture: Texture2D:set = _set_component_texture
 @export var component_type: ZoomComponent.EntityComponentType = ZoomComponent.EntityComponentType.BODY
 

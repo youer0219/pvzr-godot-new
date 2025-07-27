@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyqig51uluybf"]
-
-[ext_resource type="Script" uid="uid://b8a2e14nmlnht" path="res://move_entity/zoom/zoom_component/zoom_component_manager/zoom_component_manager.gd" id="1_qvjp3"]
-
-[node name="ZoomComponentManager" type="Node2D"]
-script = ExtResource("1_qvjp3")

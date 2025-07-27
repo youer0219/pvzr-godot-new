@@ -37,8 +37,9 @@ func get_zoom_component_type()->EntityComponentType:
 	return zoom_component_data.component_type
 
 ## 添加组件时效果
+## 未来和buff系统联动，处理额外的组件逻辑.TODO:完善组件信号系统以备组件buff实现
 func _on_add_zoom_component(_manager:ZoomComponentManager,_component:ZoomComponent):
-	print(name + "_on_add_zoom_component(manager:ZoomComponentManager,component:ZoomComponent)")
+	pass
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData):
