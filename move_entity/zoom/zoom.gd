@@ -10,6 +10,10 @@ class_name Zoom
 
 const MOVEMENT_THRESHOLD := 8
 
+## 生成偏差
+
+## 生成位置
+var start_cell:Vector2i
 var target:Node2D ## 考虑单独一个节点或模块来获取target，并使用静态变量避免重复获取
 var last_lateral_move_direction:int = 0
 var curr_path:Array[Vector2]

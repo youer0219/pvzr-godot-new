@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://move_entity/dave/crazy_dave.tscn" id="10_d5kdb"]
-[ext_resource type="PackedScene" uid="uid://ci0rsdebt11t8" path="res://move_entity/zoom/zoom.tscn" id="10_h3mjc"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
@@ -52,9 +51,6 @@ enable = true
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
-
-[node name="Zoom" parent="." instance=ExtResource("10_h3mjc")]
-position = Vector2(495, 257)
 
 [node name="CrazyDave" parent="." instance=ExtResource("10_d5kdb")]
 position = Vector2(385, 325)

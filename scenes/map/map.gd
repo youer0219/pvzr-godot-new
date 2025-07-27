@@ -35,7 +35,6 @@ func get_top_water_line()->float:
 	var water_height := map_data.water_hight
 	return (MapData.MAP_SIZE.y - water_height ) * MapData.MAP_CELL_SIZE.y
 
-
 func _set_map_data(value:MapData):
 	map_data = value
 	
@@ -50,3 +49,6 @@ func _set_map_data(value:MapData):
 
 func get_top_water_cell_y()->int:
 	return int(map_data.MAP_SIZE.y - map_data.water_hight)
+
+func map_to_local(cell:Vector2i)->Vector2:
+	return front_map.outer_map.map_to_local(cell)
