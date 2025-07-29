@@ -10,5 +10,6 @@ component_texture = ExtResource("3_qh4iy")
 component_type = 0
 component_dead_action = 1
 common_dead_action = 1
+throw_force = Vector2(60, -250)
 is_offset_damage = false
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"

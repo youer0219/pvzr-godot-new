@@ -47,7 +47,7 @@ func _on_component_damaged(damage_data:DamageData):
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData):
-	EntityComponentData.apply_component_action(damage_data,self,zoom_component_data.common_dead_action)
+	zoom_component_data.apply_component_action(damage_data,self,zoom_component_data.common_dead_action)
 
 func _on_zoom_common_dead(damage_data:DamageData):
-	EntityComponentData.apply_component_action(damage_data,self,zoom_component_data.component_dead_action)
+	zoom_component_data.apply_component_action(damage_data,self,zoom_component_data.component_dead_action)

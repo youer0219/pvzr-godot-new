@@ -17,8 +17,5 @@ func _ready() -> void:
 	damage_data.damage = 30.0
 	zoom.entity_component_manager.apply_damage(damage_data)
 	await get_tree().create_timer(4.0).timeout
-	damage_data.damage = 10.0
+	damage_data.damage = 20.0
 	zoom.entity_component_manager.apply_damage(damage_data)
-
-
-## TODO:头和头盔不应该用同一个力抛出，这样看着太一致了

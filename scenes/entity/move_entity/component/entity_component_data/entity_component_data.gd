@@ -11,6 +11,7 @@ extends Resource
 @export_group("策略配置")
 @export var component_dead_action:ZoomComponentActions.ACTIONS
 @export var common_dead_action:ZoomComponentActions.ACTIONS
+@export var throw_force:Vector2 = Vector2(80,-200)
 @export var is_offset_damage:bool = false
 
 func _set_component_texture(value:Texture2D):
@@ -21,16 +22,17 @@ func _set_component_texture(value:Texture2D):
 func _on_add_zoom_component(_manager:EntityComponentManager,_component:EntityComponent):
 	pass
 
-static func apply_component_action(damage_data:DamageData,component:EntityComponent,action:ZoomComponentActions.ACTIONS):
+func apply_component_action(damage_data:DamageData,component:EntityComponent,action:ZoomComponentActions.ACTIONS):
 	match action:
 		ZoomComponentActions.ACTIONS.THROW:
-			ZoomComponentActions.throw_component(damage_data,component)
+			ZoomComponentActions.throw_component(damage_data,component,throw_force)
 		ZoomComponentActions.ACTIONS.NO_ACTION:
 			pass
 		_:
 			push_warning("组件默认行为中不应该触发其他actions")
 
 func _validate_property(property:Dictionary):
-	if component_type == EntityComponent.EntityComponentType.BODY:
-		if property.name == "component_dead_strategy":
+	if not (common_dead_action == ZoomComponentActions.ACTIONS.THROW \
+	or common_dead_action == ZoomComponentActions.ACTIONS.THROW):
+		if property.name == "throw_force":
 			property.usage = PROPERTY_USAGE_NONE
