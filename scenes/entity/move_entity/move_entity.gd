@@ -15,7 +15,7 @@ class_name MoveEntity
 @onready var underwater: AtomicState = %Underwater
 
 ## 偏差值 用于改进AI的纵向移动 或许会重构image位置，使之无用
-@export var entity_pos_deviation:float = 6
+@export var entity_pos_deviation:float = 6 ## TODO:目前只在zoom中使用，需要评估是否必要
 @export var entity_data:EntityData:set = _set_entity_data
 
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir

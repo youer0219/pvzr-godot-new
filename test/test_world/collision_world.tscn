@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
-[ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://move_entity/dave/crazy_dave.tscn" id="10_d5kdb"]
+[ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://scenes/entity/move_entity/move_entities/dave/crazy_dave.tscn" id="10_d5kdb"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
@@ -49,9 +49,6 @@ texture = ExtResource("8_8vnb8")
 position = Vector2(386, 272)
 enable = true
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [node name="CrazyDave" parent="." instance=ExtResource("10_d5kdb")]
 position = Vector2(385, 325)
 
@@ -77,5 +74,3 @@ grow_horizontal = 1
 grow_vertical = 1
 theme = SubResource("Theme_nhf0t")
 initial_node_to_watch = NodePath("../../../CrazyDave")
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

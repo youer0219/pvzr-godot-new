@@ -3,7 +3,7 @@ extends Node2D
 @onready var map: Map = $Map
 
 const TEST_DAMAGE_DATA = preload("res://data/damage_data/test_damage_data.tres")
-const ZOOM = preload("res://move_entity/zoom/zoom.tscn")
+const ZOOM = preload("uid://ci0rsdebt11t8")
 
 func _ready() -> void:
 	await get_tree().create_timer(4.0).timeout

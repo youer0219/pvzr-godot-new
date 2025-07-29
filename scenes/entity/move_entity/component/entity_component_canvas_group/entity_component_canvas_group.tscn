@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmo81lti2ie38"]
 
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="1_h6xts"]
-[ext_resource type="Script" uid="uid://b8jxjijbq53v4" path="res://move_entity/component/entity_component_canvas_group/entity_component_canvas_group.gd" id="2_uqvqg"]
+[ext_resource type="Script" uid="uid://b8jxjijbq53v4" path="res://scenes/entity/move_entity/component/entity_component_canvas_group/entity_component_canvas_group.gd" id="2_uqvqg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8vnb8"]
 resource_local_to_scene = true
