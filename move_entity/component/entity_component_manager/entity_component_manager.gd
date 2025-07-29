@@ -5,8 +5,6 @@ signal entity_dead(damage_data:DamageData)
 
 const ENTITY_COMPONENT = preload("uid://d27ql2svxqnsf")
 
-@export var entity_data:EntityData:set = _set_entity_data
-
 @export var substance_canvas_group:EntityComponentCanvasGroup
 @export var accessory_one_entity_component:EntityComponentCanvasGroup
 @export var accessory_two_entity_component:EntityComponentCanvasGroup
@@ -79,16 +77,6 @@ func clear_entity_components():
 	substance_canvas_group.clear_entity_components()
 	accessory_one_entity_component.clear_entity_components()
 	accessory_two_entity_component.clear_entity_components()
-
-func _set_entity_data(value:EntityData):
-	entity_data = value
-	
-	if not is_node_ready():
-		await ready
-	
-	clear_entity_components()
-	add_entity_components(entity_data.entity_component_datas)
-
 
 #region 事件信号处理
 ## 处理实体组件死亡信号的方法

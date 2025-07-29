@@ -16,6 +16,7 @@ class_name MoveEntity
 
 ## 偏差值 用于改进AI的纵向移动 或许会重构image位置，使之无用
 @export var entity_pos_deviation:float = 6
+@export var entity_data:EntityData:set = _set_entity_data
 
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir
 
@@ -26,6 +27,13 @@ var lateral_move_direction:int = 0 ## 0表示不动
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 	in_ground_check_shape.shape = collision_shape_2d.shape
+
+func _set_entity_data(data:EntityData)->void:
+	entity_data = data
+	if not is_node_ready():
+		await ready
+	entity_component_manager.clear_entity_components()
+	entity_component_manager.add_entity_components(entity_data.entity_component_datas)
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
 	if not is_on_floor():

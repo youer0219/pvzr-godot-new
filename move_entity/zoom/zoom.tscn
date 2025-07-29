@@ -46,8 +46,6 @@ height = 26.0
 [node name="Zoom" instance=ExtResource("1_6lave")]
 collision_layer = 32
 script = ExtResource("2_2lb3e")
-
-[node name="EntityComponentManager" parent="." index="0"]
 entity_data = ExtResource("4_rxvuq")
 
 [node name="SubstanceComponentCanvasGroup" parent="EntityComponentManager" index="0"]

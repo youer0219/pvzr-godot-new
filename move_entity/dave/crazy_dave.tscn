@@ -66,8 +66,6 @@ metadata/_custom_type_script = "uid://bambbrd2wupx0"
 [node name="CrazyDave" groups=["dave"] instance=ExtResource("1_petol")]
 collision_layer = 16
 script = ExtResource("2_ksr7e")
-
-[node name="EntityComponentManager" parent="." index="0"]
 entity_data = ExtResource("3_gyjtu")
 
 [node name="SubstanceComponentCanvasGroup" parent="EntityComponentManager" index="0"]
