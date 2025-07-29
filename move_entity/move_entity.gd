@@ -6,6 +6,7 @@ class_name MoveEntity
 @onready var visual_control: VisualControl = $VisualControl
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var in_ground_check_shape: CollisionShape2D = %InGroundCheckShape
+@onready var entity_component_manager: EntityComponentManager = $EntityComponentManager
 
 @onready var grounded: AtomicState = %Grounded
 @onready var airborne: AtomicState = %Airborne

@@ -1,14 +1,42 @@
-[gd_scene load_steps=15 format=3 uid="uid://cb8iedn0xg7ud"]
+[gd_scene load_steps=19 format=3 uid="uid://cb8iedn0xg7ud"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_petol"]
 [ext_resource type="Script" uid="uid://ckm5ps8k0fklf" path="res://move_entity/dave/crazy_dave.gd" id="2_ksr7e"]
-[ext_resource type="Texture2D" uid="uid://cuy0epwk4i14k" path="res://assets/sprites/entity/dave/CrazyDave.png" id="3_gghe0"]
+[ext_resource type="Resource" uid="uid://dmla04exl5brg" path="res://move_entity/entity_data/crazy_dave.tres" id="3_gyjtu"]
 [ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="4_dfjv0"]
+[ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="4_gyjtu"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_jsdgl"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_qcj8d"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="5_dfjv0"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_io0n7"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="6_gyjtu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuxof"]
+resource_local_to_scene = true
+shader = ExtResource("4_gyjtu")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bsjep"]
+resource_local_to_scene = true
+shader = ExtResource("4_gyjtu")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3nxb"]
+resource_local_to_scene = true
+shader = ExtResource("4_gyjtu")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_bsjep"]
 script = ExtResource("5_dfjv0")
@@ -39,11 +67,19 @@ metadata/_custom_type_script = "uid://bambbrd2wupx0"
 collision_layer = 16
 script = ExtResource("2_ksr7e")
 
-[node name="Image" type="Sprite2D" parent="." index="0"]
-texture = ExtResource("3_gghe0")
+[node name="EntityComponentManager" parent="." index="0"]
+entity_data = ExtResource("3_gyjtu")
+
+[node name="SubstanceComponentCanvasGroup" parent="EntityComponentManager" index="0"]
+material = SubResource("ShaderMaterial_kuxof")
+
+[node name="AccessoryOneEntityComponentCanvasGroup" parent="EntityComponentManager" index="1"]
+material = SubResource("ShaderMaterial_bsjep")
+
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" index="2"]
+material = SubResource("ShaderMaterial_j3nxb")
 
 [node name="VisualControl" parent="." index="1"]
-remote_path = NodePath("../Image")
 move_with_rotation = true
 
 [node name="CollisionShape2D" parent="." index="2"]
@@ -89,8 +125,8 @@ script = ExtResource("4_qcj8d")
 [node name="BolloonHurtState" type="Node" parent="EntityChart/ParallelState/ActionState/HurtState" index="2"]
 script = ExtResource("4_qcj8d")
 
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/CommonMoveState" to="." method="_lengthwise_input_handle" unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/CommonMoveState" to="." method="_lateral_input_handle" unbinds=1]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/ActionState/CommonMoveState" to="." method="_lengthwise_input_handle" unbinds=1]
 [connection signal="state_entered" from="EntityChart/ParallelState/ActionState/HurtState/CommonHurtState" to="." method="_on_common_hurt_state_state_entered"]
 [connection signal="state_exited" from="EntityChart/ParallelState/ActionState/HurtState/CommonHurtState" to="." method="_on_common_hurt_state_state_exited"]
 [connection signal="state_entered" from="EntityChart/ParallelState/ActionState/HurtState/BolloonHurtState" to="." method="_on_bolloon_hurt_state_state_entered"]

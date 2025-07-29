@@ -1,19 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://ci0rsdebt11t8"]
+[gd_scene load_steps=14 format=3 uid="uid://ci0rsdebt11t8"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://move_entity/move_entity.tscn" id="1_6lave"]
 [ext_resource type="Script" uid="uid://c1vr18amu2ega" path="res://move_entity/zoom/zoom.gd" id="2_2lb3e"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_5vt4w"]
-[ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://move_entity/component/entity_component_manager/entity_component_manager.tscn" id="3_55wmi"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_3bidv"]
-[ext_resource type="Resource" uid="uid://morvfvefddx" path="res://move_entity/entity_data/entity.tres" id="4_rxvuq"]
+[ext_resource type="Resource" uid="uid://morvfvefddx" path="res://move_entity/entity_data/zoom.tres" id="4_rxvuq"]
 [ext_resource type="Script" uid="uid://ckr8suf2xebuw" path="res://move_entity/func/body_check_area.gd" id="4_sf7wo"]
 [ext_resource type="Script" uid="uid://c8lx6uaj6ftau" path="res://move_entity/func/entity_path_finder.gd" id="5_21fq8"]
-[ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://move_entity/component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="5_231mg"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="6_fw1q2"]
-[ext_resource type="PackedScene" uid="uid://d27ql2svxqnsf" path="res://move_entity/component/entity_component.tscn" id="7_nj8qa"]
-[ext_resource type="Shader" uid="uid://df7yipxpkqaan" path="res://assets/shaders/ashes_disappear.gdshader" id="8_bn53m"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8arlc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuxof"]
 resource_local_to_scene = true
 shader = ExtResource("6_fw1q2")
 shader_parameter/hit_effect = 0.0
@@ -22,21 +18,7 @@ shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
 shader_parameter/base_modulate = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tsxjq"]
-resource_local_to_scene = true
-shader = ExtResource("8_bn53m")
-shader_parameter/use_replace_color = false
-shader_parameter/replace_color = Color(0, 0, 0, 1)
-shader_parameter/dissolve_amount = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4afi0"]
-resource_local_to_scene = true
-shader = ExtResource("8_bn53m")
-shader_parameter/use_replace_color = false
-shader_parameter/replace_color = Color(0, 0, 0, 1)
-shader_parameter/dissolve_amount = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a0rpq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_po288"]
 resource_local_to_scene = true
 shader = ExtResource("6_fw1q2")
 shader_parameter/hit_effect = 0.0
@@ -45,14 +27,7 @@ shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
 shader_parameter/base_modulate = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8olf"]
-resource_local_to_scene = true
-shader = ExtResource("8_bn53m")
-shader_parameter/use_replace_color = false
-shader_parameter/replace_color = Color(0, 0, 0, 1)
-shader_parameter/dissolve_amount = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3n37"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1iske"]
 resource_local_to_scene = true
 shader = ExtResource("6_fw1q2")
 shader_parameter/hit_effect = 0.0
@@ -61,63 +36,30 @@ shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
 shader_parameter/base_modulate = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2cj2"]
-resource_local_to_scene = true
-shader = ExtResource("8_bn53m")
-shader_parameter/use_replace_color = false
-shader_parameter/replace_color = Color(0, 0, 0, 1)
-shader_parameter/dissolve_amount = 0.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_sf7wo"]
+radius = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4jnt"]
 radius = 5.0
 height = 26.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sf7wo"]
-radius = 6.0
-
 [node name="Zoom" instance=ExtResource("1_6lave")]
 collision_layer = 32
 script = ExtResource("2_2lb3e")
 
-[node name="Visuals" type="Node2D" parent="." index="0"]
-
-[node name="EntityComponentManager" parent="Visuals" index="0" node_paths=PackedStringArray("substance_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component") instance=ExtResource("3_55wmi")]
-unique_name_in_owner = true
+[node name="EntityComponentManager" parent="." index="0"]
 entity_data = ExtResource("4_rxvuq")
-substance_canvas_group = NodePath("SubstanceComponentCanvasGroup")
-accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup2")
-accessory_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
-metadata/_edit_lock_ = true
 
-[node name="SubstanceComponentCanvasGroup" parent="Visuals/EntityComponentManager" index="0" instance=ExtResource("5_231mg")]
-material = SubResource("ShaderMaterial_8arlc")
+[node name="SubstanceComponentCanvasGroup" parent="EntityComponentManager" index="0"]
+material = SubResource("ShaderMaterial_kuxof")
 
-[node name="EntityComponent" parent="Visuals/EntityComponentManager/SubstanceComponentCanvasGroup" index="0" instance=ExtResource("7_nj8qa")]
-material = SubResource("ShaderMaterial_tsxjq")
+[node name="AccessoryOneEntityComponentCanvasGroup" parent="EntityComponentManager" index="1"]
+material = SubResource("ShaderMaterial_po288")
 
-[node name="EntityComponent2" parent="Visuals/EntityComponentManager/SubstanceComponentCanvasGroup" index="1" instance=ExtResource("7_nj8qa")]
-material = SubResource("ShaderMaterial_4afi0")
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" index="2"]
+material = SubResource("ShaderMaterial_1iske")
 
-[node name="AccessoryOneEntityComponentCanvasGroup2" parent="Visuals/EntityComponentManager" index="1" instance=ExtResource("5_231mg")]
-material = SubResource("ShaderMaterial_a0rpq")
-
-[node name="EntityComponent3" parent="Visuals/EntityComponentManager/AccessoryOneEntityComponentCanvasGroup2" index="0" instance=ExtResource("7_nj8qa")]
-material = SubResource("ShaderMaterial_y8olf")
-
-[node name="AccessoryTwoEntityComponentCanvasGroup" parent="Visuals/EntityComponentManager" index="2" instance=ExtResource("5_231mg")]
-material = SubResource("ShaderMaterial_a3n37")
-
-[node name="EntityComponent4" parent="Visuals/EntityComponentManager/AccessoryTwoEntityComponentCanvasGroup" index="0" instance=ExtResource("7_nj8qa")]
-material = SubResource("ShaderMaterial_n2cj2")
-
-[node name="VisualControl" parent="." index="1"]
-remote_path = NodePath("../Visuals")
-
-[node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_i4jnt")
-
-[node name="AttackCheckArea" type="Area2D" parent="." index="3"]
+[node name="AttackCheckArea" type="Area2D" parent="." index="2"]
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 16
@@ -127,6 +69,19 @@ script = ExtResource("4_sf7wo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCheckArea" index="0"]
 position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_sf7wo")
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_i4jnt")
+
+[node name="EntityPathFinder" type="Node" parent="." index="5" node_paths=PackedStringArray("entity")]
+script = ExtResource("5_21fq8")
+entity = NodePath("..")
+metadata/_custom_type_script = "uid://c8lx6uaj6ftau"
+
+[node name="AttackTimer" type="Timer" parent="." index="6"]
+process_callback = 0
+one_shot = true
 
 [node name="ActionState" parent="EntityChart/ParallelState" index="0"]
 initial_state = NodePath("ChaseState")
@@ -157,15 +112,6 @@ script = ExtResource("3_5vt4w")
 
 [node name="NoActionState" type="Node" parent="EntityChart/ParallelState/ActionState" index="5"]
 script = ExtResource("3_5vt4w")
-
-[node name="EntityPathFinder" type="Node" parent="." index="6" node_paths=PackedStringArray("entity")]
-script = ExtResource("5_21fq8")
-entity = NodePath("..")
-metadata/_custom_type_script = "uid://c8lx6uaj6ftau"
-
-[node name="AttackTimer" type="Timer" parent="." index="7"]
-process_callback = 0
-one_shot = true
 
 [connection signal="body_entered" from="AttackCheckArea" to="AttackCheckArea" method="_on_body_entered"]
 [connection signal="body_exited" from="AttackCheckArea" to="AttackCheckArea" method="_on_body_exited"]

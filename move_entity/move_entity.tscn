@@ -1,11 +1,14 @@
-[gd_scene load_steps=30 format=3 uid="uid://c2nh0s3s4s4oj"]
+[gd_scene load_steps=36 format=3 uid="uid://c2nh0s3s4s4oj"]
 
 [ext_resource type="Script" uid="uid://ltthsv3n1f0h" path="res://move_entity/move_entity.gd" id="1_weokr"]
 [ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://move_entity/func/visual_control.gd" id="2_weokr"]
+[ext_resource type="PackedScene" uid="uid://cyqig51uluybf" path="res://move_entity/component/entity_component_manager/entity_component_manager.tscn" id="3_qy6rj"]
 [ext_resource type="Script" uid="uid://dgrb2bhyq1enp" path="res://move_entity/func/char_move.gd" id="3_weokr"]
+[ext_resource type="PackedScene" uid="uid://bmo81lti2ie38" path="res://move_entity/component/entity_component_canvas_group/entity_component_canvas_group.tscn" id="4_0hu0o"]
 [ext_resource type="Resource" uid="uid://214skes3g7xs" path="res://data/move_data/char_move_data/zoom.tres" id="4_165ap"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_wd01o"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_165ap"]
+[ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="5_xcqln"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="6_165ap"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_i1bqo"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_7m2t0"]
@@ -13,6 +16,33 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_0hu0o"]
 [ext_resource type="Script" uid="uid://c6l0181f4ytps" path="res://addons/godot_state_charts/guard.gd" id="10_wd01o"]
 [ext_resource type="Script" uid="uid://bxprlw40wl0c3" path="res://addons/godot_state_charts/all_of_guard.gd" id="11_165ap"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuxof"]
+resource_local_to_scene = true
+shader = ExtResource("5_xcqln")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qy6rj"]
+resource_local_to_scene = true
+shader = ExtResource("5_xcqln")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0hu0o"]
+resource_local_to_scene = true
+shader = ExtResource("5_xcqln")
+shader_parameter/hit_effect = 0.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/base_modulate = Color(1, 1, 1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 5.0
@@ -97,7 +127,22 @@ metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 collision_layer = 0
 script = ExtResource("1_weokr")
 
+[node name="EntityComponentManager" parent="." node_paths=PackedStringArray("substance_canvas_group", "accessory_one_entity_component", "accessory_two_entity_component") instance=ExtResource("3_qy6rj")]
+substance_canvas_group = NodePath("SubstanceComponentCanvasGroup")
+accessory_one_entity_component = NodePath("AccessoryOneEntityComponentCanvasGroup")
+accessory_two_entity_component = NodePath("AccessoryTwoEntityComponentCanvasGroup")
+
+[node name="SubstanceComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("4_0hu0o")]
+material = SubResource("ShaderMaterial_kuxof")
+
+[node name="AccessoryOneEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("4_0hu0o")]
+material = SubResource("ShaderMaterial_qy6rj")
+
+[node name="AccessoryTwoEntityComponentCanvasGroup" parent="EntityComponentManager" instance=ExtResource("4_0hu0o")]
+material = SubResource("ShaderMaterial_0hu0o")
+
 [node name="VisualControl" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../EntityComponentManager")
 script = ExtResource("2_weokr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
