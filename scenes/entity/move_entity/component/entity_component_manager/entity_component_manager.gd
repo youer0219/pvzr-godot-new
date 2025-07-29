@@ -36,7 +36,8 @@ func apply_damage(damage_data:DamageData):
 	
 	var head_component := get_head_entity_component()
 	if head_component != null:
-		_component_damage_apply(damage_data,head_component)
+		if damage_data.damage > 0:
+			_component_damage_apply(damage_data,head_component)
 		if head_component.curr_hp <= 0:
 			_on_entity_dead(damage_data)
 		else:
@@ -48,6 +49,7 @@ func _component_damage_apply(damage_data:DamageData,component:EntityComponent):
 	var hp := component.curr_hp
 	component.curr_hp -= damage_data.damage
 	damage_data.damage -= hp
+	component._on_component_damaged(damage_data)
 	if component.curr_hp <= 0:
 		damage_data.context["dead_components"].append(component)
 	else:
@@ -104,7 +106,12 @@ func _on_entity_damaged(damage_data:DamageData):
 			return component.get_zoom_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_2
 	):
 		accessory_two_entity_component.blink()
-	else:
+	if damaged_components.any(
+		func(component:EntityComponent):
+			return component.get_zoom_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_1 \
+			or component.get_zoom_component_type() == EntityComponent.EntityComponentType.HEAD \
+			or component.get_zoom_component_type() == EntityComponent.EntityComponentType.BODY
+	):
 		accessory_one_entity_component.blink()
 		substance_canvas_group.blink()
 

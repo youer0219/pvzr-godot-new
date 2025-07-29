@@ -10,4 +10,5 @@ component_texture = ExtResource("1_xtb8g")
 component_type = 0
 component_dead_action = 0
 common_dead_action = 0
+is_offset_damage = false
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"

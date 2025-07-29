@@ -11,6 +11,7 @@ extends Resource
 @export_group("策略配置")
 @export var component_dead_action:ZoomComponentActions.ACTIONS
 @export var common_dead_action:ZoomComponentActions.ACTIONS
+@export var is_offset_damage:bool = false
 
 func _set_component_texture(value:Texture2D):
 	component_texture = value
