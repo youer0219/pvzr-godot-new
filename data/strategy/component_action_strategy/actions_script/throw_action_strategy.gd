@@ -5,7 +5,7 @@ extends ComponentActionStrategy
 @export var horizontal_force: float = 80.0
 @export var vertical_force: float = -400.0
 
-func execute(entity: ZoomComponent, damage_data: DamageData) -> void:
+func execute(entity: EntityComponent, damage_data: DamageData) -> void:
 	entity.leave_out()
 	entity.phy_enable = true
 	

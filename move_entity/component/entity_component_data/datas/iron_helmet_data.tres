@@ -1,13 +1,11 @@
 [gd_resource type="Resource" script_class="ZoomComponentData" load_steps=3 format=3 uid="uid://c66sonuyp0ois"]
 
 [ext_resource type="Texture2D" uid="uid://bwljxukxmrgjh" path="res://assets/sprites/entity_component/helmet/铁桶.png" id="3_fflej"]
-[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="4_x4nig"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/component/entity_component_data/entity_component_data.gd" id="4_x4nig"]
 
 [resource]
 script = ExtResource("4_x4nig")
 init_hp = 15.0
-has_hp = true
-is_main_body = false
 component_texture = ExtResource("3_fflej")
 component_type = 2
 component_dead_action = 1

@@ -1,13 +1,11 @@
 [gd_resource type="Resource" script_class="ZoomComponentData" load_steps=3 format=3 uid="uid://cbutpl66hig36"]
 
 [ext_resource type="Texture2D" uid="uid://bm2ndprb17spi" path="res://assets/sprites/entity_component/accessory_two/梯子.png" id="3_3niix"]
-[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="3_sfxfw"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/component/entity_component_data/entity_component_data.gd" id="3_sfxfw"]
 
 [resource]
 script = ExtResource("3_sfxfw")
 init_hp = 25.0
-has_hp = true
-is_main_body = false
 component_texture = ExtResource("3_3niix")
 component_type = 3
 component_dead_action = 1

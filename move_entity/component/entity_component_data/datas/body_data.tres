@@ -1,13 +1,11 @@
 [gd_resource type="Resource" script_class="ZoomComponentData" load_steps=3 format=3 uid="uid://0rpccje6nkxa"]
 
 [ext_resource type="Texture2D" uid="uid://dj62840mugrtp" path="res://assets/sprites/entity_component/body/梯子僵尸-身.png" id="3_vxepc"]
-[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/zoom/zoom_component/zoom_component_data/zoom_component_data.gd" id="4_56x6u"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://move_entity/component/entity_component_data/entity_component_data.gd" id="4_56x6u"]
 
 [resource]
 script = ExtResource("4_56x6u")
 init_hp = 5.0
-has_hp = false
-is_main_body = false
 component_texture = ExtResource("3_vxepc")
 component_type = 1
 component_dead_action = 0

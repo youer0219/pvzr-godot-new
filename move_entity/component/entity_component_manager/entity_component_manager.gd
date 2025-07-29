@@ -1,5 +1,5 @@
 extends Node2D
-class_name ZoomComponentManager
+class_name EntityComponentManager
 
 signal entity_dead(damage_data:DamageData)
 
@@ -7,9 +7,9 @@ const ENTITY_COMPONENT = preload("uid://d27ql2svxqnsf")
 
 @export var entity_data:EntityData:set = _set_entity_data
 
-@export var substance_canvas_group:ZoomComponentCanvasGroup
-@export var accessory_one_entity_component:ZoomComponentCanvasGroup
-@export var accessory_two_entity_component:ZoomComponentCanvasGroup
+@export var substance_canvas_group:EntityComponentCanvasGroup
+@export var accessory_one_entity_component:EntityComponentCanvasGroup
+@export var accessory_two_entity_component:EntityComponentCanvasGroup
 
 var last_global_position:Vector2
 
@@ -46,7 +46,7 @@ func apply_damage(damage_data:DamageData):
 	else:
 		_on_entity_dead(damage_data)
 
-func _component_damage_apply(damage_data:DamageData,component:ZoomComponent):
+func _component_damage_apply(damage_data:DamageData,component:EntityComponent):
 	var hp := component.curr_hp
 	component.curr_hp -= damage_data.damage
 	damage_data.damage -= hp
@@ -55,22 +55,22 @@ func _component_damage_apply(damage_data:DamageData,component:ZoomComponent):
 	else:
 		damage_data.context["damaged_components"].append(component)
 
-func add_entity_components(zoom_component_datas:Array[ZoomComponentData]):
-	for zoom_component_data:ZoomComponentData in zoom_component_datas:
+func add_entity_components(zoom_component_datas:Array[EntityComponentData]):
+	for zoom_component_data:EntityComponentData in zoom_component_datas:
 		add_entity_component(zoom_component_data)
 
-func add_entity_component(zoom_component_data:ZoomComponentData):
-	var new_zoom_component = ENTITY_COMPONENT.instantiate() as ZoomComponent
+func add_entity_component(zoom_component_data:EntityComponentData):
+	var new_zoom_component = ENTITY_COMPONENT.instantiate() as EntityComponent
 	new_zoom_component.zoom_component_data = zoom_component_data
 	
 	match zoom_component_data.component_type:
-		ZoomComponent.EntityComponentType.HEAD:
+		EntityComponent.EntityComponentType.HEAD:
 			substance_canvas_group.add_child(new_zoom_component)
-		ZoomComponent.EntityComponentType.BODY:
+		EntityComponent.EntityComponentType.BODY:
 			substance_canvas_group.add_child(new_zoom_component)
-		ZoomComponent.EntityComponentType.ACCESSORY_TIER_1:
+		EntityComponent.EntityComponentType.ACCESSORY_TIER_1:
 			accessory_one_entity_component.add_child(new_zoom_component)
-		ZoomComponent.EntityComponentType.ACCESSORY_TIER_2:
+		EntityComponent.EntityComponentType.ACCESSORY_TIER_2:
 			accessory_two_entity_component.add_child(new_zoom_component)
 	
 	new_zoom_component._on_add_zoom_component(self,new_zoom_component)
@@ -107,13 +107,13 @@ func _on_entity_dead(damage_data:DamageData):
 func _on_entity_damaged(damage_data:DamageData):
 	## 二类  一类和本体
 	var dead_components = damage_data.context["dead_components"]
-	for component:ZoomComponent in dead_components:
+	for component:EntityComponent in dead_components:
 		component._on_component_dead(damage_data)
 	
 	var damaged_components = damage_data.context["damaged_components"] as Array
 	if damaged_components.any(
-		func(component:ZoomComponent):
-			return component.get_zoom_component_type() == ZoomComponent.EntityComponentType.ACCESSORY_TIER_2
+		func(component:EntityComponent):
+			return component.get_zoom_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_2
 	):
 		accessory_two_entity_component.blink()
 	else:
@@ -124,25 +124,25 @@ func _on_entity_damaged(damage_data:DamageData):
 
 #region 获取某类/所有组件的方法
 
-func get_head_entity_component()->ZoomComponent:
+func get_head_entity_component()->EntityComponent:
 	for component in get_substance_entity_components():
-		if component.get_zoom_component_type() == ZoomComponent.EntityComponentType.HEAD:
+		if component.get_zoom_component_type() == EntityComponent.EntityComponentType.HEAD:
 			return component
 	return null
 
-func get_substance_entity_components()->Array[ZoomComponent]:
+func get_substance_entity_components()->Array[EntityComponent]:
 	return substance_canvas_group.get_entity_components()
 
-func get_accessory_one_entity_components()->Array[ZoomComponent]:
+func get_accessory_one_entity_components()->Array[EntityComponent]:
 	return accessory_one_entity_component.get_entity_components()
 
-func get_accessory_two_entity_components()->Array[ZoomComponent]:
+func get_accessory_two_entity_components()->Array[EntityComponent]:
 	return accessory_two_entity_component.get_entity_components()
 
-func get_accessory_entity_components()->Array[ZoomComponent]:
+func get_accessory_entity_components()->Array[EntityComponent]:
 	return get_accessory_one_entity_components() + get_accessory_two_entity_components()
 
-func get_all_components()->Array[ZoomComponent]:
+func get_all_components()->Array[EntityComponent]:
 	return get_substance_entity_components() + get_accessory_one_entity_components() + get_accessory_two_entity_components()
 
 #endregion

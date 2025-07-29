@@ -2,7 +2,7 @@ extends MoveEntity
 class_name Zoom
 
 ## TODO:目前是设定Dave、Zoom层，未来可能改为XXX-hurt层等
-@onready var zoom_component_manager: ZoomComponentManager = %ZoomComponentManager
+@onready var zoom_component_manager: EntityComponentManager = %EntityComponentManager
 @onready var entity_path_finder: EntityPathFinder = $EntityPathFinder
 @onready var attack_timer: Timer = $AttackTimer
 ## 碰撞体积应该位于地面左右，可以检测移动实体（倒地和站立）和植物
