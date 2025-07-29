@@ -9,7 +9,7 @@ const ENTITY_COMPONENT = preload("uid://d27ql2svxqnsf")
 @export var accessory_one_entity_component:EntityComponentCanvasGroup
 @export var accessory_two_entity_component:EntityComponentCanvasGroup
 
-var last_global_position:Vector2
+@onready var last_global_position:Vector2 = self.global_position
 
 func _physics_process(_delta: float) -> void:
 	accessory_one_entity_component.global_position = last_global_position
