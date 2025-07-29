@@ -12,20 +12,20 @@ enum EntityComponentType {
 @onready var image: Sprite2D = $Image
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 
-@export var zoom_component_data: EntityComponentData:set = _set_zoom_component_data
+@export var entity_component_data: EntityComponentData:set = _set_entity_component_data
 
 var is_in_body := true
 var curr_hp: float = 0.0
 var phy_enable: bool = false:set = _set_phy_enable
 
-func _set_zoom_component_data(value: EntityComponentData) -> void:
-	zoom_component_data = value
+func _set_entity_component_data(value: EntityComponentData) -> void:
+	entity_component_data = value
 	
 	if not is_node_ready():
 		await ready
 	
-	image.texture = zoom_component_data.component_texture
-	curr_hp = zoom_component_data.init_hp ## 只在初始化时set一次，所以是安全的
+	image.texture = entity_component_data.component_texture
+	curr_hp = entity_component_data.init_hp ## 只在初始化时set一次，所以是安全的
 
 func _set_phy_enable(value: bool) -> void:
 	phy_enable = value
@@ -33,21 +33,21 @@ func _set_phy_enable(value: bool) -> void:
 	freeze = not phy_enable
 	collision_shape.set_deferred("disabled", not phy_enable)
 
-func get_zoom_component_type()->EntityComponentType:
-	return zoom_component_data.component_type
+func get_entity_component_type()->EntityComponentType:
+	return entity_component_data.component_type
 
 ## 添加组件时效果
 ## 未来和buff系统联动，处理额外的组件逻辑.TODO:完善组件信号系统以备组件buff实现
-func _on_add_zoom_component(_manager:EntityComponentManager,_component:EntityComponent):
+func _on_add_entity_component(_manager:EntityComponentManager,_component:EntityComponent):
 	pass
 
 func _on_component_damaged(damage_data:DamageData):
-	if zoom_component_data.is_offset_damage:
+	if entity_component_data.is_offset_damage:
 		damage_data.damage = 0
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData):
-	zoom_component_data.apply_component_action(damage_data,self,zoom_component_data.common_dead_action)
+	entity_component_data.apply_component_action(damage_data,self,entity_component_data.common_dead_action)
 
-func _on_zoom_common_dead(damage_data:DamageData):
-	zoom_component_data.apply_component_action(damage_data,self,zoom_component_data.component_dead_action)
+func _on_entity_common_dead(damage_data:DamageData):
+	entity_component_data.apply_component_action(damage_data,self,entity_component_data.component_dead_action)

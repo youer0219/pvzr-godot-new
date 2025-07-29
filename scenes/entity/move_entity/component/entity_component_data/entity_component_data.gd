@@ -19,7 +19,7 @@ func _set_component_texture(value:Texture2D):
 	emit_changed()
 
 ## 添加组件时效果
-func _on_add_zoom_component(_manager:EntityComponentManager,_component:EntityComponent):
+func _on_add_entity_component(_manager:EntityComponentManager,_component:EntityComponent):
 	pass
 
 func apply_component_action(damage_data:DamageData,component:EntityComponent,action:ZoomComponentActions.ACTIONS):

@@ -55,25 +55,25 @@ func _component_damage_apply(damage_data:DamageData,component:EntityComponent):
 	else:
 		damage_data.context["damaged_components"].append(component)
 
-func add_entity_components(zoom_component_datas:Array[EntityComponentData]):
-	for zoom_component_data:EntityComponentData in zoom_component_datas:
-		add_entity_component(zoom_component_data)
+func add_entity_components(entity_component_datas:Array[EntityComponentData]):
+	for entity_component_data:EntityComponentData in entity_component_datas:
+		add_entity_component(entity_component_data)
 
-func add_entity_component(zoom_component_data:EntityComponentData):
-	var new_zoom_component = ENTITY_COMPONENT.instantiate() as EntityComponent
-	new_zoom_component.zoom_component_data = zoom_component_data
+func add_entity_component(entity_component_data:EntityComponentData):
+	var new_entity_component = ENTITY_COMPONENT.instantiate() as EntityComponent
+	new_entity_component.entity_component_data = entity_component_data
 	
-	match zoom_component_data.component_type:
+	match entity_component_data.component_type:
 		EntityComponent.EntityComponentType.HEAD:
-			substance_canvas_group.add_child(new_zoom_component)
+			substance_canvas_group.add_child(new_entity_component)
 		EntityComponent.EntityComponentType.BODY:
-			substance_canvas_group.add_child(new_zoom_component)
+			substance_canvas_group.add_child(new_entity_component)
 		EntityComponent.EntityComponentType.ACCESSORY_TIER_1:
-			accessory_one_entity_component.add_child(new_zoom_component)
+			accessory_one_entity_component.add_child(new_entity_component)
 		EntityComponent.EntityComponentType.ACCESSORY_TIER_2:
-			accessory_two_entity_component.add_child(new_zoom_component)
+			accessory_two_entity_component.add_child(new_entity_component)
 	
-	new_zoom_component._on_add_zoom_component(self,new_zoom_component)
+	new_entity_component._on_add_entity_component(self,new_entity_component)
 
 func clear_entity_components():
 	substance_canvas_group.clear_entity_components()
@@ -90,7 +90,7 @@ func _on_entity_dead(damage_data:DamageData):
 	
 	## TODO:目前是调用所有的组件的eead回调，但这是否必要需要研究
 	for component in get_all_components():
-		component._on_zoom_common_dead(damage_data)
+		component._on_entity_common_dead(damage_data)
 	
 	entity_dead.emit(damage_data)
 
@@ -103,14 +103,14 @@ func _on_entity_damaged(damage_data:DamageData):
 	var damaged_components = damage_data.context["damaged_components"] as Array
 	if damaged_components.any(
 		func(component:EntityComponent):
-			return component.get_zoom_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_2
+			return component.get_entity_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_2
 	):
 		accessory_two_entity_component.blink()
 	if damaged_components.any(
 		func(component:EntityComponent):
-			return component.get_zoom_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_1 \
-			or component.get_zoom_component_type() == EntityComponent.EntityComponentType.HEAD \
-			or component.get_zoom_component_type() == EntityComponent.EntityComponentType.BODY
+			return component.get_entity_component_type() == EntityComponent.EntityComponentType.ACCESSORY_TIER_1 \
+			or component.get_entity_component_type() == EntityComponent.EntityComponentType.HEAD \
+			or component.get_entity_component_type() == EntityComponent.EntityComponentType.BODY
 	):
 		accessory_one_entity_component.blink()
 		substance_canvas_group.blink()
@@ -121,7 +121,7 @@ func _on_entity_damaged(damage_data:DamageData):
 
 func get_head_entity_component()->EntityComponent:
 	for component in get_substance_entity_components():
-		if component.get_zoom_component_type() == EntityComponent.EntityComponentType.HEAD:
+		if component.get_entity_component_type() == EntityComponent.EntityComponentType.HEAD:
 			return component
 	return null
 
