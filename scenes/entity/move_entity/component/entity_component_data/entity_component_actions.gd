@@ -9,7 +9,7 @@ static func throw_component(damage_data:DamageData,component:EntityComponent,for
 	component.phy_enable = true
 	
 	var direction = damage_data.get_throw_direction()
-	component.apply_impulse(Vector2(direction * force.x, force.y))
+	component.apply_impulse(Vector2(direction * force.x * randf_range(0.9,1.3), force.y * randf_range(0.8,1.5)) )
 	
 	var tween = component.create_tween()
 	tween.tween_interval(3.0)

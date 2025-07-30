@@ -75,17 +75,20 @@ func add_entity_component(entity_component_data:EntityComponentData):
 			accessory_two_entity_component.add_child(new_entity_component)
 	
 	## add component buff
-	var buffs:Array[GD_Buff] = []
-	for buff in entity_component_data.component_buffs:
-		buffs.append(buff)
-		buff.init_buff_blackboard[ComponentBuff.COMPONENT] = new_entity_component
-	if not buffs.is_empty():
-		add_component_buffs.emit(buffs)
+	_add_buffs(entity_component_data.component_buffs,new_entity_component)
+	
+	new_entity_component.component_buffs_apply.connect(_add_buffs.bind(new_entity_component))
 
 func clear_entity_components():
 	substance_canvas_group.clear_entity_components()
 	accessory_one_entity_component.clear_entity_components()
 	accessory_two_entity_component.clear_entity_components()
+
+func _add_buffs(buffs:Array[GD_Buff],component:EntityComponent):
+	for buff in buffs:
+		buff.init_buff_blackboard["component"] = component
+	if not buffs.is_empty():
+		add_component_buffs.emit(buffs)
 
 #region 事件信号处理
 ## 处理实体组件死亡信号的方法

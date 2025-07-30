@@ -4,6 +4,7 @@ extends RigidBody2D
 
 signal component_dead(component:EntityComponent,damage_data:DamageData)
 signal component_damaged(component:EntityComponent,damage_data:DamageData)
+signal component_buffs_apply(buffs:Array[GD_Buff])
 
 enum EntityComponentType {
 	HEAD,             ## 头
@@ -46,7 +47,16 @@ func _on_component_damaged(damage_data:DamageData):
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData):
+	_apply_buffs(entity_component_data.component_dead_buffs,damage_data)
 	component_dead.emit(self,damage_data)
 
 func _on_entity_common_dead(damage_data:DamageData):
-	entity_component_data.apply_component_action(damage_data,self,entity_component_data.component_dead_action)
+	_apply_buffs(entity_component_data.common_dead_buffs,damage_data)
+
+func _apply_buffs(buffs:Array[GD_Buff],damage_data:DamageData):
+	buffs.all(
+		func(buff:GD_Buff):
+			buff.init_buff_blackboard["damage_data"] = damage_data
+			return true
+			)
+	component_buffs_apply.emit(buffs as Array[GD_Buff])
