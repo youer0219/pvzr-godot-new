@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ThrowComponentBuff" load_steps=2 format=3 uid="uid://b1je3lwm3dp2h"]
+
+[ext_resource type="Script" uid="uid://d1odj5l5fiif5" path="res://scenes/gd_buff_system/buffs/component_buff/component_buffs/throw_component_buff.gd" id="1_kv6ts"]
+
+[resource]
+script = ExtResource("1_kv6ts")
+throw_force = Vector2(80, -200)
+signal_names = Array[String](["component_dead", "component_damaged"])
+buff_name = &"throw_component_buff"
+override_buff_name = &""
+init_buff_blackboard = {}
+default_duration = 0.0
+is_default_duration_inf = false
+default_priority = 0
+default_interval_time = 0.0
+default_interval_num = 0
+is_interval_num_inf = false
+stack_type = 0
+is_disable_override = false
+max_layers = 1
+is_layers_exhausted = false
+metadata/_custom_type_script = "uid://d1odj5l5fiif5"

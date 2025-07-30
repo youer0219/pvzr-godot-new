@@ -69,6 +69,9 @@ func add_buff(buff: GD_Buff) -> bool:
 	
 	return true
 
+func add_buffs(buffs:Array[GD_Buff])->bool:
+	return buffs.all(add_buff)
+
 func remove_buff(buff: GD_Buff) -> bool:
 	var runtime_buff:GD_RuntimeBuff = get_runtime_buff(buff)
 	return remove_runtime_buff(runtime_buff)

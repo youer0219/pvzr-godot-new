@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=3 format=3 uid="uid://iugy0i6k05hf"]
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=4 format=3 uid="uid://iugy0i6k05hf"]
 
+[ext_resource type="Script" uid="uid://o65d4vg1hy6g" path="res://scenes/gd_buff_system/buffs/component_buff/component_buff.gd" id="1_d5mgh"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="1_vpwet"]
 [ext_resource type="Texture2D" uid="uid://cuy0epwk4i14k" path="res://assets/sprites/entity/dave/CrazyDave.png" id="1_xtb8g"]
 
@@ -8,6 +9,7 @@ script = ExtResource("1_vpwet")
 init_hp = 20.0
 component_texture = ExtResource("1_xtb8g")
 component_type = 0
+component_buffs = Array[ExtResource("1_d5mgh")]([])
 component_dead_action = 0
 common_dead_action = 0
 is_offset_damage = false

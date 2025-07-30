@@ -7,6 +7,7 @@ class_name MoveEntity
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var in_ground_check_shape: CollisionShape2D = %InGroundCheckShape
 @onready var entity_component_manager: EntityComponentManager = $EntityComponentManager
+@onready var gd_buff_container: GD_BuffContainer = $GD_BuffContainer
 
 @onready var grounded: AtomicState = %Grounded
 @onready var airborne: AtomicState = %Airborne
@@ -27,6 +28,7 @@ var lateral_move_direction:int = 0 ## 0表示不动
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 	in_ground_check_shape.shape = collision_shape_2d.shape
+	entity_component_manager.add_component_buffs.connect(gd_buff_container.add_buffs)
 
 func _set_entity_data(data:EntityData)->void:
 	entity_data = data

@@ -1,13 +1,35 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=3 format=3 uid="uid://cbutpl66hig36"]
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=6 format=3 uid="uid://cbutpl66hig36"]
 
+[ext_resource type="Script" uid="uid://o65d4vg1hy6g" path="res://scenes/gd_buff_system/buffs/component_buff/component_buff.gd" id="1_tvj2c"]
+[ext_resource type="Script" uid="uid://d1odj5l5fiif5" path="res://scenes/gd_buff_system/buffs/component_buff/component_buffs/throw_component_buff.gd" id="2_j1l2o"]
 [ext_resource type="Texture2D" uid="uid://bm2ndprb17spi" path="res://assets/sprites/entity_component/accessory_two/梯子.png" id="3_3niix"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="3_sfxfw"]
+
+[sub_resource type="Resource" id="Resource_r1pt7"]
+script = ExtResource("2_j1l2o")
+throw_force = Vector2(100, -200)
+signal_names = Array[String](["component_damaged"])
+buff_name = &"throw_component_buff"
+override_buff_name = &""
+init_buff_blackboard = {}
+default_duration = 0.0
+is_default_duration_inf = false
+default_priority = 0
+default_interval_time = 0.0
+default_interval_num = 0
+is_interval_num_inf = false
+stack_type = 0
+is_disable_override = false
+max_layers = 1
+is_layers_exhausted = false
+metadata/_custom_type_script = "uid://d1odj5l5fiif5"
 
 [resource]
 script = ExtResource("3_sfxfw")
 init_hp = 25.0
 component_texture = ExtResource("3_3niix")
 component_type = 3
+component_buffs = Array[ExtResource("1_tvj2c")]([SubResource("Resource_r1pt7")])
 component_dead_action = 1
 common_dead_action = 1
 throw_force = Vector2(100, -200)

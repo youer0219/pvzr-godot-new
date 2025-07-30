@@ -9,7 +9,7 @@ extends Resource
 @export var component_type: EntityComponent.EntityComponentType = EntityComponent.EntityComponentType.BODY
 
 @export_group("策略配置")
-@export var component_dead_action:ZoomComponentActions.ACTIONS
+@export var component_buffs:Array[ComponentBuff]
 @export var common_dead_action:ZoomComponentActions.ACTIONS
 @export var throw_force:Vector2 = Vector2(80,-200)
 @export var is_offset_damage:bool = false
@@ -17,10 +17,6 @@ extends Resource
 func _set_component_texture(value:Texture2D):
 	component_texture = value
 	emit_changed()
-
-## 添加组件时效果
-func _on_add_entity_component(_manager:EntityComponentManager,_component:EntityComponent):
-	pass
 
 func apply_component_action(damage_data:DamageData,component:EntityComponent,action:ZoomComponentActions.ACTIONS):
 	match action:

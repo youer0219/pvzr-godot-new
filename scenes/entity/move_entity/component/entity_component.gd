@@ -2,6 +2,9 @@
 class_name EntityComponent
 extends RigidBody2D
 
+signal component_dead(component:EntityComponent,damage_data:DamageData)
+signal component_damaged(component:EntityComponent,damage_data:DamageData)
+
 enum EntityComponentType {
 	HEAD,             ## 头
 	BODY,             ## 身体
@@ -36,18 +39,14 @@ func _set_phy_enable(value: bool) -> void:
 func get_entity_component_type()->EntityComponentType:
 	return entity_component_data.component_type
 
-## 添加组件时效果
-## 未来和buff系统联动，处理额外的组件逻辑.TODO:完善组件信号系统以备组件buff实现
-func _on_add_entity_component(_manager:EntityComponentManager,_component:EntityComponent):
-	pass
-
 func _on_component_damaged(damage_data:DamageData):
 	if entity_component_data.is_offset_damage:
 		damage_data.damage = 0
+	component_damaged.emit(self,damage_data)
 
 ## 单独组件死亡结果
 func _on_component_dead(damage_data:DamageData):
-	entity_component_data.apply_component_action(damage_data,self,entity_component_data.common_dead_action)
+	component_dead.emit(self,damage_data)
 
 func _on_entity_common_dead(damage_data:DamageData):
 	entity_component_data.apply_component_action(damage_data,self,entity_component_data.component_dead_action)

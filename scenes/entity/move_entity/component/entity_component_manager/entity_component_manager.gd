@@ -2,6 +2,7 @@ extends Node2D
 class_name EntityComponentManager
 
 signal entity_dead(damage_data:DamageData)
+signal add_component_buffs(buffs:Array[GD_Buff])
 
 const ENTITY_COMPONENT = preload("uid://d27ql2svxqnsf")
 
@@ -73,7 +74,13 @@ func add_entity_component(entity_component_data:EntityComponentData):
 		EntityComponent.EntityComponentType.ACCESSORY_TIER_2:
 			accessory_two_entity_component.add_child(new_entity_component)
 	
-	new_entity_component._on_add_entity_component(self,new_entity_component)
+	## add component buff
+	var buffs:Array[GD_Buff] = []
+	for buff in entity_component_data.component_buffs:
+		buffs.append(buff)
+		buff.init_buff_blackboard[ComponentBuff.COMPONENT] = new_entity_component
+	if not buffs.is_empty():
+		add_component_buffs.emit(buffs)
 
 func clear_entity_components():
 	substance_canvas_group.clear_entity_components()

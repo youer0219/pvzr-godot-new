@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://c2nh0s3s4s4oj"]
+[gd_scene load_steps=37 format=3 uid="uid://c2nh0s3s4s4oj"]
 
 [ext_resource type="Script" uid="uid://ltthsv3n1f0h" path="res://scenes/entity/move_entity/move_entity.gd" id="1_weokr"]
 [ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://scenes/entity/move_entity/func/visual_control.gd" id="2_weokr"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_0hu0o"]
 [ext_resource type="Script" uid="uid://c6l0181f4ytps" path="res://addons/godot_state_charts/guard.gd" id="10_wd01o"]
 [ext_resource type="Script" uid="uid://bxprlw40wl0c3" path="res://addons/godot_state_charts/all_of_guard.gd" id="11_165ap"]
+[ext_resource type="Script" uid="uid://b5u05aqkppeac" path="res://scenes/gd_buff_system/gd_buff_container.gd" id="17_lm42o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kuxof"]
 resource_local_to_scene = true
@@ -321,17 +322,21 @@ to = NodePath("../../StandState")
 event = &"stand"
 delay_in_seconds = "0.0"
 
+[node name="GD_BuffContainer" type="Node" parent="."]
+script = ExtResource("17_lm42o")
+metadata/_custom_type_script = "uid://b5u05aqkppeac"
+
 [connection signal="body_entered" from="CollisionShape2D/InGroundCheckArea" to="." method="_on_in_ground_check_area_body_entered"]
 [connection signal="body_exited" from="CollisionShape2D/InGroundCheckArea" to="." method="_on_in_ground_check_area_body_exited"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="_on_common_state_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState" to="." method="move_and_slide" flags=3 unbinds=1]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Grounded" to="." method="_on_move_up"]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_move_up"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_airborne_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_move_up"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Underwater" to="." method="_on_float_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/BalloonState" to="." method="_on_balloon_state_state_entered"]
