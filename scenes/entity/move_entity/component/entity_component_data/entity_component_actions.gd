@@ -1,5 +1,5 @@
 extends RefCounted
-class_name ZoomComponentActions
+class_name EntityComponentActions
 
 enum ACTIONS {NO_ACTION,THROW}
 

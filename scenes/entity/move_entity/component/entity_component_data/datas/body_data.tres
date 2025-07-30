@@ -12,6 +12,5 @@ component_type = 1
 component_buffs = Array[ExtResource("1_4mthe")]([])
 component_dead_buffs = Array[ExtResource("1_4mthe")]([])
 common_dead_buffs = Array[ExtResource("1_4mthe")]([])
-common_dead_action = 0
 is_offset_damage = false
 metadata/_custom_type_script = "uid://3o6cf4yej0ey"
