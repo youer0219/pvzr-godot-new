@@ -11,15 +11,17 @@ const IS_FIRST_ACTIVE := "is_first_active"
 
 func _on_buff_start(container: GD_BuffContainer, runtime_buff: GD_RuntimeBuff) -> void:
 	var zoom := container.get_parent() as Zoom
-	runtime_buff.blackboard[IS_FIRST_ACTIVE] = 0
+	runtime_buff.blackboard[IS_FIRST_ACTIVE] = false
 	zoom.entity_dead.connect(_on_common_dead.bind(zoom,runtime_buff),ConnectFlags.CONNECT_ONE_SHOT)
 
 func _on_common_dead(damage_data:DamageData,zoom:Zoom,runtime_buff:GD_RuntimeBuff):
-	runtime_buff.blackboard[IS_FIRST_ACTIVE] += 1
-	if runtime_buff.blackboard[IS_FIRST_ACTIVE] == 1:
+	runtime_buff.blackboard[IS_FIRST_ACTIVE] = true
+	if runtime_buff.blackboard[IS_FIRST_ACTIVE]:
 		zoom.entity_chart.send_event("lay")
-	## TODO：进入死亡状态
-	## TODO:lay状态可能独立于死亡状态
+		zoom.entity_chart.send_event("dead")
+		zoom.collision_shape_2d.position.y -= 8
 	var direction := damage_data.get_throw_direction()
 	var velocity := Vector2(20,10)
 	zoom.last_frame_init_velocity_add += velocity * Vector2(direction,1)
+
+## TODO:一定时间后销毁zoom

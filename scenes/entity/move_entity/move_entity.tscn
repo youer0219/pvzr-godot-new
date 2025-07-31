@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://c2nh0s3s4s4oj"]
+[gd_scene load_steps=39 format=3 uid="uid://c2nh0s3s4s4oj"]
 
 [ext_resource type="Script" uid="uid://ltthsv3n1f0h" path="res://scenes/entity/move_entity/move_entity.gd" id="1_weokr"]
 [ext_resource type="Script" uid="uid://be5ufao8bmrwp" path="res://scenes/entity/move_entity/func/visual_control.gd" id="2_weokr"]
@@ -48,6 +48,16 @@ shader_parameter/base_modulate = Color(1, 1, 1, 1)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4is1f"]
 radius = 5.0
 height = 26.0
+
+[sub_resource type="Resource" id="Resource_lm42o"]
+script = ExtResource("7_7m2t0")
+state = NodePath("../DeadState")
+metadata/_custom_type_script = "uid://bambbrd2wupx0"
+
+[sub_resource type="Resource" id="Resource_nmy18"]
+script = ExtResource("8_qy6rj")
+guard = SubResource("Resource_lm42o")
+metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [sub_resource type="Resource" id="Resource_weokr"]
 script = ExtResource("7_7m2t0")
@@ -197,6 +207,17 @@ metadata/_custom_type_script = "uid://c1vp0ojjvaby1"
 
 [node name="ActionState" type="Node" parent="EntityChart/ParallelState"]
 script = ExtResource("5_165ap")
+initial_state = NodePath("DeadState")
+
+[node name="On Dead" type="Node" parent="EntityChart/ParallelState/ActionState"]
+script = ExtResource("6_i1bqo")
+to = NodePath("../DeadState")
+event = &"dead"
+guard = SubResource("Resource_nmy18")
+delay_in_seconds = "0.0"
+
+[node name="DeadState" type="Node" parent="EntityChart/ParallelState/ActionState"]
+script = ExtResource("9_0hu0o")
 
 [node name="MoveState" type="Node" parent="EntityChart/ParallelState"]
 script = ExtResource("5_165ap")
@@ -335,8 +356,8 @@ metadata/_custom_type_script = "uid://b5u05aqkppeac"
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Airborne" to="." method="_on_move_up"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_entered"]
 [connection signal="state_exited" from="EntityChart/ParallelState/MoveState/CommonState/Immerse" to="." method="_on_immerse_state_exited"]
-[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_water_surface_state_physics_processing"]
+[connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Water Surface" to="." method="_on_move_up"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Underwater" to="." method="_on_float_state_entered"]
 [connection signal="state_physics_processing" from="EntityChart/ParallelState/MoveState/CommonState/Immerse/Underwater" to="." method="_on_underwater_state_physics_processing"]
 [connection signal="state_entered" from="EntityChart/ParallelState/MoveState/BalloonState" to="." method="_on_balloon_state_state_entered"]
