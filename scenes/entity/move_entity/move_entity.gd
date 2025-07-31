@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name MoveEntity
 
+signal entity_dead(damage_data:DamageData)
+
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart
 @onready var visual_control: VisualControl = $VisualControl
@@ -20,6 +22,7 @@ class_name MoveEntity
 @export var entity_data:EntityData:set = _set_entity_data
 
 var entity_dir:int:get = get_entity_dir,set = set_entity_dir
+var last_frame_init_velocity_add:Vector2 = Vector2.ZERO
 
 var is_just_move_up:bool = false
 var is_move_up:bool = false
@@ -29,6 +32,11 @@ func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 	in_ground_check_shape.shape = collision_shape_2d.shape
 	entity_component_manager.add_component_buffs.connect(gd_buff_container.add_buffs)
+	entity_component_manager.entity_dead.connect(_on_entity_dead)
+
+func _physics_process(_delta: float) -> void:
+	velocity += last_frame_init_velocity_add
+	last_frame_init_velocity_add = Vector2.ZERO
 
 func _set_entity_data(data:EntityData)->void:
 	entity_data = data
@@ -36,6 +44,9 @@ func _set_entity_data(data:EntityData)->void:
 		await ready
 	entity_component_manager.clear_entity_components()
 	entity_component_manager.add_entity_components(entity_data.entity_component_datas)
+
+func _on_entity_dead(damage_data:DamageData):
+	entity_dead.emit(damage_data)
 
 func _on_common_state_state_physics_processing(delta: float) -> void:
 	if not is_on_floor():

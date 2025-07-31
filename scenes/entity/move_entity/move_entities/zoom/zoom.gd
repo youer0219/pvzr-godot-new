@@ -44,7 +44,7 @@ func _on_chase_state_state_physics_processing(delta: float) -> void:
 		else:
 			lateral_move_direction = last_lateral_move_direction
 		
-		## 纵向移动 
+		## 纵向移动 TODO:僵尸没那么喜欢跳跃
 		if curr_path[1].y - global_position.y < 0 + entity_pos_deviation:
 			is_just_move_up = true
 			is_move_up = true
