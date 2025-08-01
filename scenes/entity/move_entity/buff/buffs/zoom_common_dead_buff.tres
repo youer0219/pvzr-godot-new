@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ZoomCommonDeadBuff" load_steps=2 format=3 uid="uid://bkd0sgrrt7shi"]
+
+[ext_resource type="Script" uid="uid://0upcmowy6pgw" path="res://scenes/entity/move_entity/buff/zoom_common_dead_buff.gd" id="1_rc7ch"]
+
+[resource]
+script = ExtResource("1_rc7ch")
+buff_name = &"zoom_common_dead_buff"
+override_buff_name = &""
+init_buff_blackboard = {}
+default_duration = 1.0
+is_default_duration_inf = true
+default_priority = 0
+default_interval_time = 0.0
+default_interval_num = 0
+is_interval_num_inf = false
+stack_type = 0
+is_disable_override = false
+max_layers = 1
+is_layers_exhausted = false
+metadata/_custom_type_script = "uid://0upcmowy6pgw"

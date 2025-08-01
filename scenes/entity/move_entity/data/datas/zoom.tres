@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=8 format=3 uid="uid://morvfvefddx"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://morvfvefddx"]
 
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="1_ryckr"]
 [ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://scenes/entity/move_entity/component/entity_component_data/datas/head_data.tres" id="2_axyyw"]
@@ -7,10 +7,11 @@
 [ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://scenes/entity/move_entity/component/entity_component_data/datas/iron_helmet_data.tres" id="5_qn1l7"]
 [ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="6_axyyw"]
 [ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://scenes/entity/move_entity/data/entity_data.gd" id="6_tmam6"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="7_5p2vh"]
 
 [resource]
 script = ExtResource("6_tmam6")
 name = "Entity"
 entity_component_datas = Array[ExtResource("1_ryckr")]([ExtResource("2_axyyw"), ExtResource("3_5p2vh"), ExtResource("4_3p4r6"), ExtResource("5_qn1l7")])
-entity_init_buffs = Array[ExtResource("6_axyyw")]([])
+entity_init_buffs = Array[ExtResource("6_axyyw")]([ExtResource("7_5p2vh")])
 metadata/_custom_type_script = "uid://bbh0dd5ccohht"

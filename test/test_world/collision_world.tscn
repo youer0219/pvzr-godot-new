@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://6bn3n322w0b1"]
+[gd_scene load_steps=16 format=3 uid="uid://6bn3n322w0b1"]
 
 [ext_resource type="Script" uid="uid://xbnj68wlxneq" path="res://test/test_world/collision_world.gd" id="1_a0j4q"]
 [ext_resource type="PackedScene" uid="uid://cg0vbixt3r2by" path="res://scenes/map/map.tscn" id="1_ew60k"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://s4a67t8e4vve" path="res://scenes/map/maps/front_maps/fixed_map/home_map/home_outer_map.tscn" id="5_vosbv"]
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
+[ext_resource type="PackedScene" uid="uid://ci0rsdebt11t8" path="res://scenes/entity/move_entity/move_entities/zoom/zoom.tscn" id="10_1priq"]
 [ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://scenes/entity/move_entity/move_entities/dave/crazy_dave.tscn" id="10_d5kdb"]
+[ext_resource type="Resource" uid="uid://b5rhdt28bfvhw" path="res://scenes/entity/move_entity/data/datas/zooms/common_zoom.tres" id="11_bwk18"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 
@@ -48,6 +50,10 @@ texture = ExtResource("8_8vnb8")
 [node name="MoveCamera" parent="." instance=ExtResource("12_lmk3r")]
 position = Vector2(386, 272)
 enable = true
+
+[node name="CommonZoom" parent="." instance=ExtResource("10_1priq")]
+position = Vector2(809, 266)
+entity_data = ExtResource("11_bwk18")
 
 [node name="CrazyDave" parent="." instance=ExtResource("10_d5kdb")]
 position = Vector2(385, 325)

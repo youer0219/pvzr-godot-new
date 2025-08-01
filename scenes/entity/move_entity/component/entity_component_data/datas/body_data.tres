@@ -1,33 +1,16 @@
-[gd_resource type="Resource" script_class="EntityComponentData" load_steps=6 format=3 uid="uid://0rpccje6nkxa"]
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=4 format=3 uid="uid://0rpccje6nkxa"]
 
 [ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="1_4mthe"]
-[ext_resource type="Script" uid="uid://0upcmowy6pgw" path="res://scenes/entity/move_entity/buff/zoom_common_dead_buff.gd" id="2_eg1wn"]
-[ext_resource type="Texture2D" uid="uid://dj62840mugrtp" path="res://assets/sprites/entity_component/body/梯子僵尸-身.png" id="3_vxepc"]
+[ext_resource type="Texture2D" uid="uid://b5r6ssevo5u8e" path="res://assets/sprites/entity_component/body/普通僵尸-身.png" id="3_eg1wn"]
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="4_56x6u"]
 
-[sub_resource type="Resource" id="Resource_kyi1m"]
-script = ExtResource("2_eg1wn")
-buff_name = &"zoom_common_dead_buff"
-override_buff_name = &""
-init_buff_blackboard = {}
-default_duration = 100.0
-is_default_duration_inf = true
-default_priority = 0
-default_interval_time = 0.0
-default_interval_num = 0
-is_interval_num_inf = false
-stack_type = 0
-is_disable_override = false
-max_layers = 1
-is_layers_exhausted = false
-metadata/_custom_type_script = "uid://0upcmowy6pgw"
-
 [resource]
+resource_local_to_scene = true
 script = ExtResource("4_56x6u")
 init_hp = 5.0
-component_texture = ExtResource("3_vxepc")
+component_texture = ExtResource("3_eg1wn")
 component_type = 1
-component_buffs = Array[ExtResource("1_4mthe")]([SubResource("Resource_kyi1m")])
+component_buffs = Array[ExtResource("1_4mthe")]([])
 component_dead_buffs = Array[ExtResource("1_4mthe")]([])
 common_dead_buffs = Array[ExtResource("1_4mthe")]([])
 is_offset_damage = false
