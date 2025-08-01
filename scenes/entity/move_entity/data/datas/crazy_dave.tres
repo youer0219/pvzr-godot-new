@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=4 format=3 uid="uid://dmla04exl5brg"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://dmla04exl5brg"]
 
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="1_0r3ef"]
 [ext_resource type="Resource" uid="uid://iugy0i6k05hf" path="res://scenes/entity/move_entity/component/entity_component_data/datas/dave.tres" id="2_ivjr4"]
 [ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://scenes/entity/move_entity/data/entity_data.gd" id="3_cbux5"]
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="3_mdklo"]
 
 [resource]
 script = ExtResource("3_cbux5")
 name = "dave"
 entity_component_datas = Array[ExtResource("1_0r3ef")]([ExtResource("2_ivjr4")])
+entity_init_buffs = Array[ExtResource("3_mdklo")]([])
 metadata/_custom_type_script = "uid://bbh0dd5ccohht"

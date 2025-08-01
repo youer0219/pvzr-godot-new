@@ -10,6 +10,7 @@ signal entity_dead(damage_data:DamageData)
 @onready var in_ground_check_shape: CollisionShape2D = %InGroundCheckShape
 @onready var entity_component_manager: EntityComponentManager = $EntityComponentManager
 @onready var gd_buff_container: GD_BuffContainer = $GD_BuffContainer
+@onready var dead_timer: Timer = $DeadTimer
 
 @onready var grounded: AtomicState = %Grounded
 @onready var airborne: AtomicState = %Airborne
@@ -44,6 +45,7 @@ func _set_entity_data(data:EntityData)->void:
 		await ready
 	entity_component_manager.clear_entity_components()
 	entity_component_manager.add_entity_components(entity_data.entity_component_datas)
+	gd_buff_container.add_buffs(entity_data.entity_init_buffs)
 
 func _on_entity_dead(damage_data:DamageData):
 	entity_dead.emit(damage_data)
@@ -164,6 +166,10 @@ func _on_lay_state_state_exited() -> void:
 	tween.tween_property(visual_control,"rotation_degrees",0,0.5)
 	collision_shape_2d.shape.height *= 4.0
 	char_move.char_move_data.water_sink_distance -= 5
+
+func _on_dead_state_state_entered() -> void:
+	## TODO:未来可以考虑更平滑的销毁方法
+	dead_timer.timeout.connect(queue_free)
 
 ## TODO: 这里通过记录body数量来判断是否进入/退出会更精确
 func _on_in_ground_check_area_body_entered(_body: Node2D) -> void:

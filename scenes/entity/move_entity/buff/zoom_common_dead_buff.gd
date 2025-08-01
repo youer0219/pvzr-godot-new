@@ -20,8 +20,7 @@ func _on_common_dead(damage_data:DamageData,zoom:Zoom,runtime_buff:GD_RuntimeBuf
 		zoom.entity_chart.send_event("lay")
 		zoom.entity_chart.send_event("dead")
 		zoom.collision_shape_2d.position.y -= 8
+		zoom.dead_timer.start(3.5) ## 记得在第一次触发时启动计时器
 	var direction := damage_data.get_throw_direction()
 	var velocity := Vector2(20,-20)
 	zoom.last_frame_init_velocity_add += velocity * Vector2(direction,1)
-
-## TODO:一定时间后销毁zoom
