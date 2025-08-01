@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=8 format=3 uid="uid://bysfuaugrjeqq"]
+
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_p2oog"]
+[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/components/head/common_dead.tres" id="2_8t05x"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/components/body/common_body.tres" id="3_rt8p6"]
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="4_5gkca"]
+[ext_resource type="Resource" uid="uid://ctu4yc6p16x8e" path="res://data/entity_component_data/components/armor_1/roadblock.tres" id="4_6c8ws"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="5_6tdhj"]
+[ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="7_eh1eb"]
+
+[resource]
+script = ExtResource("7_eh1eb")
+name = "roadblock_zoom"
+entity_component_datas = Array[ExtResource("1_p2oog")]([ExtResource("2_8t05x"), ExtResource("3_rt8p6"), ExtResource("4_6c8ws")])
+entity_init_buffs = Array[ExtResource("4_5gkca")]([ExtResource("5_6tdhj")])
+metadata/_custom_type_script = "uid://bbh0dd5ccohht"

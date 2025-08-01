@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=8 format=3 uid="uid://j4wvbyjytdka"]
+
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_pho4y"]
+[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/components/head/common_dead.tres" id="2_wn2xx"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/components/body/common_body.tres" id="3_clgsf"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/components/armor_1/iron_bucket.tres" id="4_gjbup"]
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="5_utyse"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="6_okl2r"]
+[ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="8_0kcpn"]
+
+[resource]
+script = ExtResource("8_0kcpn")
+name = "iron_barrel_zoom"
+entity_component_datas = Array[ExtResource("1_pho4y")]([ExtResource("2_wn2xx"), ExtResource("3_clgsf"), ExtResource("4_gjbup")])
+entity_init_buffs = Array[ExtResource("5_utyse")]([ExtResource("6_okl2r")])
+metadata/_custom_type_script = "uid://bbh0dd5ccohht"

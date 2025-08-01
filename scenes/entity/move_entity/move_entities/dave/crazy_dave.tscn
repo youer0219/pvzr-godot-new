@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://scenes/entity/move_entity/move_entity.tscn" id="1_petol"]
 [ext_resource type="Script" uid="uid://ckm5ps8k0fklf" path="res://scenes/entity/move_entity/move_entities/dave/crazy_dave.gd" id="2_ksr7e"]
-[ext_resource type="Resource" uid="uid://dmla04exl5brg" path="res://scenes/entity/move_entity/data/datas/crazy_dave.tres" id="3_gyjtu"]
+[ext_resource type="Resource" uid="uid://dmla04exl5brg" path="res://data/entity_data/entities/dave/crazy_dave.tres" id="3_gyjtu"]
 [ext_resource type="Resource" uid="uid://bke1kkcufe05n" path="res://data/move_data/char_move_data/dave.tres" id="4_dfjv0"]
 [ext_resource type="Shader" uid="uid://bm48kur7uhlfs" path="res://assets/shaders/entity_components_canvas_group.gdshader" id="4_gyjtu"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_jsdgl"]

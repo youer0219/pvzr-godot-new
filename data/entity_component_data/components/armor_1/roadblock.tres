@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://ctu4yc6p16x8e"]
+
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="1_3vu8m"]
+[ext_resource type="Resource" uid="uid://b1je3lwm3dp2h" path="res://scenes/entity/move_entity/buff/buffs/throw_component_buff.tres" id="2_twwa1"]
+[ext_resource type="Texture2D" uid="uid://bkhtri8mfo7ww" path="res://assets/sprites/entity_component/helmet/路障.png" id="3_2my7f"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="4_42lv0"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("4_42lv0")
+name = "roadblock"
+init_hp = 8.0
+component_texture = ExtResource("3_2my7f")
+component_type = 2
+component_buffs = Array[ExtResource("1_3vu8m")]([])
+component_dead_buffs = Array[ExtResource("1_3vu8m")]([ExtResource("2_twwa1")])
+common_dead_buffs = Array[ExtResource("1_3vu8m")]([ExtResource("2_twwa1")])
+is_offset_damage = false
+metadata/_custom_type_script = "uid://3o6cf4yej0ey"

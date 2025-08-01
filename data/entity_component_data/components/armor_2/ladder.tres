@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://cbutpl66hig36"]
+
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="1_fqawv"]
+[ext_resource type="Resource" uid="uid://b1je3lwm3dp2h" path="res://scenes/entity/move_entity/buff/buffs/throw_component_buff.tres" id="2_wsne2"]
+[ext_resource type="Texture2D" uid="uid://bm2ndprb17spi" path="res://assets/sprites/entity_component/accessory_two/梯子.png" id="3_vabrd"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="4_3qx5q"]
+
+[resource]
+script = ExtResource("4_3qx5q")
+name = "ladder"
+init_hp = 25.0
+component_texture = ExtResource("3_vabrd")
+component_type = 3
+component_buffs = Array[ExtResource("1_fqawv")]([])
+component_dead_buffs = Array[ExtResource("1_fqawv")]([ExtResource("2_wsne2")])
+common_dead_buffs = Array[ExtResource("1_fqawv")]([ExtResource("2_wsne2")])
+is_offset_damage = true
+metadata/_custom_type_script = "uid://3o6cf4yej0ey"

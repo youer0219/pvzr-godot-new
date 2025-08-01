@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://morvfvefddx"]
+
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_ns068"]
+[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/components/head/common_dead.tres" id="2_2swqk"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/components/body/common_body.tres" id="3_l7xfx"]
+[ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/components/armor_2/ladder.tres" id="4_2yfts"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/components/armor_1/iron_bucket.tres" id="5_s5tni"]
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="6_2eldx"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="7_jvssn"]
+[ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="8_2mnw7"]
+
+[resource]
+script = ExtResource("8_2mnw7")
+name = "zoom"
+entity_component_datas = Array[ExtResource("1_ns068")]([ExtResource("2_2swqk"), ExtResource("3_l7xfx"), ExtResource("4_2yfts"), ExtResource("5_s5tni")])
+entity_init_buffs = Array[ExtResource("6_2eldx")]([ExtResource("7_jvssn")])
+metadata/_custom_type_script = "uid://bbh0dd5ccohht"

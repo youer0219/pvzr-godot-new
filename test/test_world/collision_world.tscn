@@ -9,10 +9,10 @@
 [ext_resource type="Script" uid="uid://c3lovuq05ih8t" path="res://data/map_data/map_data.gd" id="6_xsv7b"]
 [ext_resource type="Texture2D" uid="uid://iga5xua4gyds" path="res://assets/sprites/entity/zoom/梯子僵尸.png" id="8_8vnb8"]
 [ext_resource type="PackedScene" uid="uid://ci0rsdebt11t8" path="res://scenes/entity/move_entity/move_entities/zoom/zoom.tscn" id="10_1priq"]
-[ext_resource type="Resource" uid="uid://j4wvbyjytdka" path="res://scenes/entity/move_entity/data/datas/zooms/iron_barrel_zoom.tres" id="10_bb18b"]
+[ext_resource type="Resource" uid="uid://j4wvbyjytdka" path="res://data/entity_data/entities/zoom/iron_barrel_zoom.tres" id="10_bb18b"]
 [ext_resource type="PackedScene" uid="uid://cb8iedn0xg7ud" path="res://scenes/entity/move_entity/move_entities/dave/crazy_dave.tscn" id="10_d5kdb"]
-[ext_resource type="Resource" uid="uid://bysfuaugrjeqq" path="res://scenes/entity/move_entity/data/datas/zooms/roadblock_zoom.tres" id="11_0fpkr"]
-[ext_resource type="Resource" uid="uid://b5rhdt28bfvhw" path="res://scenes/entity/move_entity/data/datas/zooms/common_zoom.tres" id="11_bwk18"]
+[ext_resource type="Resource" uid="uid://bysfuaugrjeqq" path="res://data/entity_data/entities/zoom/roadblock_zoom.tres" id="11_0fpkr"]
+[ext_resource type="Resource" uid="uid://b5rhdt28bfvhw" path="res://data/entity_data/entities/zoom/common_zoom.tres" id="11_bwk18"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_nhf0t"]
 [ext_resource type="PackedScene" uid="uid://d1k6v2uv86ecd" path="res://debug/move_camera/move_camera.tscn" id="12_lmk3r"]
 

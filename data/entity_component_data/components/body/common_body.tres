@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=4 format=3 uid="uid://0rpccje6nkxa"]
+
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="1_iaxxd"]
+[ext_resource type="Texture2D" uid="uid://b5r6ssevo5u8e" path="res://assets/sprites/entity_component/body/普通僵尸-身.png" id="2_6lr21"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="3_al5i3"]
+
+[resource]
+script = ExtResource("3_al5i3")
+name = "common_body"
+init_hp = 5.0
+component_texture = ExtResource("2_6lr21")
+component_type = 1
+component_buffs = Array[ExtResource("1_iaxxd")]([])
+component_dead_buffs = Array[ExtResource("1_iaxxd")]([])
+common_dead_buffs = Array[ExtResource("1_iaxxd")]([])
+is_offset_damage = false
+metadata/_custom_type_script = "uid://3o6cf4yej0ey"

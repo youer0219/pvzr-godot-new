@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EntityComponentData" load_steps=5 format=3 uid="uid://b2tk4v7426e3x"]
+
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="1_mkpyw"]
+[ext_resource type="Resource" uid="uid://b1je3lwm3dp2h" path="res://scenes/entity/move_entity/buff/buffs/throw_component_buff.tres" id="2_e1p6e"]
+[ext_resource type="Texture2D" uid="uid://cnj7m1c40uex8" path="res://assets/sprites/entity_component/heads/普通僵尸-首.png" id="3_ocm1y"]
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="4_ufq1i"]
+
+[resource]
+script = ExtResource("4_ufq1i")
+name = "common_dead"
+init_hp = 5.0
+component_texture = ExtResource("3_ocm1y")
+component_type = 0
+component_buffs = Array[ExtResource("1_mkpyw")]([])
+component_dead_buffs = Array[ExtResource("1_mkpyw")]([ExtResource("2_e1p6e")])
+common_dead_buffs = Array[ExtResource("1_mkpyw")]([ExtResource("2_e1p6e")])
+is_offset_damage = false
+metadata/_custom_type_script = "uid://3o6cf4yej0ey"

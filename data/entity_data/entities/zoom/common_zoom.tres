@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://b5rhdt28bfvhw"]
+
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://data/entity_component_data/entity_component_data.gd" id="1_p0jib"]
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="2_svvdd"]
+[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/components/head/common_dead.tres" id="2_ydpb8"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/components/body/common_body.tres" id="3_2d3ul"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="5_xevgn"]
+[ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="6_sl70k"]
+
+[resource]
+script = ExtResource("6_sl70k")
+name = "common_zoom"
+entity_component_datas = Array[ExtResource("1_p0jib")]([ExtResource("2_ydpb8"), ExtResource("3_2d3ul")])
+entity_init_buffs = Array[ExtResource("2_svvdd")]([ExtResource("5_xevgn")])
+metadata/_custom_type_script = "uid://bbh0dd5ccohht"

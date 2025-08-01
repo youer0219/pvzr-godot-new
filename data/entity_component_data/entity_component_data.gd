@@ -3,6 +3,7 @@ class_name EntityComponentData
 extends Resource
 
 @export_group("基础设置")
+@export var name:String
 @export var init_hp: float = 5.0
 @export var component_texture: Texture2D
 @export var component_type: EntityComponent.EntityComponentType = EntityComponent.EntityComponentType.BODY

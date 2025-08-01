@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="FreeActionStrategy" load_steps=2 format=3 uid="uid://cdq02gpheypos"]
-
-[ext_resource type="Script" uid="uid://bsa1fcai833iu" path="res://data/strategy/component_action_strategy/actions_script/free_action_strategy.gd" id="1_fhaix"]
-
-[resource]
-script = ExtResource("1_fhaix")
-strategy_name = "Free"
-metadata/_custom_type_script = "uid://bsa1fcai833iu"

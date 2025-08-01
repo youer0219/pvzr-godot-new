@@ -23,3 +23,7 @@ func _ready() -> void:
 	zoom.entity_component_manager.apply_damage(damage_data)
 	damage_data.damage = 30.0
 	zoom.entity_component_manager.apply_damage(damage_data)
+
+
+## TODO: 能否为僵尸的移动添加一些随机性
+## TODO: zombie被错误写成zoom了！
