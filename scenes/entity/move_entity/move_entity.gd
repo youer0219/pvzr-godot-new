@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name MoveEntity
 
 signal entity_dead(damage_data:DamageData)
+signal entity_attack  ## 暂时不知道带什么数据比较好……
 
 @onready var char_move: CharMove = $CharMove
 @onready var entity_chart: StateChart = %EntityChart

@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var map: Map = $Map
+@onready var common_zoom: Zoom = $Node2D/CommonZoom
 
 const TEST_DAMAGE_DATA = preload("res://data/damage_data/test_damage_data.tres")
 const ZOOM = preload("uid://ci0rsdebt11t8")
@@ -12,17 +13,20 @@ func _ready() -> void:
 	zoom.position = map.map_to_local(zoom_start_cell)
 	zoom.start_cell = zoom_start_cell
 	add_child(zoom)
-	await get_tree().create_timer(4.0).timeout
-	var damage_data := TEST_DAMAGE_DATA.duplicate()
-	damage_data.damage = 30.0
-	zoom.entity_component_manager.apply_damage(damage_data)
-	await get_tree().create_timer(4.0).timeout
-	damage_data.damage = 20.0
-	zoom.entity_component_manager.apply_damage(damage_data)
-	damage_data.damage = 30.0
-	zoom.entity_component_manager.apply_damage(damage_data)
-	damage_data.damage = 30.0
-	zoom.entity_component_manager.apply_damage(damage_data)
+	common_zoom.entity_attack.emit()
+	#await get_tree().create_timer(4.0).timeout
+	#common_zoom.entity_attack.emit()
+	#common_zoom.entity_attack.emit()
+	#var damage_data := TEST_DAMAGE_DATA.duplicate()
+	#damage_data.damage = 30.0
+	#zoom.entity_component_manager.apply_damage(damage_data)
+	#await get_tree().create_timer(4.0).timeout
+	#damage_data.damage = 20.0
+	#zoom.entity_component_manager.apply_damage(damage_data)
+	#damage_data.damage = 30.0
+	#zoom.entity_component_manager.apply_damage(damage_data)
+	#damage_data.damage = 30.0
+	#zoom.entity_component_manager.apply_damage(damage_data)
 
 
 ## TODO: 能否为僵尸的移动添加一些随机性
