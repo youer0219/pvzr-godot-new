@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://data/entity_component_data/components/armor_2/ladder.tres" id="4_2yfts"]
 [ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://data/entity_component_data/components/armor_1/iron_bucket.tres" id="5_s5tni"]
 [ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="6_2eldx"]
-[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="7_jvssn"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://data/buff/buffs/zoom_common_dead_buff.tres" id="7_jvssn"]
 [ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="8_2mnw7"]
 
 [resource]

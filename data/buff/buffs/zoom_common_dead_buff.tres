@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ZoomCommonDeadBuff" load_steps=2 format=3 uid="uid://bkd0sgrrt7shi"]
 
-[ext_resource type="Script" uid="uid://0upcmowy6pgw" path="res://scenes/entity/move_entity/buff/zoom_common_dead_buff.gd" id="1_rc7ch"]
+[ext_resource type="Script" uid="uid://0upcmowy6pgw" path="res://data/buff/entity_buff/zoom_common_dead_buff.gd" id="1_rc7ch"]
 
 [resource]
 script = ExtResource("1_rc7ch")

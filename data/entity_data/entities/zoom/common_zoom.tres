@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="2_svvdd"]
 [ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://data/entity_component_data/components/head/common_dead.tres" id="2_ydpb8"]
 [ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://data/entity_component_data/components/body/common_body.tres" id="3_2d3ul"]
-[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="5_xevgn"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://data/buff/buffs/zoom_common_dead_buff.tres" id="5_xevgn"]
 [ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://data/entity_data/entity_data.gd" id="6_sl70k"]
 
 [resource]

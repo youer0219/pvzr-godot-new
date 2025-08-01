@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ThrowComponentBuff" load_steps=2 format=3 uid="uid://b1je3lwm3dp2h"]
 
-[ext_resource type="Script" uid="uid://d1odj5l5fiif5" path="res://scenes/entity/move_entity/buff/component_buff/throw_component_buff.gd" id="1_kv6ts"]
+[ext_resource type="Script" uid="uid://d1odj5l5fiif5" path="res://data/buff/component_buff/throw_component_buff.gd" id="1_kv6ts"]
 
 [resource]
 script = ExtResource("1_kv6ts")
