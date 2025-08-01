@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="1_rjke3"]
 [ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="1_x2qrb"]
-[ext_resource type="Resource" uid="uid://b1je3lwm3dp2h" path="res://scenes/entity/move_entity/component/component_buff/buffs/throw_component_buff.tres" id="2_x2qrb"]
+[ext_resource type="Resource" uid="uid://b1je3lwm3dp2h" path="res://scenes/entity/move_entity/buff/buffs/throw_component_buff.tres" id="2_x2qrb"]
 [ext_resource type="Texture2D" uid="uid://bd2fwmbegdfqm" path="res://assets/sprites/entity_component/heads/梯子僵尸-首.png" id="3_qh4iy"]
 
 [resource]

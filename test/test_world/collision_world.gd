@@ -19,3 +19,7 @@ func _ready() -> void:
 	await get_tree().create_timer(4.0).timeout
 	damage_data.damage = 20.0
 	zoom.entity_component_manager.apply_damage(damage_data)
+	damage_data.damage = 30.0
+	zoom.entity_component_manager.apply_damage(damage_data)
+	damage_data.damage = 30.0
+	zoom.entity_component_manager.apply_damage(damage_data)
