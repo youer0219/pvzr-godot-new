@@ -9,18 +9,23 @@ class_name ZoomCommonDeadBuff
 
 const IS_FIRST_ACTIVE := "is_first_active"
 
-func _on_buff_start(container: GD_BuffContainer, runtime_buff: GD_RuntimeBuff) -> void:
+func _on_exist_buff_enable(container: GD_BuffContainer, runtime_buff: GD_RuntimeBuff)->void:
+	var zoom := container.get_parent() as Zoom
+	runtime_buff.blackboard[IS_FIRST_ACTIVE] = true
+	zoom.entity_dead.connect(_on_common_dead.bind(zoom,runtime_buff))
+
+func _on_exist_buff_disenable(container: GD_BuffContainer,runtime_buff: GD_RuntimeBuff)->void:
 	var zoom := container.get_parent() as Zoom
 	runtime_buff.blackboard[IS_FIRST_ACTIVE] = false
-	zoom.entity_dead.connect(_on_common_dead.bind(zoom,runtime_buff),ConnectFlags.CONNECT_ONE_SHOT)
+	zoom.entity_dead.disconnect(_on_common_dead)
 
 func _on_common_dead(damage_data:DamageData,zoom:Zoom,runtime_buff:GD_RuntimeBuff):
-	runtime_buff.blackboard[IS_FIRST_ACTIVE] = true
 	if runtime_buff.blackboard[IS_FIRST_ACTIVE]:
 		zoom.entity_chart.send_event("lay")
 		zoom.entity_chart.send_event("dead")
 		zoom.collision_shape_2d.position.y -= 8
 		zoom.dead_timer.start(3.5) ## 记得在第一次触发时启动计时器
+	runtime_buff.blackboard[IS_FIRST_ACTIVE] = false
 	var direction := damage_data.get_throw_direction()
 	var velocity := Vector2(20,-20)
 	zoom.last_frame_init_velocity_add += velocity * Vector2(direction,1)
