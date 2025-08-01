@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=10 format=3 uid="uid://j4wvbyjytdka"]
+
+[ext_resource type="Script" uid="uid://3o6cf4yej0ey" path="res://scenes/entity/move_entity/component/entity_component_data/entity_component_data.gd" id="1_re1kh"]
+[ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://scenes/entity/move_entity/component/entity_component_data/datas/head_data.tres" id="2_234iw"]
+[ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://scenes/entity/move_entity/component/entity_component_data/datas/body_data.tres" id="3_1fuwc"]
+[ext_resource type="Resource" uid="uid://b1je3lwm3dp2h" path="res://scenes/entity/move_entity/buff/buffs/throw_component_buff.tres" id="5_234iw"]
+[ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="5_utyse"]
+[ext_resource type="Texture2D" uid="uid://bwljxukxmrgjh" path="res://assets/sprites/entity_component/helmet/铁桶.png" id="6_1fuwc"]
+[ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="6_okl2r"]
+[ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://scenes/entity/move_entity/data/entity_data.gd" id="7_y4uc6"]
+
+[sub_resource type="Resource" id="Resource_b3vqr"]
+resource_local_to_scene = true
+script = ExtResource("1_re1kh")
+init_hp = 15.0
+component_texture = ExtResource("6_1fuwc")
+component_type = 2
+component_buffs = Array[ExtResource("5_utyse")]([])
+component_dead_buffs = Array[ExtResource("5_utyse")]([ExtResource("5_234iw")])
+common_dead_buffs = Array[ExtResource("5_utyse")]([ExtResource("5_234iw")])
+is_offset_damage = false
+metadata/_custom_type_script = "uid://3o6cf4yej0ey"
+
+[resource]
+script = ExtResource("7_y4uc6")
+name = "common_zoom"
+entity_component_datas = Array[ExtResource("1_re1kh")]([ExtResource("2_234iw"), ExtResource("3_1fuwc"), SubResource("Resource_b3vqr")])
+entity_init_buffs = Array[ExtResource("5_utyse")]([ExtResource("6_okl2r")])
+metadata/_custom_type_script = "uid://bbh0dd5ccohht"

@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b2tk4v7426e3x" path="res://scenes/entity/move_entity/component/entity_component_data/datas/head_data.tres" id="2_axyyw"]
 [ext_resource type="Resource" uid="uid://0rpccje6nkxa" path="res://scenes/entity/move_entity/component/entity_component_data/datas/body_data.tres" id="3_5p2vh"]
 [ext_resource type="Resource" uid="uid://cbutpl66hig36" path="res://scenes/entity/move_entity/component/entity_component_data/datas/ladder_data.tres" id="4_3p4r6"]
-[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://scenes/entity/move_entity/component/entity_component_data/datas/iron_helmet_data.tres" id="5_qn1l7"]
+[ext_resource type="Resource" uid="uid://c66sonuyp0ois" path="res://scenes/entity/move_entity/component/entity_component_data/datas/helmet_data.tres" id="5_qn1l7"]
 [ext_resource type="Script" uid="uid://bm1jawv7ot2r7" path="res://scenes/gd_buff_system/gd_buff.gd" id="6_axyyw"]
 [ext_resource type="Script" uid="uid://bbh0dd5ccohht" path="res://scenes/entity/move_entity/data/entity_data.gd" id="6_tmam6"]
 [ext_resource type="Resource" uid="uid://bkd0sgrrt7shi" path="res://scenes/entity/move_entity/buff/buffs/zoom_common_dead_buff.tres" id="7_5p2vh"]
