@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cb8iedn0xg7ud"]
+[gd_scene load_steps=20 format=3 uid="uid://cb8iedn0xg7ud"]
 
 [ext_resource type="PackedScene" uid="uid://c2nh0s3s4s4oj" path="res://scenes/entity/move_entity/move_entity.tscn" id="1_petol"]
 [ext_resource type="Script" uid="uid://ckm5ps8k0fklf" path="res://scenes/entity/move_entity/move_entities/dave/crazy_dave.gd" id="2_ksr7e"]
@@ -37,6 +37,11 @@ shader_parameter/shake_intensity = 10.0
 shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
 shader_parameter/base_modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7077r"]
+resource_local_to_scene = true
+radius = 5.0
+height = 26.0
 
 [sub_resource type="Resource" id="Resource_bsjep"]
 script = ExtResource("5_dfjv0")
@@ -82,6 +87,7 @@ move_with_rotation = true
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_7077r")
 
 [node name="CharMove" parent="." index="3"]
 char_move_data = ExtResource("4_dfjv0")

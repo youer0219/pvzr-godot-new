@@ -40,6 +40,7 @@ shader_parameter/base_modulate = Color(1, 1, 1, 1)
 radius = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4jnt"]
+resource_local_to_scene = true
 radius = 5.0
 height = 26.0
 
