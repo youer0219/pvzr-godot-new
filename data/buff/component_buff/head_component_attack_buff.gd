@@ -2,7 +2,7 @@ extends GD_Buff
 class_name HeadComponentAttackBuff
 
 ## component连接僵尸的攻击信号，进行攻击
-## 攻击行为：头向下移动（TODO:缺乏参考物）
+## 攻击行为：头向下移动
 
 func _on_buff_start(container: GD_BuffContainer,runtime_buff: GD_RuntimeBuff) -> void:
 	var entity := container.get_parent() as MoveEntity

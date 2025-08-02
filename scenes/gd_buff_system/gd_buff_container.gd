@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	for should_remove_buff in should_remove_buffs:
 		remove_runtime_buff(should_remove_buff)
 
-func add_buff(buff: GD_Buff) -> bool:
+func add_buff(buff: GD_Buff,context:Dictionary = {}) -> bool:
 	if not buff:
 		push_error("The Buff cannot be null.")
 		return false
@@ -53,6 +53,7 @@ func add_buff(buff: GD_Buff) -> bool:
 			stack_runtime_buffs.append(existing_runtime_buff)
 	
 	var runtime_buff = buff.get_runtime_instance(self)
+	runtime_buff.blackboard.merge(context,true)
 	
 	if not stack_runtime_buffs.is_empty():
 		for stack_runtime_buff:GD_RuntimeBuff in stack_runtime_buffs:
@@ -69,8 +70,16 @@ func add_buff(buff: GD_Buff) -> bool:
 	
 	return true
 
-func add_buffs(buffs:Array[GD_Buff])->bool:
-	return buffs.all(add_buff)
+## 默认传入的contexts要么为空，要么和buffs一样大小
+func add_buffs(buffs:Array[GD_Buff],contexts:Array[Dictionary] = [])->bool:
+	var result := true
+	if contexts == []:
+		for i in buffs.size():
+			result = add_buff(buffs[i]) and result
+	else:
+		for i in buffs.size():
+			result = add_buff(buffs[i],contexts[i]) and result
+	return result
 
 func remove_buff(buff: GD_Buff) -> bool:
 	var runtime_buff:GD_RuntimeBuff = get_runtime_buff(buff)
@@ -157,3 +166,13 @@ func _on_buff_enabled(runtime_buff:GD_RuntimeBuff) -> void:
 
 func _on_buff_disenabled(runtime_buff:GD_RuntimeBuff) -> void:
 	buff_disenabled.emit(runtime_buff)
+
+static func get_dic_array(size:int,dic:Dictionary = {})->Array[Dictionary]:
+	var dic_array :Array[Dictionary] = []
+	for i in size:
+		dic_array.append(dic)
+	return dic_array
+
+static func merge_dic_array(dic_array:Array[Dictionary],new_dic_array:Array[Dictionary])->void:
+	for i in dic_array.size():
+		dic_array[i].merge(new_dic_array[i],true)

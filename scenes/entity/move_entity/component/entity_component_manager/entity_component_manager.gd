@@ -2,7 +2,7 @@ extends Node2D
 class_name EntityComponentManager
 
 signal entity_dead(damage_data:DamageData)
-signal add_component_buffs(buffs:Array[GD_Buff])
+signal add_component_buffs(buffs:Array[GD_Buff],contexts:Array[Dictionary])
 
 const ENTITY_COMPONENT = preload("uid://d27ql2svxqnsf")
 
@@ -75,7 +75,8 @@ func add_entity_component(entity_component_data:EntityComponentData):
 			accessory_two_entity_component.add_child(new_entity_component)
 	
 	## add component buff
-	_add_buffs(entity_component_data.component_buffs,new_entity_component)
+	var buff_size := entity_component_data.component_buffs.size()
+	_add_buffs(entity_component_data.component_buffs,GD_BuffContainer.get_dic_array(buff_size),new_entity_component)
 	
 	new_entity_component.component_buffs_apply.connect(_add_buffs.bind(new_entity_component))
 
@@ -84,12 +85,11 @@ func clear_entity_components():
 	accessory_one_entity_component.clear_entity_components()
 	accessory_two_entity_component.clear_entity_components()
 
-func _add_buffs(buffs:Array[GD_Buff],component:EntityComponent):
-	for buff in buffs:
-		## TODO:因为buff本身并不会本地化，所以这一修改由所有buff共享，这是很危险的！
-		buff.init_buff_blackboard["component"] = component
+func _add_buffs(buffs:Array[GD_Buff],contexts:Array[Dictionary],component:EntityComponent):
+	var component_contexts := GD_BuffContainer.get_dic_array(buffs.size(),{"component":component})
+	GD_BuffContainer.merge_dic_array(contexts,component_contexts)
 	if not buffs.is_empty():
-		add_component_buffs.emit(buffs)
+		add_component_buffs.emit(buffs,contexts)
 
 #region 事件信号处理
 ## 处理实体组件死亡信号的方法
