@@ -25,6 +25,7 @@ func _ready() -> void:
 
 func attack():
 	print(name," attack")
+	entity_attack.emit()
 
 func _on_chase_state_state_physics_processing(delta: float) -> void:
 	if target == null:

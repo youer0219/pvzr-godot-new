@@ -91,6 +91,16 @@ func remove_runtime_buff(runtime_buff:GD_RuntimeBuff)->bool:
 	
 	return true
 
+func clear():
+	for runtime_buff:GD_RuntimeBuff in runtime_buffs.values():
+		runtime_buff.buff_remove()
+		_disconnect_runtime_buff(runtime_buff)
+	for pending_add_buff:GD_RuntimeBuff in pending_add_buffs.values():
+		pending_add_buff.buff_remove()
+	
+	runtime_buffs.clear()
+	pending_add_buffs.clear()
+
 func has_buff(buff: GD_Buff) -> bool:
 	if pending_add_buffs.has(buff.buff_name):
 		return true

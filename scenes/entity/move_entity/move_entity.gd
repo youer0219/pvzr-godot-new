@@ -45,6 +45,7 @@ func _set_entity_data(data:EntityData)->void:
 	if not is_node_ready():
 		await ready
 	entity_component_manager.clear_entity_components()
+	gd_buff_container.clear()
 	entity_component_manager.add_entity_components(entity_data.entity_component_datas)
 	gd_buff_container.add_buffs(entity_data.entity_init_buffs)
 
