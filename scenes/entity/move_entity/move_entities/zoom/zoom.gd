@@ -69,4 +69,4 @@ func _on_attack_state_state_physics_processing(_delta: float) -> void:
 		if attack_check_area.bodys.is_empty():
 			entity_chart.send_event("chase")
 		else:
-			attack_timer.start(0.8)
+			attack_timer.start(0.4)
