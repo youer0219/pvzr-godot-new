@@ -86,6 +86,7 @@ func clear_entity_components():
 
 func _add_buffs(buffs:Array[GD_Buff],component:EntityComponent):
 	for buff in buffs:
+		## TODO:因为buff本身并不会本地化，所以这一修改由所有buff共享，这是很危险的！
 		buff.init_buff_blackboard["component"] = component
 	if not buffs.is_empty():
 		add_component_buffs.emit(buffs)
