@@ -76,7 +76,7 @@ func add_entity_component(entity_component_data:EntityComponentData):
 	
 	## add component buff
 	var buff_size := entity_component_data.component_buffs.size()
-	_add_buffs(entity_component_data.component_buffs,GD_BuffContainer.get_dic_array(buff_size),new_entity_component)
+	_add_buffs(entity_component_data.component_buffs,GD_BuffUtilities.get_dic_array(buff_size),new_entity_component)
 	
 	new_entity_component.component_buffs_apply.connect(_add_buffs.bind(new_entity_component))
 
@@ -86,8 +86,8 @@ func clear_entity_components():
 	accessory_two_entity_component.clear_entity_components()
 
 func _add_buffs(buffs:Array[GD_Buff],contexts:Array[Dictionary],component:EntityComponent):
-	var component_contexts := GD_BuffContainer.get_dic_array(buffs.size(),{"component":component})
-	GD_BuffContainer.merge_dic_array(contexts,component_contexts)
+	var component_contexts := GD_BuffUtilities.get_dic_array(buffs.size(),{"component":component})
+	GD_BuffUtilities.merge_dic_array(contexts,component_contexts)
 	if not buffs.is_empty():
 		add_component_buffs.emit(buffs,contexts)
 

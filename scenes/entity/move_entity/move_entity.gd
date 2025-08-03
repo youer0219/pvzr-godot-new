@@ -33,7 +33,7 @@ var lateral_move_direction:int = 0 ## 0表示不动
 func _ready() -> void:
 	char_move.twice_jump.connect(visual_control._on_char_move_twice_jump)
 	in_ground_check_shape.shape = collision_shape_2d.shape
-	entity_component_manager.add_component_buffs.connect(gd_buff_container.add_buffs)
+	entity_component_manager.add_component_buffs.connect(gd_buff_container.add_buffs_with_contexts)
 	entity_component_manager.entity_dead.connect(_on_entity_dead)
 
 func _physics_process(_delta: float) -> void:
